@@ -159,7 +159,7 @@ print(ui.Flags["inputflagname"])
 --dropdown / multidropdown options
 ui.Flags["selectoption"]:UpdateOptions({"new1","new2","new3"})
 
--- toggle / chechbox
+-- toggle / checkbox
 ui.Flags["selectToggle"]:UpdateToggle()
 ui.Flags["selectToggle"]:UpdateToggle(true)
 ui.Flags["selectToggle"]:UpdateToggle(false)
