@@ -1,4 +1,4 @@
---h ub name
+-- hub name
 getgenv().hubname='Example'
 getgenv().hubsubname='SubExample'
 
@@ -108,7 +108,7 @@ tab.create_multidropdown({
     end
 })
 
---slider
+-- slider
 tab.create_slider({
     name = 'Slider',
     flag = 'sliderflagname',
@@ -122,13 +122,13 @@ tab.create_slider({
     end
 })
 
---input
+-- input
 tab:create_input({
     name = "Enter Text",
     flag = "inputflagname",
 })
 
---keybind
+-- keybind
 tab.create_keybind({
     name = "Keybind",
     flag = "flagname",
@@ -138,7 +138,7 @@ tab.create_keybind({
     end
 }) 
 
---toggle ui keybind
+-- toggle ui keybind
 tab.create_keybind({
     name = "Keybind",
     flag = "toggleui",
@@ -148,7 +148,7 @@ tab.create_keybind({
     end
 }) 
 
---get flags
+-- get flags
 print(ui.Flags["inputflagname"])
 
 
@@ -159,12 +159,12 @@ print(ui.Flags["inputflagname"])
 --dropdown / multidropdown options
 ui.Flags["selectoption"]:UpdateOptions({"new1","new2","new3"})
 
---toggle
+-- toggle / chechbox
 ui.Flags["selectToggle"]:UpdateToggle()
 ui.Flags["selectToggle"]:UpdateToggle(true)
 ui.Flags["selectToggle"]:UpdateToggle(false)
 
---input
+-- input
 ui.Flags["selectInput"]:UpdateInput("true")
 ui.Flags["selectInput"]:ClearInput()
 ]]
