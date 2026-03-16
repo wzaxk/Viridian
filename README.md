@@ -11,7 +11,7 @@ It provides a simple API for creating windows, tabs, sections, buttons, toggles,
 - 🎨 Theme support
 - ✨ Smooth animations
 - 🧩 Easy to use API
-- 📦 Single file loader
+- 📦 AutoSaves config
 
 ---
 
@@ -23,4 +23,4 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/USERN
 
 ## 📖 Example usage
 
-[Example Script](./example/example.lua)
+[Example Script](./example.lua)
