@@ -1876,11 +1876,11 @@ end
 					open = true
 					local targetHeight = 10 + list_size
 
-					TweenService:Create(Options, TweenInfo.new(0.25), {
+					TweenService:Create(Options, TweenInfo.new(0.5), {
 						Size = UDim2.new(1, 0, 0, targetHeight)
 					}):Play()
 
-					TweenService:Create(Arrow, TweenInfo.new(0.25), {
+					TweenService:Create(Arrow, TweenInfo.new(0.5), {
 						Rotation = 180
 					}):Play()
 				end
@@ -1888,11 +1888,11 @@ end
 				function Dropdown:close()
 					open = false
 
-					TweenService:Create(Options, TweenInfo.new(0.25), {
+					TweenService:Create(Options, TweenInfo.new(0.5), {
 						Size = UDim2.new(1, 0, 0, 0)
 					}):Play()
 
-					TweenService:Create(Arrow, TweenInfo.new(0.25), {
+					TweenService:Create(Arrow, TweenInfo.new(0.5), {
 						Rotation = 0
 					}):Play()
 				end
@@ -2113,14 +2113,14 @@ end
 				function Dropdown:open()
 					open = true
 					local targetHeight = #self.options * OPTION_HEIGHT+10
-					TweenService:Create(Options, TweenInfo.new(0.25), {Size = UDim2.new(1, 0, 0, targetHeight)}):Play()
-					TweenService:Create(Arrow, TweenInfo.new(0.25), {Rotation = 180}):Play()
+					TweenService:Create(Options, TweenInfo.new(0.5), {Size = UDim2.new(1, 0, 0, targetHeight)}):Play()
+					TweenService:Create(Arrow, TweenInfo.new(0.5), {Rotation = 180}):Play()
 				end
 
 				function Dropdown:close()
 					open = false
-					TweenService:Create(Options, TweenInfo.new(0.25), {Size = UDim2.new(1, 0, 0, 0)}):Play()
-					TweenService:Create(Arrow, TweenInfo.new(0.25), {Rotation = 0}):Play()
+					TweenService:Create(Options, TweenInfo.new(0.5), {Size = UDim2.new(1, 0, 0, 0)}):Play()
+					TweenService:Create(Arrow, TweenInfo.new(0.5), {Rotation = 0}):Play()
 				end
 
 				function Dropdown:clear()
@@ -2333,16 +2333,16 @@ end
 
                     function Dropdown:open()
                         open = true
-                        TweenService:Create(Options, TweenInfo.new(0.25), {Size = UDim2.new(1, 0, 0, list_size + 10)}):Play()
-                        TweenService:Create(dropdown, TweenInfo.new(0.25), {Size = UDim2.new(BASE_WIDTH, 0, 0, 40 + list_size + 10)}):Play()
-                        TweenService:Create(Arrow, TweenInfo.new(0.25), {Rotation = 180}):Play()
+                        TweenService:Create(Options, TweenInfo.new(0.5), {Size = UDim2.new(1, 0, 0, list_size + 10)}):Play()
+                        TweenService:Create(dropdown, TweenInfo.new(0.5), {Size = UDim2.new(BASE_WIDTH, 0, 0, 40 + list_size + 10)}):Play()
+                        TweenService:Create(Arrow, TweenInfo.new(0.5), {Rotation = 180}):Play()
                     end
 
                     function Dropdown:close()
                         open = false
-                        TweenService:Create(Options, TweenInfo.new(0.25), {Size = UDim2.new(1, 0, 0, 0)}):Play()
-                        TweenService:Create(dropdown, TweenInfo.new(0.25), {Size = UDim2.new(BASE_WIDTH, 0, 0, CLOSED_HEIGHT)}):Play()
-                        TweenService:Create(Arrow, TweenInfo.new(0.25), {Rotation = 0}):Play()
+                        TweenService:Create(Options, TweenInfo.new(0.5), {Size = UDim2.new(1, 0, 0, 0)}):Play()
+                        TweenService:Create(dropdown, TweenInfo.new(0.5), {Size = UDim2.new(BASE_WIDTH, 0, 0, CLOSED_HEIGHT)}):Play()
+                        TweenService:Create(Arrow, TweenInfo.new(0.5), {Rotation = 0}):Play()
                     end
 
                     function Dropdown:clear()
@@ -2575,8 +2575,8 @@ end
 
                     function Dropdown:open()
                         open = true
-                        TweenService:Create(Options, TweenInfo.new(0.5), {Size = UDim2.new(1,0,0, list_size + 20)}):Play()
-                        TweenService:Create(dropdown1, TweenInfo.new(0.5), {Size = UDim2.new(BASE_WIDTH,0,0, CLOSED_HEIGHT + list_size + 10)}):Play()
+                        TweenService:Create(Options, TweenInfo.new(0.5), {Size = UDim2.new(1,0,0, list_size + 10)}):Play()
+                        TweenService:Create(dropdown1, TweenInfo.new(0.5), {Size = UDim2.new(BASE_WIDTH,0,0, CLOSED_HEIGHT + list_size + 0)}):Play()
                         TweenService:Create(Arrow, TweenInfo.new(0.5), {Rotation = 180}):Play()
                     end
 
