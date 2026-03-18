@@ -18,7 +18,7 @@ It provides a simple API for creating windows, tabs, sections, buttons, toggles,
 ## 🔌 Installation
 
 ```lua
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/USERNAME/REPO/main/library.lua"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/wzaxk/Viridian/main/source"))()
 ```
 
 ## 📖 Example usage
