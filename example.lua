@@ -1,8 +1,8 @@
--- hub name
+--h ub name
 getgenv().hubname='Example'
 getgenv().hubsubname='SubExample'
 
-local ui = loadstring(game:HttpGet("https://raw.githubusercontent.com/wzaxk/check/refs/heads/main/uiloader"))()
+local ui = loadstring(game:HttpGet("https://raw.githubusercontent.com/wzaxk/Viridian/refs/heads/main/source"))()
 
 
 local main = ui.new()
@@ -82,10 +82,10 @@ tab.create_dropdown({
     end
 })
 
--- slide dropdown
+-- side dropdown
 tab.create_sidedropdown({
-    name = 'Name',
-    flag = 'selectoption',
+    name = 'Select Side Option',
+    flag = 'sidedropdown',
 
     option = 'Select Option',
     options = {'option1', 'option2', 'option3'},
@@ -95,12 +95,25 @@ tab.create_sidedropdown({
     end
 })
 
---multi dropdown
+-- multi dropdown
 tab.create_multidropdown({
     name = 'Multi Select Option',
     flag = 'multiselectoption',
 
     option = 'Basic Option',
+    options = {'option1', 'option2', 'option3'},
+
+    callback = function(value: string)
+        print(value)
+    end
+})
+
+-- multi side dropdown
+tab.create_multisidedropdown({
+    name = 'Multi Select Side Option',
+    flag = 'multisidedropdown',
+
+    option = 'Select Options',
     options = {'option1', 'option2', 'option3'},
 
     callback = function(value: string)
@@ -149,17 +162,21 @@ tab.create_keybind({
 }) 
 
 -- get flags
-print(ui.Flags["inputflagname"])
+--print(ui.Flags["inputflagname"])
 
+
+-- change theme
+--ApplyTheme("Dark")
 
 
 -----updaters-----
+
 
 --[[
 --dropdown / multidropdown options
 ui.Flags["selectoption"]:UpdateOptions({"new1","new2","new3"})
 
--- toggle / checkbox
+-- toggle
 ui.Flags["selectToggle"]:UpdateToggle()
 ui.Flags["selectToggle"]:UpdateToggle(true)
 ui.Flags["selectToggle"]:UpdateToggle(false)
