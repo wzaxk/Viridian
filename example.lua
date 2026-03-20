@@ -1,4 +1,4 @@
---h ub name
+-- hub name
 getgenv().hubname='Example'
 getgenv().hubsubname='SubExample'
 
@@ -155,7 +155,7 @@ tab.create_keybind({
 tab.create_keybind({
     name = "Keybind",
     flag = "toggleui",
-    keycode = Enum.KeyCode.Y,
+    keycode = Enum.KeyCode.Z,
     callback = function(key)
         print("Keybind pressed:", key)
     end
