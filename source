@@ -1,3 +1,7 @@
+--h ub name
+getgenv().hubname='Example'
+getgenv().hubsubname='SubExample'
+
 -- =================================================
 -- Author: govorgub
 -- License: Private / Not for redistribution
@@ -27,8 +31,15 @@ connections = {};
 getgenv().UIElements = {} 
 
 local BaseColors = {
+	-- dark
     Dark = Color3.fromRGB(27, 28, 33),
-    Sapphire = Color3.fromRGB(24, 36, 85)
+	DarkSecondColor = Color3.fromRGB(22, 23, 27),
+	-- sapphire (blue)
+    Sapphire = Color3.fromRGB(24, 36, 85),
+	SapphireSecondColor = Color3.fromRGB(17,26,65),
+	-- red
+    Red = Color3.fromRGB(70, 30, 38),
+	RedSecondColor = Color3.fromRGB(40, 22, 26),
 }
 
 local Themes = {
@@ -45,7 +56,7 @@ local Themes = {
         tabtextcolor = Color3.fromRGB(255, 255, 255),
 
         --ui
-        uicontainer = Color3.fromRGB(19, 20, 24),
+        uicontainer = Color3.fromRGB(30, 18, 22),
         uiline = BaseColors.Dark,
         shadowcolor = Color3.fromRGB(0,0,0),
 
@@ -63,24 +74,24 @@ local Themes = {
 			ColorSequenceKeypoint.new(0, Color3.fromRGB(40, 85, 95)), 
 			ColorSequenceKeypoint.new(1, Color3.fromRGB(65,130,140))   
 			},
-        checkboxturnoff = Color3.fromRGB(22, 23, 27),
+        checkboxturnoff = BaseColors.DarkSecondColor,
 
 		--dropdown
 		dropdowncolor = Color3.fromRGB(27, 28, 33),
-		dropdownboxscolor = Color3.fromRGB(22, 23, 27),
-		dropdownoptionscolor = Color3.fromRGB(22, 23, 27),
+		dropdownboxscolor = BaseColors.DarkSecondColor,
+		dropdownoptionscolor = BaseColors.DarkSecondColor,
 		--multidropdown
 		multidropdowncolor = Color3.fromRGB(27, 28, 33),
-		multidropdownboxcolor = Color3.fromRGB(22, 23, 27),
-		multidropdownoptioncolor = Color3.fromRGB(22, 23, 27), 
+		multidropdownboxcolor = BaseColors.DarkSecondColor,
+		multidropdownoptioncolor = BaseColors.DarkSecondColor, 
 		--sidedropdown
 		sidedropdowncolor = Color3.fromRGB(27, 28, 33),
-		sidedropdownboxcolor = Color3.fromRGB(22, 23, 27),
-		sidedropdownoptionscolor = Color3.fromRGB(22, 23, 27),
+		sidedropdownboxcolor = BaseColors.DarkSecondColor,
+		sidedropdownoptionscolor = BaseColors.DarkSecondColor,
 		--multisidedropdown
 		multisidedropdown = Color3.fromRGB(27, 28, 33),
-		multisidedropdownBox = Color3.fromRGB(22, 23, 27), 
-		multisidedropdownOptions = Color3.fromRGB(22, 23, 27), 
+		multisidedropdownBox = BaseColors.DarkSecondColor, 
+		multisidedropdownOptions = BaseColors.DarkSecondColor, 
 
         --slider
         slider = BaseColors.Dark,
@@ -89,11 +100,11 @@ local Themes = {
 		knob = Color3.fromRGB(120,120,120),
         --input
         inputButton = BaseColors.Dark,
-        InputBox = Color3.fromRGB(22, 23, 27),
+        InputBox = BaseColors.DarkSecondColor,
 
         --keybind
         Keybind = BaseColors.Dark,
-        KeybindBox = Color3.fromRGB(22, 23, 27),
+        KeybindBox = BaseColors.DarkSecondColor,
     },
 
     Sapphire = {
@@ -115,7 +126,7 @@ local Themes = {
 
         --toggles
         togglecoloron = Color3.fromRGB(59, 130, 246),
-        togglecoloroff = Color3.fromRGB(12, 20, 55),
+        togglecoloroff = BaseColors.SapphireSecondColor,
         togglecolor = BaseColors.Sapphire,
 
         --button
@@ -128,36 +139,105 @@ local Themes = {
             ColorSequenceKeypoint.new(0, Color3.fromRGB(37, 99, 235)),
             ColorSequenceKeypoint.new(1, Color3.fromRGB(59, 130, 246))
         },
-        checkboxturnoff = Color3.fromRGB(12, 20, 55),
+        checkboxturnoff = BaseColors.SapphireSecondColor,
 		--dropdown
 		dropdowncolor = BaseColors.Sapphire,
-		dropdownboxscolor = Color3.fromRGB(12, 20, 55),
-		dropdownoptionscolor = Color3.fromRGB(12, 20, 55),
+		dropdownboxscolor = BaseColors.SapphireSecondColor,
+		dropdownoptionscolor = BaseColors.SapphireSecondColor,
 		--multidropdown
 		multidropdowncolor = BaseColors.Sapphire,
-		multidropdownboxcolor = Color3.fromRGB(12, 20, 55),
-		multidropdownoptioncolor = Color3.fromRGB(12, 20, 55),
+		multidropdownboxcolor = BaseColors.SapphireSecondColor,
+		multidropdownoptioncolor = BaseColors.SapphireSecondColor,
 		--sidedropdown
 		sidedropdowncolor = BaseColors.Sapphire,
-		sidedropdownboxcolor = Color3.fromRGB(12, 20, 55),
-		sidedropdownoptionscolor = Color3.fromRGB(12, 20, 55),
+		sidedropdownboxcolor = BaseColors.SapphireSecondColor,
+		sidedropdownoptionscolor = BaseColors.SapphireSecondColor,
 		--multisidedropdown
 		multisidedropdown =BaseColors.Sapphire,
-		multisidedropdownBox = Color3.fromRGB(12, 20, 55),
-		multisidedropdownOptions = Color3.fromRGB(12, 20, 55),
+		multisidedropdownBox = BaseColors.SapphireSecondColor,
+		multisidedropdownOptions = BaseColors.SapphireSecondColor,
         --slider
         slider = BaseColors.Sapphire,
-		trackcolor = Color3.fromRGB(15, 23, 42),
-		sliderfill = Color3.fromRGB(30, 64, 175),
-		knob = Color3.fromRGB(37, 99, 235),
+		trackcolor = BaseColors.SapphireSecondColor,
+		sliderfill = Color3.fromRGB(25,64,148),
+		knob = Color3.fromRGB(41,75,150),
         --input
         inputButton = BaseColors.Sapphire,
-        InputBox = Color3.fromRGB(12, 20, 55),
+        InputBox = BaseColors.SapphireSecondColor,
 
         --keybind
         Keybind = BaseColors.Sapphire,
-        KeybindBox = Color3.fromRGB(12, 20, 55),
+        KeybindBox = BaseColors.SapphireSecondColor,
     },
+	 Red = {
+		-- base
+		main = BaseColors.Red,
+
+		--tabs
+		tabcolor = BaseColors.Red,
+		tabselectedcolor = ColorSequence.new{
+			ColorSequenceKeypoint.new(0, Color3.fromRGB(160, 30, 30)),
+			ColorSequenceKeypoint.new(1, Color3.fromRGB(110, 20, 20))
+		},
+		tabtextcolor = Color3.fromRGB(255, 255, 255),
+
+		--ui
+		uicontainer = Color3.fromRGB(40, 22, 26),
+		uiline = Color3.fromRGB(39, 20, 25),
+		shadowcolor = Color3.fromRGB(120,170,255),
+
+		--toggles
+		togglecoloron = Color3.fromRGB(59, 130, 246),
+		togglecoloroff = BaseColors.RedSecondColor,
+		togglecolor = BaseColors.Red,
+
+		--button
+		buttoncolor = BaseColors.Red,
+		originalColor = BaseColors.Red,
+
+		--checkbox
+		checkboxcolor = BaseColors.Red,
+		checkboxturnon = ColorSequence.new{
+			ColorSequenceKeypoint.new(0, Color3.fromRGB(160, 30, 30)),
+			ColorSequenceKeypoint.new(1, Color3.fromRGB(110, 20, 20))
+		},
+		checkboxturnoff = BaseColors.RedSecondColor,
+
+		--dropdown
+		dropdowncolor = BaseColors.Red,
+		dropdownboxscolor = BaseColors.RedSecondColor,
+		dropdownoptionscolor = BaseColors.RedSecondColor,
+
+		--multidropdown
+		multidropdowncolor = BaseColors.Red,
+		multidropdownboxcolor = BaseColors.RedSecondColor,
+		multidropdownoptioncolor = BaseColors.RedSecondColor,
+
+		--sidedropdown
+		sidedropdowncolor = BaseColors.Red,
+		sidedropdownboxcolor = BaseColors.RedSecondColor,
+		sidedropdownoptionscolor = BaseColors.RedSecondColor,
+
+		--multisidedropdown
+		multisidedropdown = BaseColors.Red,
+		multisidedropdownBox = BaseColors.RedSecondColor,
+		multisidedropdownOptions = BaseColors.RedSecondColor,
+
+		--slider
+		slider = BaseColors.Red,
+		trackcolor = BaseColors.RedSecondColor,
+		sliderfill = Color3.fromRGB(109, 10, 32),
+		knob = Color3.fromRGB(122,33,53),
+
+		--input
+		inputButton = BaseColors.Red,
+		InputBox = BaseColors.RedSecondColor,
+
+		--keybind
+		Keybind = BaseColors.Red,
+		KeybindBox = BaseColors.RedSecondColor,
+    },
+	
 }
 function ApplyTheme(name)
     local theme = Themes[name] or Themes.Dark
