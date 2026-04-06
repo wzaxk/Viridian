@@ -1,4 +1,4 @@
--- hub name
+-- hub name №1
 getgenv().hubname='Example'
 getgenv().hubsubname='SubExample'
 
