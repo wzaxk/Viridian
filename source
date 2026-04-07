@@ -1,4 +1,4 @@
--- hub name
+-- hub name №1337
 getgenv().hubname='Example'
 getgenv().hubsubname='SubExample'
 
@@ -2061,224 +2061,227 @@ function Module:create_sidedropdown()
 
 	return Dropdown
 end
-			
-			function Module:create_multisidedropdown()
-				local section = left_section
-				local list_size = 6
-				local open = false
+	function Module:create_multisidedropdown()
+	local section = left_section
+	local list_size = 6
+	local open = false
 
-				local optionTemplate = Instance.new("TextButton")
-				optionTemplate.Name = "Option"
-				optionTemplate.Active = false
-				optionTemplate.AnchorPoint = Vector2.new(0.5, 0.5)
-				optionTemplate.BackgroundTransparency = 1
-				optionTemplate.BorderSizePixel = 0
-				optionTemplate.Position = UDim2.new(0.47283414, 0, 0.309523821, 0)
-				optionTemplate.Selectable = false
-				optionTemplate.Size = UDim2.new(0, 176, 0, 13)
-				optionTemplate.ZIndex = 2
-				optionTemplate.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.SemiBold)
-				optionTemplate.TextColor3 = Color3.fromRGB(255, 255, 255)
-				optionTemplate.TextScaled = false
-				optionTemplate.TextSize = 14
-				optionTemplate.TextTransparency = 0.5
-				optionTemplate.TextWrapped = true
-				optionTemplate.TextXAlignment = Enum.TextXAlignment.Left
+	local optionTemplate = Instance.new("TextButton")
+	optionTemplate.Name = "Option"
+	optionTemplate.Active = false
+	optionTemplate.AnchorPoint = Vector2.new(0.5, 0.5)
+	optionTemplate.BackgroundTransparency = 1
+	optionTemplate.BorderSizePixel = 0
+	optionTemplate.Position = UDim2.new(0.47283414, 0, 0.309523821, 0)
+	optionTemplate.Selectable = false
+	optionTemplate.Size = UDim2.new(0, 176, 0, 13)
+	optionTemplate.ZIndex = 2
+	optionTemplate.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.SemiBold)
+	optionTemplate.TextColor3 = Color3.fromRGB(255, 255, 255)
+	optionTemplate.TextScaled = false
+	optionTemplate.TextSize = 14
+	optionTemplate.TextTransparency = 0.5
+	optionTemplate.TextWrapped = true
+	optionTemplate.TextXAlignment = Enum.TextXAlignment.Left
 
-				local dropdown = Instance.new("TextButton")
-				dropdown.Parent = section
-				dropdown.Name = "multisidedropdown"
-				dropdown.BackgroundColor3 = getgenv().multisidedropdown or Color3.fromRGB(27, 28, 33)
-				dropdown.BorderSizePixel = 0
-				dropdown.Size = UDim2.new(0.96, 0, 0, 50)
-				dropdown.AutoButtonColor = false
-				dropdown.Text = ""
-				table.insert(getgenv().UIElements, dropdown)
+	local dropdown = Instance.new("TextButton")
+	dropdown.Parent = section
+	dropdown.Name = "multisidedropdown"
+	dropdown.BackgroundColor3 = getgenv().multisidedropdown or Color3.fromRGB(27, 28, 33)
+	dropdown.BorderSizePixel = 0
+	dropdown.Size = UDim2.new(0.96, 0, 0, 50)
+	dropdown.AutoButtonColor = false
+	dropdown.Text = ""
+	table.insert(getgenv().UIElements, dropdown)
 
-				local UICorner = Instance.new("UICorner")
-				UICorner.CornerRadius = UDim.new(0, 10)
-				UICorner.Parent = dropdown
+	local UICorner = Instance.new("UICorner")
+	UICorner.CornerRadius = UDim.new(0, 10)
+	UICorner.Parent = dropdown
 
-				local UIPadding = Instance.new("UIPadding")
-				UIPadding.Parent = dropdown
-				UIPadding.PaddingTop = UDim.new(0, 6)
+	local UIPadding = Instance.new("UIPadding")
+	UIPadding.Parent = dropdown
+	UIPadding.PaddingTop = UDim.new(0, 6)
 
-				local Title = Instance.new("TextLabel")
-				Title.Parent = dropdown
-				Title.AnchorPoint = Vector2.new(0, 0.5)
-				Title.Position = UDim2.new(0.035, 0, 0.4, 0)
-				Title.Size = UDim2.new(0.5, 0, 0, 18)
-				Title.BackgroundTransparency = 1
-				Title.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.SemiBold)
-				Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-				Title.TextScaled = false
-				Title.TextSize = 14
-				Title.TextWrapped = true
-				Title.TextXAlignment = Enum.TextXAlignment.Left
-				Title.Text = self.name
+	local Title = Instance.new("TextLabel")
+	Title.Parent = dropdown
+	Title.AnchorPoint = Vector2.new(0, 0.5)
+	Title.Position = UDim2.new(0.035, 0, 0.4, 0)
+	Title.Size = UDim2.new(0.5, 0, 0, 18)
+	Title.BackgroundTransparency = 1
+	Title.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.SemiBold)
+	Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Title.TextScaled = false
+	Title.TextSize = 14
+	Title.TextWrapped = true
+	Title.TextXAlignment = Enum.TextXAlignment.Left
+	Title.Text = self.name
 
-				local Box = Instance.new("Frame")
-				Box.Name = "multisidedropdownBox"
-				Box.Parent = dropdown
-				Box.AnchorPoint = Vector2.new(1, 0)
-				Box.Position = UDim2.new(1, -17, 0, 0)
-				Box.BackgroundColor3 = getgenv().multisidedropdownBox or Color3.fromRGB(22, 23, 27)
-				Box.BorderSizePixel = 0
-				Box.Size = UDim2.new(1, -250, 0, 38)
-				Box.ZIndex = 2
-				table.insert(getgenv().UIElements, Box)
+	local Box = Instance.new("Frame")
+	Box.Name = "multisidedropdownBox"
+	Box.Parent = dropdown
+	Box.AnchorPoint = Vector2.new(1, 0)
+	Box.Position = UDim2.new(1, -17, 0, 0)
+	Box.BackgroundColor3 = getgenv().multisidedropdownBox or Color3.fromRGB(22, 23, 27)
+	Box.BorderSizePixel = 0
+	Box.Size = UDim2.new(1, -250, 0, 38)
+	Box.ZIndex = 2
+	table.insert(getgenv().UIElements, Box)
 
-				local BoxCorner = Instance.new("UICorner")
-				BoxCorner.CornerRadius = UDim.new(0, 6)
-				BoxCorner.Parent = Box
+	local BoxCorner = Instance.new("UICorner")
+	BoxCorner.CornerRadius = UDim.new(0, 6)
+	BoxCorner.Parent = Box
 
-				local Options = Instance.new("Frame")
-				Options.Name = "multisidedropdownOptions"
-				Options.Parent = Box
-				Options.AnchorPoint = Vector2.new(0, 0)
-				Options.BackgroundColor3 = getgenv().multisidedropdownOptions or Color3.fromRGB(22, 23, 27)
-				Options.BorderSizePixel = 0
-				Options.ClipsDescendants = true
-				Options.Position = UDim2.new(0, 0, 0.76, 0)
-				Options.Size = UDim2.new(1, 0, 0, 0)
-				Options.ZIndex = 2
-				table.insert(getgenv().UIElements, Options)
+	local Options = Instance.new("Frame")
+	Options.Name = "multisidedropdownOptions"
+	Options.Parent = Box
+	Options.AnchorPoint = Vector2.new(0, 0)
+	Options.BackgroundColor3 = getgenv().multisidedropdownOptions or Color3.fromRGB(22, 23, 27)
+	Options.BorderSizePixel = 0
+	Options.ClipsDescendants = true
+	Options.Position = UDim2.new(0, 0, 0.76, 0)
+	Options.Size = UDim2.new(1, 0, 0, 0)
+	Options.ZIndex = 2
+	table.insert(getgenv().UIElements, Options)
 
-				local OptionsCorner = Instance.new("UICorner")
-				OptionsCorner.CornerRadius = UDim.new(0, 6)
-				OptionsCorner.Parent = Options
+	local OptionsCorner = Instance.new("UICorner")
+	OptionsCorner.CornerRadius = UDim.new(0, 6)
+	OptionsCorner.Parent = Options
 
-				local UIPadding_2 = Instance.new("UIPadding")
-				UIPadding_2.Parent = Options
-				UIPadding_2.PaddingLeft = UDim.new(0, 15)
-				UIPadding_2.PaddingTop = UDim.new(0, 10)
+	local UIPadding_2 = Instance.new("UIPadding")
+	UIPadding_2.Parent = Options
+	UIPadding_2.PaddingLeft = UDim.new(0, 15)
+	UIPadding_2.PaddingTop = UDim.new(0, 10)
 
-				local UIListLayout_2 = Instance.new("UIListLayout")
-				UIListLayout_2.Parent = Options
-				UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
-				UIListLayout_2.Padding = UDim.new(0, 10)
+	local UIListLayout_2 = Instance.new("UIListLayout")
+	UIListLayout_2.Parent = Options
+	UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
+	UIListLayout_2.Padding = UDim.new(0, 10)
 
-				local Selected = Instance.new("TextLabel")
-				Selected.Parent = Box
-				Selected.AnchorPoint = Vector2.new(0, 0.5)
-				Selected.BackgroundTransparency = 1
-				Selected.BorderSizePixel = 0
-				Selected.Position = UDim2.new(0.07, 0, 0.5, 0)
-				Selected.Size = UDim2.new(1, -45, 1, 0)
-				Selected.ZIndex = 2
-				Selected.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.SemiBold)
-				Selected.TextColor3 = Color3.fromRGB(255, 255, 255)
-				Selected.TextScaled = false
-				Selected.TextSize = 14
-				Selected.TextWrapped = false
-				Selected.TextTruncate = Enum.TextTruncate.AtEnd
-				Selected.TextXAlignment = Enum.TextXAlignment.Left
-				Selected.Text = self.option or ""
+	local Selected = Instance.new("TextLabel")
+	Selected.Parent = Box
+	Selected.AnchorPoint = Vector2.new(0, 0.5)
+	Selected.BackgroundTransparency = 1
+	Selected.BorderSizePixel = 0
+	Selected.Position = UDim2.new(0.07, 0, 0.5, 0)
+	Selected.Size = UDim2.new(1, -45, 1, 0)
+	Selected.ZIndex = 2
+	Selected.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.SemiBold)
+	Selected.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Selected.TextScaled = false
+	Selected.TextSize = 14
+	Selected.TextWrapped = false
+	Selected.TextTruncate = Enum.TextTruncate.AtEnd
+	Selected.TextXAlignment = Enum.TextXAlignment.Left
+	Selected.Text = self.option or ""
 
-				local Arrow = Instance.new("ImageLabel")
-				Arrow.Name = "Arrow"
-				Arrow.Parent = Box
-				Arrow.AnchorPoint = Vector2.new(0.5, 0.5)
-				Arrow.BackgroundTransparency = 1
-				Arrow.BorderSizePixel = 0
-				Arrow.Position = UDim2.new(0.91, 0, 0.5, 0)
-				Arrow.Size = UDim2.new(0, 12, 0, 12)
-				Arrow.ZIndex = 2
-				Arrow.Image = "rbxassetid://17400678941"
+	local Arrow = Instance.new("ImageLabel")
+	Arrow.Name = "Arrow"
+	Arrow.Parent = Box
+	Arrow.AnchorPoint = Vector2.new(0.5, 0.5)
+	Arrow.BackgroundTransparency = 1
+	Arrow.BorderSizePixel = 0
+	Arrow.Position = UDim2.new(0.91, 0, 0.5, 0)
+	Arrow.Size = UDim2.new(0, 12, 0, 12)
+	Arrow.ZIndex = 2
+	Arrow.Image = "rbxassetid://17400678941"
 
-				local TweenService = game:GetService("TweenService")
-				local Dropdown = {}
-				local OPTION_HEIGHT = 23
+	local TweenService = game:GetService("TweenService")
+	local Dropdown = {}
+	local OPTION_HEIGHT = 23
 
-				Dropdown.selectedOptions = {}
+	Dropdown.selectedOptions = {}
 
-				function Dropdown:open()
-					open = true
-					local targetHeight = #self.options * OPTION_HEIGHT+10
-					TweenService:Create(Options, TweenInfo.new(0.5), {Size = UDim2.new(1, 0, 0, targetHeight)}):Play()
-					TweenService:Create(Arrow, TweenInfo.new(0.5), {Rotation = 180}):Play()
+	function Dropdown:open()
+		open = true
+		local targetHeight = #self.options * OPTION_HEIGHT+10
+		TweenService:Create(Options, TweenInfo.new(0.5), {Size = UDim2.new(1, 0, 0, targetHeight)}):Play()
+		TweenService:Create(Arrow, TweenInfo.new(0.5), {Rotation = 180}):Play()
+	end
+
+	function Dropdown:close()
+		open = false
+		TweenService:Create(Options, TweenInfo.new(0.5), {Size = UDim2.new(1, 0, 0, 0)}):Play()
+		TweenService:Create(Arrow, TweenInfo.new(0.5), {Rotation = 0}):Play()
+	end
+
+	function Dropdown:clear()
+		for _, object in Options:GetChildren() do
+			if object.Name == "Option" then
+				object:Destroy()
+			end
+		end
+	end
+
+	function Dropdown:update()
+		self:clear()
+		for _, value in ipairs(self.options) do
+			local new_option = optionTemplate:Clone()
+			new_option.Parent = Options
+			new_option.Text = value
+			new_option.TextTransparency = (table.find(self.selectedOptions, value)) and 0 or 0.5
+
+			new_option.MouseEnter:Connect(function()
+				TweenService:Create(new_option, TweenInfo.new(0.3), {TextTransparency = 0}):Play()
+			end)
+
+			new_option.MouseLeave:Connect(function()
+				if not table.find(self.selectedOptions, value) then
+					TweenService:Create(new_option, TweenInfo.new(0.3), {TextTransparency = 0.5}):Play()
 				end
+			end)
 
-				function Dropdown:close()
-					open = false
-					TweenService:Create(Options, TweenInfo.new(0.5), {Size = UDim2.new(1, 0, 0, 0)}):Play()
-					TweenService:Create(Arrow, TweenInfo.new(0.5), {Rotation = 0}):Play()
-				end
-
-				function Dropdown:clear()
-					for _, object in Options:GetChildren() do
-						if object.Name == "Option" then
-							object:Destroy()
-						end
+			-- Поддержка ПК и сенсорного ввода
+			new_option.InputBegan:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+					if table.find(self.selectedOptions, value) then
+						table.remove(self.selectedOptions, table.find(self.selectedOptions, value))
+					else
+						table.insert(self.selectedOptions, value)
 					end
-				end
 
-				function Dropdown:update()
-					self:clear()
-					for _, value in ipairs(self.options) do
-						local new_option = optionTemplate:Clone()
-						new_option.Parent = Options
-						new_option.Text = value
-						new_option.TextTransparency = (table.find(self.selectedOptions, value)) and 0 or 0.5
+					Selected.Text = table.concat(self.selectedOptions, ", ")
 
-						new_option.MouseEnter:Connect(function()
-							TweenService:Create(new_option, TweenInfo.new(0.3), {TextTransparency = 0}):Play()
-						end)
-
-						new_option.MouseLeave:Connect(function()
-							if not table.find(self.selectedOptions, value) then
-								TweenService:Create(new_option, TweenInfo.new(0.3), {TextTransparency = 0.5}):Play()
-							end
-						end)
-
-						new_option.MouseButton1Click:Connect(function()
-							if table.find(self.selectedOptions, value) then
-								table.remove(self.selectedOptions, table.find(self.selectedOptions, value))
-							else
-								table.insert(self.selectedOptions, value)
-							end
-
-							Selected.Text = table.concat(self.selectedOptions, ", ")
-
-							if self.flag then
-								Library.Flags[self.flag] = self.selectedOptions
-							end
-
-							if self.callback then
-								self.callback(self.selectedOptions)
-							end
-
-							self:update()
-						end)
+					if self.flag then
+						Library.Flags[self.flag] = self.selectedOptions
 					end
-				end
 
-				function Dropdown:UpdateOptions(newOptions)
-					self.options = newOptions
+					if self.callback then
+						self.callback(self.selectedOptions)
+					end
+
 					self:update()
 				end
+			end)
+		end
+	end
 
-				Dropdown.options = self.options
-				Dropdown.flag = self.flag
-				Dropdown.callback = self.callback
-				Dropdown:update()
+	function Dropdown:UpdateOptions(newOptions)
+		self.options = newOptions
+		self:update()
+	end
 
-				Box.InputBegan:Connect(function(input)
-					if input.UserInputType == Enum.UserInputType.MouseButton1 then
-						if open then
-							Dropdown:close()
-						else
-							Dropdown:open()
-						end
-					end
-				end)
+	Dropdown.options = self.options
+	Dropdown.flag = self.flag
+	Dropdown.callback = self.callback
+	Dropdown:update()
 
-				if self.flag then
-					Library.Flags[self.flag] = Dropdown
-				end
+	-- Клик по Box для открытия/закрытия дропдауна (ПК + сенсор)
+	Box.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			if open then
+				Dropdown:close()
+			else
+				Dropdown:open()
+			end
+		end
+	end)
 
-				return Dropdown
-			end		
+	if self.flag then
+		Library.Flags[self.flag] = Dropdown
+	end
+
+	return Dropdown
+end
             function Module:create_dropdown()
                     local section = left_section
                     local list_size = 6
