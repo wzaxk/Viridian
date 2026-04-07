@@ -2,10 +2,10 @@
 getgenv().hubname='Example'
 getgenv().hubsubname='SubExample'
 
-local ui = loadstring(game:HttpGet("https://raw.githubusercontent.com/wzaxk/Viridian/refs/heads/main/source"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/wzaxk/Viridian/refs/heads/main/source"))()
 
 
-local main = ui.new()
+local main = Library.new()
 local tab = main:create_tab('Example Tab')
 local tab2 = main:create_tab("Auto", "7734051454") -- 7734051454 is rbxassetid
 
@@ -54,9 +54,9 @@ tab.create_toggle({
 
 -- checkbox
 tab.create_checkbox({
-    name = 'Example Of Checkbox',
+    name = 'Example Of Toggle',
     description='Example Of Description',
-    flag = 'checkboxflagname',
+    flag = 'toggleflagname',
 
     enabled = false,
 
@@ -136,7 +136,7 @@ tab.create_slider({
 })
 
 -- input
-tab:create_input({
+tab.create_input({
     name = "Enter Text",
     flag = "inputflagname",
 })
@@ -151,22 +151,32 @@ tab.create_keybind({
     end
 }) 
 
--- toggle ui keybind
+-- toggle Library keybind
 tab.create_keybind({
     name = "Keybind",
-    flag = "toggleui",
-    keycode = Enum.KeyCode.Z,
+    flag = "toggleLibrary",
+    keycode = Enum.KeyCode.Y,
     callback = function(key)
         print("Keybind pressed:", key)
     end
 }) 
 
 -- get flags
---print(ui.Flags["inputflagname"])
+--print(Library.Flags["inputflagname"])
 
 
 -- change theme
 --ApplyTheme("Dark")
+
+--[[ 
+
+Avalible themes:
+
+Dark
+Sapphire
+Red
+
+]]
 
 
 -----updaters-----
@@ -174,14 +184,15 @@ tab.create_keybind({
 
 --[[
 --dropdown / multidropdown options
-ui.Flags["selectoption"]:UpdateOptions({"new1","new2","new3"})
+Library.Flags["selectoption"]:UpdateOptions({"new1","new2","new3"})
 
--- toggle / checkbox
-ui.Flags["selectToggle"]:UpdateToggle()
-ui.Flags["selectToggle"]:UpdateToggle(true)
-ui.Flags["selectToggle"]:UpdateToggle(false)
+-- toggle
+Library.Flags["selectToggle"]:UpdateToggle()
+Library.Flags["selectToggle"]:UpdateToggle(true)
+Library.Flags["selectToggle"]:UpdateToggle(false)
 
 -- input
-ui.Flags["selectInput"]:UpdateInput("true")
-ui.Flags["selectInput"]:ClearInput()
+Library.Flags["selectInput"]:GetInput()
+Library.Flags["selectInput"]:UpdateInput("true")
+Library.Flags["selectInput"]:ClearInput()
 ]]
