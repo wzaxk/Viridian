@@ -1,4 +1,4 @@
--- hub name №1
+-- hub name
 getgenv().hubname='Example'
 getgenv().hubsubname='SubExample'
 
@@ -1619,210 +1619,210 @@ end
 				end
 			end)
 		end
-			function Module:create_slider()
+		function Module:create_slider()
+    local section = left_section
+    local UserInputService = game:GetService("UserInputService")
+    local TweenService = game:GetService("TweenService")
 
-			    local section = left_section
-			    local UserInputService = game:GetService("UserInputService")
-			    local TweenService = game:GetService("TweenService")
+    local LEFT_PADDING = 5  
+    local RIGHT_PADDING = 5  
 
-			    local LEFT_PADDING = 5  
-			    local RIGHT_PADDING = 5  
+    local slider = Instance.new("TextButton")
+    slider.Name = "slider"
+    slider.BackgroundColor3 = getgenv().slider or Color3.fromRGB(27,28,33)
+    slider.Size = UDim2.new(0.96,0,0,50)
+    slider.AutoButtonColor = false
+    slider.Text = ""
+    slider.Parent = section
+    table.insert(getgenv().UIElements, slider)
 
-			    local slider = Instance.new("TextButton")
-				slider.Name = "slider"
-			    slider.BackgroundColor3 = getgenv().slider or Color3.fromRGB(27,28,33)
-			    slider.Size = UDim2.new(0.96,0,0,50)
-			    slider.AutoButtonColor = false
-			    slider.Text = ""
-			    slider.Parent = section
-				table.insert(getgenv().UIElements, slider)
-				
-			    local sliderCorner = Instance.new("UICorner")
-			    sliderCorner.CornerRadius = UDim.new(0,10)
-			    sliderCorner.Parent = slider
+    local sliderCorner = Instance.new("UICorner")
+    sliderCorner.CornerRadius = UDim.new(0,10)
+    sliderCorner.Parent = slider
 
-			    local track = Instance.new("Frame")
-				track.Name = "trackcolor"
-			    track.Parent = slider
-			    track.AnchorPoint = Vector2.new(0.5,0.5)
-			    track.Position = UDim2.new(0.5,0,0.75,0)
-			    track.Size = UDim2.new(1,-20,0,6)
-			    track.BackgroundColor3 = getgenv().trackcolor or Color3.fromRGB(40,40,40)
-			    track.BorderSizePixel = 0
-				table.insert(getgenv().UIElements, track)
+    local track = Instance.new("Frame")
+    track.Name = "trackcolor"
+    track.Parent = slider
+    track.AnchorPoint = Vector2.new(0.5,0.5)
+    track.Position = UDim2.new(0.5,0,0.75,0)
+    track.Size = UDim2.new(1,-20,0,6)
+    track.BackgroundColor3 = getgenv().trackcolor or Color3.fromRGB(40,40,40)
+    track.BorderSizePixel = 0
+    table.insert(getgenv().UIElements, track)
 
-			    local trackCorner = Instance.new("UICorner")
-			    trackCorner.CornerRadius = UDim.new(1,0)
-			    trackCorner.Parent = track
+    local trackCorner = Instance.new("UICorner")
+    trackCorner.CornerRadius = UDim.new(1,0)
+    trackCorner.Parent = track
 
-			    local fill = Instance.new("Frame")
-			    fill.Parent = track
-				fill.Name = "sliderfill"
-			    fill.AnchorPoint = Vector2.new(0,0.5)
-			    fill.Position = UDim2.new(0,0,0.5,0)
-			    fill.Size = UDim2.new(0,0,1,0)
-			    fill.BackgroundColor3 = getgenv().sliderfill or Color3.fromRGB(90,90,90)
-			    fill.BorderSizePixel = 0
-				table.insert(getgenv().UIElements, fill)
+    local fill = Instance.new("Frame")
+    fill.Parent = track
+    fill.Name = "sliderfill"
+    fill.AnchorPoint = Vector2.new(0,0.5)
+    fill.Position = UDim2.new(0,0,0.5,0)
+    fill.Size = UDim2.new(0,0,1,0)
+    fill.BackgroundColor3 = getgenv().sliderfill or Color3.fromRGB(90,90,90)
+    fill.BorderSizePixel = 0
+    table.insert(getgenv().UIElements, fill)
 
-			    local fillCorner = Instance.new("UICorner")
-			    fillCorner.CornerRadius = UDim.new(1,0)
-			    fillCorner.Parent = fill
+    local fillCorner = Instance.new("UICorner")
+    fillCorner.CornerRadius = UDim.new(1,0)
+    fillCorner.Parent = fill
 
-			    local knob = Instance.new("Frame")
-			    knob.Parent = track
-				knob.Name = "knob"
-			    knob.Size = UDim2.new(0,20,0,20)
-			    knob.AnchorPoint = Vector2.new(0.5,0.5)
-			    knob.Position = UDim2.new(0,LEFT_PADDING,0.5,0)
-			    knob.BackgroundColor3 = getgenv().knob or Color3.fromRGB(120,120,120)
-			    knob.BorderSizePixel = 0
-				table.insert(getgenv().UIElements, knob)
+    local knob = Instance.new("Frame")
+    knob.Parent = track
+    knob.Name = "knob"
+    knob.Size = UDim2.new(0,20,0,20)
+    knob.AnchorPoint = Vector2.new(0.5,0.5)
+    knob.Position = UDim2.new(0,LEFT_PADDING,0.5,0)
+    knob.BackgroundColor3 = getgenv().knob or Color3.fromRGB(120,120,120)
+    knob.BorderSizePixel = 0
+    table.insert(getgenv().UIElements, knob)
 
-			    local knobCorner = Instance.new("UICorner")
-			    knobCorner.CornerRadius = UDim.new(1,0)
-			    knobCorner.Parent = knob
+    local knobCorner = Instance.new("UICorner")
+    knobCorner.CornerRadius = UDim.new(1,0)
+    knobCorner.Parent = knob
 
-			    local hole = Instance.new("Frame")
-			    hole.Parent = knob
-			    hole.AnchorPoint = Vector2.new(0.5,0.5)
-			    hole.Position = UDim2.new(0.5,0,0.5,0)
-			    hole.Size = UDim2.new(0.5,0,0.5,0)
-			    hole.BackgroundColor3 = Color3.fromRGB(27,28,33)
-			    hole.BorderSizePixel = 0
+    local hole = Instance.new("Frame")
+    hole.Parent = knob
+    hole.AnchorPoint = Vector2.new(0.5,0.5)
+    hole.Position = UDim2.new(0.5,0,0.5,0)
+    hole.Size = UDim2.new(0.5,0,0.5,0)
+    hole.BackgroundColor3 = Color3.fromRGB(27,28,33)
+    hole.BorderSizePixel = 0
 
-			    local holeCorner = Instance.new("UICorner")
-			    holeCorner.CornerRadius = UDim.new(1,0)
-			    holeCorner.Parent = hole
+    local holeCorner = Instance.new("UICorner")
+    holeCorner.CornerRadius = UDim.new(1,0)
+    holeCorner.Parent = hole
 
-			    local label = Instance.new("TextLabel")
-			    label.Parent = slider
-			    label.AnchorPoint = Vector2.new(0,0.5)
-			    label.Position = UDim2.new(0,17,0.35,0)
-			    label.Size = UDim2.new(1,-20,0,15)
-			    label.BackgroundTransparency = 1
-			    label.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.SemiBold)
-			    label.TextColor3 = Color3.fromRGB(255,255,255)
-			    label.TextScaled = true
-			    label.TextXAlignment = Enum.TextXAlignment.Left
-			    label.Text = self.name
+    local label = Instance.new("TextLabel")
+    label.Parent = slider
+    label.AnchorPoint = Vector2.new(0,0.5)
+    label.Position = UDim2.new(0,17,0.35,0)
+    label.Size = UDim2.new(1,-20,0,15)
+    label.BackgroundTransparency = 1
+    label.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.SemiBold)
+    label.TextColor3 = Color3.fromRGB(255,255,255)
+    label.TextScaled = true
+    label.TextXAlignment = Enum.TextXAlignment.Left
+    label.Text = self.name
 
-			    local number = Instance.new("TextLabel")
-			    number.Parent = slider
-			    number.AnchorPoint = Vector2.new(0.5,0.5)
-			    number.Position = UDim2.new(0.9,0,0.35,0)
-			    number.Size = UDim2.new(0.1,0,0,15)
-			    number.BackgroundTransparency = 1
-			    number.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.SemiBold)
-			    number.TextColor3 = Color3.fromRGB(255,255,255)
-			    number.TextScaled = true
-			    number.TextXAlignment = Enum.TextXAlignment.Right
+    local number = Instance.new("TextLabel")
+    number.Parent = slider
+    number.AnchorPoint = Vector2.new(0.5,0.5)
+    number.Position = UDim2.new(0.9,0,0.35,0)
+    number.Size = UDim2.new(0.1,0,0,15)
+    number.BackgroundTransparency = 1
+    number.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.SemiBold)
+    number.TextColor3 = Color3.fromRGB(255,255,255)
+    number.TextScaled = true
+    number.TextXAlignment = Enum.TextXAlignment.Right
 
-			    local step = self.minimum_value < 1 and self.minimum_value or 1
+    local step = self.minimum_value < 1 and self.minimum_value or 1
 
-			    local function roundValue(val)
-			        local rounded = math.floor((val - self.minimum_value)/step + 0.5)*step + self.minimum_value
-			        rounded = math.clamp(rounded,self.minimum_value,self.maximum_value)
+    local function roundValue(val)
+        local rounded = math.floor((val - self.minimum_value)/step + 0.5)*step + self.minimum_value
+        rounded = math.clamp(rounded,self.minimum_value,self.maximum_value)
 
-			        if step < 1 then
-			            rounded = tonumber(string.format("%.3f", rounded))
-			        else
-			            rounded = math.floor(rounded)
-			        end
+        if step < 1 then
+            rounded = tonumber(string.format("%.3f", rounded))
+        else
+            rounded = math.floor(rounded)
+        end
 
-			        return rounded
-			    end
+        return rounded
+    end
 
-			    local function setFromPercent(percent)
+    local function setFromPercent(percent)
+        percent = math.clamp(percent,0,1)
 
-			        percent = math.clamp(percent,0,1)
+        local trackWidth = track.AbsoluteSize.X
+        local usableWidth = trackWidth - LEFT_PADDING - RIGHT_PADDING
 
-			        local trackWidth = track.AbsoluteSize.X
-			        local usableWidth = trackWidth - LEFT_PADDING - RIGHT_PADDING
+        local pixelX = LEFT_PADDING + percent * usableWidth
 
-			        local pixelX = LEFT_PADDING + percent * usableWidth
+        fill.Size = UDim2.new(0, pixelX, 1, 0)
+        knob.Position = UDim2.new(0, pixelX, 0.5, 0)
 
-			        fill.Size = UDim2.new(0, pixelX, 1, 0)
-			        knob.Position = UDim2.new(0, pixelX, 0.5, 0)
+        local raw = self.minimum_value + percent*(self.maximum_value-self.minimum_value)
+        local final = roundValue(raw)
 
-			        local raw = self.minimum_value + percent*(self.maximum_value-self.minimum_value)
-			        local final = roundValue(raw)
+        Library.Flags[self.flag] = final
+        number.Text = final
+        self.callback(final)
+    end
 
-			        Library.Flags[self.flag] = final
-			        number.Text = final
-			        self.callback(final)
-			    end
+    local function updateFromX(x)
+        local trackStart = track.AbsolutePosition.X
+        local trackWidth = track.AbsoluteSize.X
 
-			    local function updateFromX(x)
+        local minX = trackStart + LEFT_PADDING
+        local maxX = trackStart + trackWidth - RIGHT_PADDING
 
-			        local trackStart = track.AbsolutePosition.X
-			        local trackWidth = track.AbsoluteSize.X
+        local clampedX = math.clamp(x, minX, maxX)
+        local usableWidth = trackWidth - LEFT_PADDING - RIGHT_PADDING
+        local percent = (clampedX - minX) / usableWidth
 
-			        local minX = trackStart + LEFT_PADDING
-			        local maxX = trackStart + trackWidth - RIGHT_PADDING
+        setFromPercent(percent)
+    end
 
-			        local clampedX = math.clamp(x, minX, maxX)
+    local saved = Library.Flags[self.flag]
+    if saved ~= nil then
+        Library.Flags[self.flag] = roundValue(saved)
+    else
+        Library.Flags[self.flag] = roundValue(self.value)
+    end
 
-			        local usableWidth = trackWidth - LEFT_PADDING - RIGHT_PADDING
-			        local percent = (clampedX - minX) / usableWidth
+    task.wait()
+    local startPercent = (Library.Flags[self.flag]-self.minimum_value)/(self.maximum_value-self.minimum_value)
+    setFromPercent(startPercent)
 
-			        setFromPercent(percent)
-			    end
+    local dragging = false
 
+    local function animate(size)
+        TweenService:Create(
+            knob,
+            TweenInfo.new(0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+            {Size = size}
+        ):Play()
+    end
 
-			    local saved = Library.Flags[self.flag]
+    local function beginDrag(x)
+        dragging = true
+        animate(UDim2.new(0,24,0,24))
+        updateFromX(x)
+    end
 
-			    if saved ~= nil then
-			        Library.Flags[self.flag] = roundValue(saved)
-			    else
-			        Library.Flags[self.flag] = roundValue(self.value)
-			    end
+    local function endDrag()
+        dragging = false
+        animate(UDim2.new(0,20,0,20))
+        Library.save_flags()
+    end
 
-			    task.wait()
+    -- ПК и сенсорный ввод
+    local function inputBegan(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            local x = input.Position.X
+            beginDrag(x)
+        end
+    end
 
-			    local startPercent = (Library.Flags[self.flag]-self.minimum_value)/(self.maximum_value-self.minimum_value)
-			    setFromPercent(startPercent)
+    local function inputChanged(input)
+        if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+            updateFromX(input.Position.X)
+        end
+    end
 
-			    local dragging = false
+    local function inputEnded(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            endDrag()
+        end
+    end
 
-			    local function animate(size)
-			        TweenService:Create(
-			            knob,
-			            TweenInfo.new(0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-			            {Size = size}
-			        ):Play()
-			    end
-
-			    track.InputBegan:Connect(function(input)
-			        if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			            dragging = true
-			            animate(UDim2.new(0,24,0,24))
-			            updateFromX(UserInputService:GetMouseLocation().X)
-			        end
-			    end)
-
-			    knob.InputBegan:Connect(function(input)
-			        if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			            dragging = true
-			            animate(UDim2.new(0,24,0,24))
-			        end
-			    end)
-
-			    UserInputService.InputChanged:Connect(function(input)
-			        if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
-			            updateFromX(UserInputService:GetMouseLocation().X)
-			        end
-			    end)
-
-			    UserInputService.InputEnded:Connect(function(input)
-			        if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			            dragging = false
-			            animate(UDim2.new(0,20,0,20))
-			            Library.save_flags()
-			        end
-			    end)
-
-			end
+    track.InputBegan:Connect(inputBegan)
+    knob.InputBegan:Connect(inputBegan)
+    UserInputService.InputChanged:Connect(inputChanged)
+    UserInputService.InputEnded:Connect(inputEnded)
+end
 function Module:create_sidedropdown()
 	local section = left_section
 	local list_size = 6
