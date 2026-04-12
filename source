@@ -1063,116 +1063,137 @@ function Library:LoadConfig()
 end
 
 function Module:create_toggle()
-    local section = left_section
+			local section = left_section
 
-    local toggle = Instance.new("TextButton")
-    toggle.Name = "Toggle"
-    toggle.Parent = section
-    toggle.BackgroundColor3 = getgenv().togglecolor or Color3.fromRGB(27,28,33)
-    toggle.BorderSizePixel = 0
-    toggle.Position = UDim2.new(0.02,0,0,37)
-    toggle.Size = UDim2.new(0.96,0,0,50)
-    toggle.AutoButtonColor = false
-    toggle.Text = ""
+			local toggle = Instance.new("TextButton")
+			toggle.Name = "Toggle"
+			toggle.Parent = section
+			toggle.BackgroundColor3 = getgenv().togglecolor or Color3.fromRGB(27,28,33)
+			toggle.BorderSizePixel = 0
+			toggle.Position = UDim2.new(0.02,0,0,37)
+			toggle.Size = UDim2.new(0.96,0,0,50)
+			toggle.AutoButtonColor = false
+			toggle.Text = ""
+			table.insert(getgenv().UIElements, toggle)
 
-    table.insert(getgenv().UIElements, toggle)
+			local UICorner = Instance.new("UICorner")
+			UICorner.CornerRadius = UDim.new(0,10)
+			UICorner.Parent = toggle
 
-    local UICorner = Instance.new("UICorner", toggle)
-    UICorner.CornerRadius = UDim.new(0,10)
+			local Switch = Instance.new("Frame")
+			Switch.Name = "Switch"
+			Switch.Parent = toggle
+			Switch.AnchorPoint = Vector2.new(1,0.5)
+			Switch.Position = UDim2.new(1,-17,0.5,0)
+			Switch.Size = UDim2.new(0,36,0,18)
+			Switch.BackgroundColor3 = Color3.fromRGB(23,23,27)
+			Switch.BorderSizePixel = 0
+			table.insert(getgenv().UIElements, Switch)
 
-    local Switch = Instance.new("Frame")
-    Switch.Name = "Switch"
-    Switch.Parent = toggle
-    Switch.AnchorPoint = Vector2.new(1,0.5)
-    Switch.Position = UDim2.new(1,-17,0.5,0)
-    Switch.Size = UDim2.new(0,36,0,18)
-    Switch.BackgroundColor3 = Color3.fromRGB(23,23,27)
-    Switch.BorderSizePixel = 0
+			local SwitchCorner = Instance.new("UICorner")
+			SwitchCorner.CornerRadius = UDim.new(1,0)
+			SwitchCorner.Parent = Switch
 
-    local SwitchCorner = Instance.new("UICorner", Switch)
-    SwitchCorner.CornerRadius = UDim.new(1,0)
+			local Circle = Instance.new("Frame")
+			Circle.Parent = Switch
+			Circle.Size = UDim2.new(0,14,0,14)
+			Circle.Position = UDim2.new(0,2,0.5,0)
+			Circle.AnchorPoint = Vector2.new(0,0.5)
+			Circle.BackgroundColor3 = Color3.fromRGB(255,255,255)
+			Circle.BorderSizePixel = 0
 
-    local Circle = Instance.new("Frame")
-    Circle.Parent = Switch
-    Circle.Size = UDim2.new(0,14,0,14)
-    Circle.Position = UDim2.new(0,2,0.5,0)
-    Circle.AnchorPoint = Vector2.new(0,0.5)
-    Circle.BackgroundColor3 = Color3.fromRGB(255,255,255)
-    Circle.BorderSizePixel = 0
+			local CircleCorner = Instance.new("UICorner")
+			CircleCorner.CornerRadius = UDim.new(1,0)
+			CircleCorner.Parent = Circle
 
-    Instance.new("UICorner", Circle).CornerRadius = UDim.new(1,0)
+			local Glow = Instance.new("ImageLabel")
+			Glow.Parent = Circle
+			Glow.AnchorPoint = Vector2.new(0.5,0.5)
+			Glow.Position = UDim2.new(0.5,0,0.5,0)
+			Glow.Size = UDim2.new(0,22,0,22)
+			Glow.BackgroundTransparency = 1
+			Glow.Image = "rbxassetid://17290798394"
+			Glow.ImageTransparency = 1
 
-    local TextLabel = Instance.new("TextLabel")
-    TextLabel.Parent = toggle
-    TextLabel.AnchorPoint = Vector2.new(0,0.5)
-    TextLabel.BackgroundTransparency = 1
-    TextLabel.Position = UDim2.new(0,17,0.5,0)
-    TextLabel.Size = UDim2.new(1,-60,0,15)
-    TextLabel.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.SemiBold)
-    TextLabel.TextColor3 = Color3.fromRGB(255,255,255)
-    TextLabel.TextScaled = true
-    TextLabel.TextXAlignment = Enum.TextXAlignment.Left
-    TextLabel.Text = self.name
+			local titleY = 0.5
+			if self.description and self.description ~= "" then
+				titleY = 0.4
+			end
 
-    local ToggleObject = {}
-    ToggleObject.state = self.enabled or false
-    ToggleObject.callback = self.callback
-    ToggleObject.flag = self.flag
+			local TextLabel = Instance.new("TextLabel")
+			TextLabel.Parent = toggle
+			TextLabel.AnchorPoint = Vector2.new(0,0.5)
+			TextLabel.BackgroundTransparency = 1
+			TextLabel.Position = UDim2.new(0,17,titleY,0)
+			TextLabel.Size = UDim2.new(1,-60,0,15)
+			TextLabel.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json",Enum.FontWeight.SemiBold)
+			TextLabel.TextColor3 = Color3.fromRGB(255,255,255)
+			TextLabel.TextScaled = true
+			TextLabel.TextWrapped = true
+			TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+			TextLabel.Text = self.name
 
-    Library.Flags[self.flag] = ToggleObject
+			if self.description and self.description ~= "" then
+				local DescLabel = Instance.new("TextLabel")
+				DescLabel.Parent = toggle
+				DescLabel.AnchorPoint = Vector2.new(0,0.5)
+				DescLabel.BackgroundTransparency = 1
+				DescLabel.Position = UDim2.new(0,17,0.7,0)
+				DescLabel.Size = UDim2.new(1,-60,0,15)
+				DescLabel.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json",Enum.FontWeight.Regular)
+				DescLabel.TextColor3 = Color3.fromRGB(180,180,180)
+				DescLabel.TextScaled = false
+				DescLabel.TextSize = 12
+				DescLabel.TextWrapped = true
+				DescLabel.TextXAlignment = Enum.TextXAlignment.Left
+				DescLabel.Text = self.description
+			end
 
-    function ToggleObject:UpdateToggle(newState, skipCallback)
-        if newState ~= nil then
-            self.state = newState
-        else
-            self.state = not self.state
-        end
+			local ToggleObject = {}
+			ToggleObject.state = self.enabled or false
+			ToggleObject.callback = self.callback
+			ToggleObject.flag = self.flag
 
-        Switch:SetAttribute("State", self.state)
+		function ToggleObject:UpdateToggle(newState, skipCallback) 
+	if newState ~= nil then
+		self.state = newState
+	else
+		self.state = not self.state
+	end
 
-        local tweenInfo = TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+	-- ВАЖНО: сохраняем в Attribute
+	Switch:SetAttribute("State", self.state)
 
-        if self.state then
-            TweenService:Create(Circle, tweenInfo, {
-                Position = UDim2.new(1, -16, 0.5, 0)
-            }):Play()
+	local TweenService = game:GetService("TweenService")
+	local tweenInfo = TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
 
-            TweenService:Create(Switch, tweenInfo, {
-                BackgroundColor3 = getgenv().togglecoloron or Color3.fromRGB(65,130,140)
-            }):Play()
-        else
-            TweenService:Create(Circle, tweenInfo, {
-                Position = UDim2.new(0, 2, 0.5, 0)
-            }):Play()
+	if self.state then
+		TweenService:Create(Circle, tweenInfo, {Position = UDim2.new(1, -16, 0.5, 0)}):Play()
+		TweenService:Create(Switch, tweenInfo, {BackgroundColor3 = getgenv().togglecoloron or Color3.fromRGB(65,130,140)}):Play()
+	else
+		TweenService:Create(Circle, tweenInfo, {Position = UDim2.new(0, 2, 0.5, 0)}):Play()
+		TweenService:Create(Switch, tweenInfo, {BackgroundColor3 = getgenv().togglecoloroff or Color3.fromRGB(60, 64, 72)}):Play()
+	end
 
-            TweenService:Create(Switch, tweenInfo, {
-                BackgroundColor3 = getgenv().togglecoloroff or Color3.fromRGB(60,64,72)
-            }):Play()
-        end
+	if Library.save_flags then
+		Library.save_flags()
+	end
 
-        Library:SaveConfig()
-
-        if not skipCallback and self.callback then
-            self.callback(self.state)
-        end
-    end
-
-    function ToggleObject:SaveState()
-        Library:SaveConfig()
-    end
-
-    ToggleObject:UpdateToggle(ToggleObject.state, true)
-
-    toggle.MouseButton1Click:Connect(function()
-        ToggleObject:UpdateToggle()
-    end)
-
-    return ToggleObject
+	if not skipCallback and self.callback then
+		self.callback(self.state)
+	end
 end
 
-task.defer(function()
-    Library:LoadConfig()
-end)
+			Library.Flags = Library.Flags or {}
+			Library.Flags[self.flag] = ToggleObject
+
+			ToggleObject:UpdateToggle(ToggleObject.state,true)
+
+			toggle.MouseButton1Click:Connect(function()
+				ToggleObject:UpdateToggle()
+			end)
+		end
+
      function Module:create_checkbox()
 			local section = left_section
 
