@@ -1,6 +1,5 @@
 -- hub name №1338
-getgenv().hubname='Example'
-getgenv().hubsubname='SubExample'
+
 
 -- =================================================
 -- Author: govorgub
