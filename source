@@ -359,8 +359,8 @@ function ApplyTheme(name)
     end
 end
 
-if not isfolder("cac hub") then
-    makefolder("cac hub")
+if not isfolder("Moondiety") then
+    makefolder("Moondiety")
 end
 
 function Library:disconnect()
