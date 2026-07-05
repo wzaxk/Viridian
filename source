@@ -1,4 +1,4 @@
--- hub name №1337
+-- hub name №1338
 
 
 -- =================================================
@@ -1342,7 +1342,92 @@ end
             end)
         end
 
-         
+		function Module.create_blocked_button(config)
+			config = config or {}
+			local section = left_section  
+
+			local button = Instance.new("TextButton")
+			button.Name = "Button"
+			button.Parent = section
+			button.BackgroundColor3 = getgenv().tabcolor or Color3.fromRGB(27, 28, 33)
+			button.BorderSizePixel = 0
+			button.Size = UDim2.new(0.96, 0, 0, 50)
+			button.Position = UDim2.new(0.02, 0, 0, 37)
+			button.AutoButtonColor = false
+			button.Text = ""
+			table.insert(getgenv().UIElements, button)
+
+			local UICorner = Instance.new("UICorner")
+			UICorner.CornerRadius = UDim.new(0, 10)
+			UICorner.Parent = button
+
+			local titleY = 0.5
+			if config.description and config.description ~= "" then
+				titleY = 0.4
+			end
+
+			local label = Instance.new("TextLabel")
+			label.Parent = button
+			label.BackgroundTransparency = 1
+			label.Position = UDim2.new(0, 17, titleY, 0)
+			label.AnchorPoint = Vector2.new(0, 0.5)
+			label.Size = UDim2.new(1, -20, 0, 15)
+			label.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.SemiBold)
+			label.TextColor3 = Color3.fromRGB(255, 255, 255)
+			label.TextScaled = true
+			label.TextXAlignment = Enum.TextXAlignment.Left
+			label.Text = config.name or "Button"
+
+			if config.description and config.description ~= "" then
+				local DescLabel = Instance.new("TextLabel")
+				DescLabel.Parent = button
+				DescLabel.AnchorPoint = Vector2.new(0, 0.5)
+				DescLabel.BackgroundTransparency = 1
+				DescLabel.Position = UDim2.new(0, 17, 0.7, 0)
+				DescLabel.Size = UDim2.new(1, -20, 0, 15)
+				DescLabel.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.Regular)
+				DescLabel.TextColor3 = Color3.fromRGB(180, 180, 180)
+				DescLabel.TextScaled = false
+				DescLabel.TextSize = 12
+				DescLabel.TextWrapped = true
+				DescLabel.TextXAlignment = Enum.TextXAlignment.Left
+				DescLabel.Text = config.description
+			end
+
+			local overlay = Instance.new("Frame")
+			overlay.Parent = button
+			overlay.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+			overlay.BackgroundTransparency = 0.5   
+			overlay.BorderSizePixel = 0
+			overlay.Size = UDim2.new(1, 0, 1, 0)
+			overlay.ZIndex = 2
+
+			local overlayCorner = Instance.new("UICorner")
+			overlayCorner.CornerRadius = UDim.new(0, 10)
+			overlayCorner.Parent = overlay
+
+			local lockLabel = Instance.new("TextLabel")
+			lockLabel.Parent = overlay
+			lockLabel.BackgroundTransparency = 1
+			lockLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+			lockLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+			lockLabel.Size = UDim2.new(1, -20, 0, 20)
+			lockLabel.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.SemiBold) 
+			lockLabel.TextColor3 = Color3.fromRGB(210, 210, 210) 
+			lockLabel.TextScaled = true
+			lockLabel.Text = "🔒 This element is locked"
+			lockLabel.TextXAlignment = Enum.TextXAlignment.Center
+			lockLabel.ZIndex = 3
+
+			button.AnchorPoint = Vector2.new(0.5, 0.5)
+			button.Position = UDim2.new(0.5, 0, 0, 62)
+
+			button.MouseEnter:Connect(function()
+				button.Cursor = "NotAllowed"
+			end)
+
+			return button
+		end
         function Module:create_button(config)
             local section = left_section
 
