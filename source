@@ -1,4 +1,4 @@
--- hub name №1338
+-- hub name №1337
 
 
 -- =================================================
@@ -1397,7 +1397,7 @@ end
     local overlay = Instance.new("Frame")
     overlay.Parent = button
     overlay.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-    overlay.BackgroundTransparency = 0.5   
+    overlay.BackgroundTransparency = 0.6 
     overlay.BorderSizePixel = 0
     overlay.Size = UDim2.new(1, 0, 1, 0)
     overlay.ZIndex = 2
@@ -1412,9 +1412,9 @@ end
     lockLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
     lockLabel.AnchorPoint = Vector2.new(0.5, 0.5)
     lockLabel.Size = UDim2.new(1, -20, 0, 20)
-    lockLabel.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.SemiBold) 
+    lockLabel.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.Medium) 
     lockLabel.TextColor3 = Color3.fromRGB(210, 210, 210) 
-    lockLabel.TextScaled = true
+    lockLabel.TextSize = 18
     lockLabel.Text = config.lockText or "🔒 This element is locked"
     lockLabel.TextXAlignment = Enum.TextXAlignment.Center
     lockLabel.ZIndex = 3
@@ -1422,9 +1422,6 @@ end
     button.AnchorPoint = Vector2.new(0.5, 0.5)
     button.Position = UDim2.new(0.5, 0, 0, 62)
 
-    button.MouseEnter:Connect(function()
-        button.Cursor = "NotAllowed"
-    end)
 
     return button
 end
