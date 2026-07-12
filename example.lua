@@ -35,6 +35,13 @@ tab.create_button({
     end
 })
 
+-- blocked button
+tab.create_blocked_button({
+    name = "Example Of Blocked Button",
+    description = "Example Of Blocked Button`s Descriptions",
+    lockText = "🔒 Premium Feature" 
+})
+
 -- toggle
 tab.create_toggle({
     name = 'Example Of Toggle',
