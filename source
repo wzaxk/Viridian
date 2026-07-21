@@ -2903,7 +2903,7 @@ end
     self.flag = options.flag or "input_flag"
     self.section = options.section or "left"
     self.default = options.default or ""
-    self.placeholder = options.placeholder or "Enter key"
+    self.placeholder = options.placeholder or ""
 
     local sectionFrame = self.section == "left" and left_section
 
