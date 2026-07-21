@@ -131,6 +131,7 @@ tab.create_multisidedropdown({
 -- slider
 tab.create_slider({
     name = 'Slider',
+    placeholder = 'Enter text',
     flag = 'sliderflagname',
 
     value = 90,
