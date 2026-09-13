@@ -177,7 +177,6 @@ tab.create_keybind({
 --ApplyTheme("Dark")
 
 --[[ 
-
 Avalible themes:
 
 Dark
@@ -186,6 +185,12 @@ Red
 
 ]]
 
+-- cfg:
+
+-- Library:SaveConfig("myconfig")
+--  Library:LoadConfig("myconfig")
+-- Library:ListConfigs() 
+-- Library:DeleteConfig(name)
 
 -----updaters-----
 
