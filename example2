@@ -1,0 +1,145 @@
+
+getgenv().hubname = 'Example'
+getgenv().hubsubname = 'SubExample'
+getgenv().hubtag = '@my-tag'
+
+local main = Library.new()
+local tab = main:create_tab('Example Tab')
+local tab2 = main:create_tab("Auto", "7734051454")
+
+tab.create_toggle({
+    name = 'Example Toggle',
+    description = 'Description here',
+    flag = 'toggleflagname',
+    section = 'left',
+    enabled = false,
+    callback = function(state) print(state) end
+})
+
+tab.create_button({
+    name = 'Example Button',
+    description = 'Does something',
+    flag = 'buttonflagname',
+    section = 'left',
+    callback = function() print("clicked") end
+})
+
+tab.create_dropdown({
+    name = 'Select Option',
+    flag = 'selectoption',
+    section = 'left',
+    option = 'Basic Option',
+    options = {'option1', 'option2', 'option3'},
+    callback = function(value) print(value) end
+})
+
+tab.create_sidedropdown({
+    name = 'Side Option',
+    flag = 'sidedropdown',
+    section = 'left',
+    option = 'Select',
+    options = {'option1', 'option2', 'option3'},
+    callback = function(value) print(value) end
+})
+
+tab.create_multidropdown({
+    name = 'Multi Select',
+    flag = 'multiselectoption',
+    section = 'left',
+    option = 'Basic',
+    options = {'option1', 'option2', 'option3'},
+    callback = function(value) print(value) end
+})
+
+tab.create_multisidedropdown({
+    name = 'Multi Side',
+    flag = 'multisidedropdown',
+    section = 'left',
+    option = 'Select',
+    options = {'option1', 'option2', 'option3'},
+    callback = function(value) print(value) end
+})
+
+tab.create_slider({
+    name = 'Slider',
+    flag = 'sliderflagname',
+    section = 'left',
+    value = 90,
+    minimum_value = 10,
+    maximum_value = 1000,
+    callback = function(value) print(value) end
+})
+
+tab.create_input({
+    name = "Enter Text",
+    flag = "inputflagname",
+    section = 'left',
+})
+
+tab.create_keybind({
+    name = "Keybind",
+    flag = "flagname",
+    section = 'left',
+    keycode = Enum.KeyCode.H,
+    callback = function(key) print("Keybind:", key) end
+})
+
+tab.create_keybind({
+    name = "Toggle UI",
+    flag = "toggleui",
+    section = 'right',
+    keycode = Enum.KeyCode.Y,
+    callback = function(key) end
+})
+
+tab.create_button({
+    name = 'Save Config',
+    section = 'right',
+    callback = function() Library:SaveConfig("myconfig") end
+})
+
+tab.create_button({
+    name = 'Load Config',
+    section = 'right',
+    callback = function() Library:LoadConfig("myconfig") end
+})
+
+tab.create_button({
+    name = 'Delete Config',
+    section = 'right',
+    callback = function() Library:DeleteConfig("myconfig") end
+})
+
+tab.create_dropdown({
+    name = 'Theme',
+    flag = 'themeselect',
+    section = 'right',
+    option = Library.Theme or 'Dark',
+    options = {'Dark', 'Sapphire', 'Red'},
+    callback = function(value) Library:SetTheme(value) end
+})
+
+tab.create_toggle({
+    name = 'Auto Save',
+    section = 'right',
+    flag = 'autosave',
+    enabled = false,
+    callback = function(state) end
+})
+
+tab.create_slider({
+    name = 'Right Slider',
+    flag = 'rightslider',
+    section = 'right',
+    value = 50,
+    minimum_value = 0,
+    maximum_value = 100,
+    callback = function(value) end
+})
+
+tab.create_input({
+    name = "Right Input",
+    flag = "rightinput",
+    section = 'right',
+    placeholder = "type here...",
+})
