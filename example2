@@ -3,6 +3,8 @@ getgenv().hubname = 'Example'
 getgenv().hubsubname = 'SubExample'
 getgenv().hubtag = '@my-tag'
 
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/wzaxk/Viridian/refs/heads/main/source2"))()
+
 local main = Library.new()
 local tab = main:create_tab('Example Tab')
 local tab2 = main:create_tab("Auto", "7734051454")
