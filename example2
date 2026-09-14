@@ -1,147 +1,385 @@
-
-getgenv().hubname = 'Example'
-getgenv().hubsubname = 'SubExample'
+-- hub name
+getgenv().hubname = 'Example Hub'
+getgenv().hubsubname = 'sub example'
 getgenv().hubtag = '@my-tag'
 
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/wzaxk/Viridian/refs/heads/main/source2"))()
+-- local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/wzaxk/Viridian/refs/heads/main/source2.lua"))()
 
 local main = Library.new()
-local tab = main:create_tab('Example Tab')
-local tab2 = main:create_tab("Auto", "7734051454")
+local tab = main:create_tab('Main', '7734051454')
+local tab2 = main:create_tab('Player', '7734051454')
+local tab3 = main:create_tab('Settings', '7734051454')
 
+-- ═══════════════════════════════════════════════════════════
+-- MAIN TAB
+-- ═══════════════════════════════════════════════════════════
+
+-- title
+tab.create_title({
+    name = 'Combat',
+    section = 'left'
+})
+
+-- toggle
 tab.create_toggle({
-    name = 'Example Toggle',
-    description = 'Description here',
-    flag = 'toggleflagname',
+    name = 'Auto Farm',
+    description = 'Automatically farms resources',
+    flag = 'autofarm',
     section = 'left',
     enabled = false,
-    callback = function(state) print(state) end
+    callback = function(state)
+        if state then
+            print('do it')
+        else
+            print('dont do it')
+        end
+    end
 })
 
+-- toggle with color picker
+tab.create_toggle_colorpicker({
+    name = 'ESP Color',
+    description = 'Color used for ESP highlight',
+    flag = 'espcolor',
+    section = 'left',
+    enabled = false,
+    default_color = Color3.fromRGB(65, 130, 140),
+    callback = function(state)
+        print('[ESP] toggle:', state)
+    end,
+    color_callback = function(color)
+        print('[ESP] color:', color)
+    end
+})
+
+-- checkbox
+tab.create_checkbox({
+    name = 'Silent Aim',
+    description = 'Silently aims at targets',
+    flag = 'silentaim',
+    section = 'left',
+    enabled = false,
+    callback = function(state)
+        print('[SilentAim]', state)
+    end
+})
+
+-- button
 tab.create_button({
-    name = 'Example Button',
-    description = 'Does something',
-    flag = 'buttonflagname',
+    name = 'Teleport to Spawn',
+    description = 'Moves character to spawn',
     section = 'left',
-    callback = function() print("clicked") end
+    callback = function()
+        print('teleport')
+    end
 })
 
+-- button with flag (flips its state on click)
+tab.create_button({
+    name = 'Toggle State Button',
+    description = 'Flips its own flag each click',
+    flag = 'statebutton',
+    section = 'left',
+    callback = function(state)
+        print('[Button] state:', state)
+    end
+})
+
+-- blocked button
+tab.create_blocked_button({
+    name = 'Premium Feature',
+    description = 'Available only for premium users',
+    lockText = '🔒 Premium Only',
+    section = 'left'
+})
+
+-- dropdown
 tab.create_dropdown({
-    name = 'Select Option',
-    flag = 'selectoption',
+    name = 'Target Part',
+    flag = 'targetpart',
     section = 'left',
-    option = 'Basic Option',
-    options = {'option1', 'option2', 'option3'},
-    callback = function(value) print(value) end
+    option = 'Head',
+    options = { 'Head', 'Torso', 'HumanoidRootPart', 'UpperTorso', 'LowerTorso' },
+    callback = function(value)
+        print(value)
+    end
 })
 
-tab.create_sidedropdown({
-    name = 'Side Option',
-    flag = 'sidedropdown',
-    section = 'left',
-    option = 'Select',
-    options = {'option1', 'option2', 'option3'},
-    callback = function(value) print(value) end
-})
-
+-- multi dropdown
 tab.create_multidropdown({
-    name = 'Multi Select',
-    flag = 'multiselectoption',
+    name = 'ESP Parts',
+    flag = 'espparts',
     section = 'left',
-    option = 'Basic',
-    options = {'option1', 'option2', 'option3'},
-    callback = function(value) print(value) end
+    option = 'Select parts',
+    options = { 'Head', 'Torso', 'LeftArm', 'RightArm', 'LeftLeg', 'RightLeg' },
+    callback = function(values)
+        print(table.concat(values, ', '))
+    end
 })
 
-tab.create_multisidedropdown({
-    name = 'Multi Side',
-    flag = 'multisidedropdown',
-    section = 'left',
-    option = 'Select',
-    options = {'option1', 'option2', 'option3'},
-    callback = function(value) print(value) end
+-- right column
+tab.create_title({
+    name = 'Aim Settings',
+    section = 'right'
 })
 
+-- slider
 tab.create_slider({
-    name = 'Slider',
-    flag = 'sliderflagname',
-    section = 'left',
-    value = 90,
-    minimum_value = 10,
-    maximum_value = 1000,
-    callback = function(value) print(value) end
+    name = 'Aim Speed',
+    flag = 'aimspeed',
+    section = 'right',
+    value = 50,
+    minimum_value = 1,
+    maximum_value = 100,
+    callback = function(value)
+        print(value)
+    end
 })
 
+-- side dropdown
+tab.create_sidedropdown({
+    name = 'Hitbox',
+    flag = 'hitbox',
+    section = 'right',
+    option = 'Normal',
+    options = { 'Normal', 'Head', 'Body' },
+    callback = function(value)
+        print(value)
+    end
+})
+
+-- multi side dropdown
+tab.create_multisidedropdown({
+    name = 'Weapon Mods',
+    flag = 'weaponmods',
+    section = 'right',
+    option = 'Select',
+    options = { 'No Recoil', 'No Spread', 'Fast Reload', 'Infinite Ammo' },
+    callback = function(values)
+        print(table.concat(values, ', '))
+    end
+})
+
+-- input
 tab.create_input({
-    name = "Enter Text",
-    flag = "inputflagname",
-    section = 'left',
-})
-
-tab.create_keybind({
-    name = "Keybind",
-    flag = "flagname",
-    section = 'left',
-    keycode = Enum.KeyCode.H,
-    callback = function(key) print("Keybind:", key) end
-})
-
-tab.create_keybind({
-    name = "Toggle UI",
-    flag = "toggleui",
+    name = 'Custom Name',
+    flag = 'customname',
     section = 'right',
-    keycode = Enum.KeyCode.Y,
-    callback = function(key) end
+    default = '',
+    placeholder = 'enter name...'
 })
 
-tab.create_button({
+-- keybind
+tab.create_keybind({
+    name = 'Aimbot Key',
+    flag = 'aimkey',
+    section = 'right',
+    keycode = Enum.KeyCode.E,
+    callback = function(key)
+        print('Keybind pressed:', key)
+    end
+})
+
+-- ═══════════════════════════════════════════════════════════
+-- PLAYER TAB
+-- ═══════════════════════════════════════════════════════════
+
+tab2.create_title({
+    name = 'Character',
+    section = 'left'
+})
+
+tab2.create_slider({
+    name = 'WalkSpeed',
+    flag = 'walkspeed',
+    section = 'left',
+    value = 16,
+    minimum_value = 1,
+    maximum_value = 200,
+    callback = function(value)
+        local char = game:GetService('Players').LocalPlayer.Character
+        if char and char:FindFirstChildOfClass('Humanoid') then
+            char:FindFirstChildOfClass('Humanoid').WalkSpeed = value
+        end
+    end
+})
+
+tab2.create_slider({
+    name = 'JumpPower',
+    flag = 'jumppower',
+    section = 'left',
+    value = 50,
+    minimum_value = 1,
+    maximum_value = 300,
+    callback = function(value)
+        local char = game:GetService('Players').LocalPlayer.Character
+        if char and char:FindFirstChildOfClass('Humanoid') then
+            char:FindFirstChildOfClass('Humanoid').JumpPower = value
+        end
+    end
+})
+
+tab2.create_toggle({
+    name = 'Infinite Jump',
+    flag = 'infinitejump',
+    section = 'left',
+    enabled = false,
+    callback = function(state)
+        print('[InfiniteJump]', state)
+    end
+})
+
+tab2.create_button({
+    name = 'Reset Character',
+    section = 'left',
+    callback = function()
+        local char = game:GetService('Players').LocalPlayer.Character
+        if char and char:FindFirstChildOfClass('Humanoid') then
+            char:FindFirstChildOfClass('Humanoid').Health = 0
+        end
+    end
+})
+
+tab2.create_title({
+    name = 'Players',
+    section = 'right'
+})
+
+tab2.create_dropdown({
+    name = 'Select Player',
+    flag = 'targetplayer',
+    section = 'right',
+    option = 'None',
+    options = { 'None', 'Player1', 'Player2', 'Player3' },
+    callback = function(value)
+        print(value)
+    end
+})
+
+-- ═══════════════════════════════════════════════════════════
+-- SETTINGS TAB (configs + themes)
+-- ═══════════════════════════════════════════════════════════
+
+tab3.create_title({
+    name = 'Configs',
+    section = 'left'
+})
+
+tab3.create_input({
+    name = 'Config Name',
+    flag = 'configname',
+    section = 'left',
+    default = 'myconfig',
+    placeholder = 'config name'
+})
+
+tab3.create_button({
     name = 'Save Config',
-    section = 'right',
-    callback = function() Library:SaveConfig("myconfig") end
+    section = 'left',
+    callback = function()
+        Library:SaveConfig(Library.Flags.configname or 'myconfig')
+    end
 })
 
-tab.create_button({
+tab3.create_button({
     name = 'Load Config',
-    section = 'right',
-    callback = function() Library:LoadConfig("myconfig") end
+    section = 'left',
+    callback = function()
+        Library:LoadConfig(Library.Flags.configname or 'myconfig')
+    end
 })
 
-tab.create_button({
+tab3.create_button({
     name = 'Delete Config',
-    section = 'right',
-    callback = function() Library:DeleteConfig("myconfig") end
+    section = 'left',
+    callback = function()
+        Library:DeleteConfig(Library.Flags.configname or 'myconfig')
+    end
 })
 
-tab.create_dropdown({
+tab3.create_dropdown({
+    name = 'Saved Configs',
+    flag = 'savedconfigs',
+    section = 'left',
+    option = 'None',
+    options = (function()
+        local list = Library:ListConfigs()
+        if #list == 0 then return { 'None' } end
+        return list
+    end)(),
+    callback = function(value)
+        Library.Flags.configname = value
+    end
+})
+
+tab3.create_title({
+    name = 'Appearance',
+    section = 'right'
+})
+
+tab3.create_dropdown({
     name = 'Theme',
     flag = 'themeselect',
     section = 'right',
     option = Library.Theme or 'Dark',
-    options = {'Dark', 'Sapphire', 'Red'},
-    callback = function(value) Library:SetTheme(value) end
+    options = { 'Dark', 'Sapphire', 'Red' },
+    callback = function(value)
+        Library:SetTheme(value)
+    end
 })
 
-tab.create_toggle({
-    name = 'Auto Save',
-    section = 'right',
+tab3.create_toggle({
+    name = 'Auto Save Flags',
     flag = 'autosave',
-    enabled = false,
+    section = 'right',
+    enabled = true,
     callback = function(state) end
 })
 
-tab.create_slider({
-    name = 'Right Slider',
-    flag = 'rightslider',
+tab3.create_button({
+    name = 'Reset All Flags',
     section = 'right',
-    value = 50,
-    minimum_value = 0,
-    maximum_value = 100,
-    callback = function(value) end
+    callback = function()
+        for _, obj in pairs(Library.Objects) do
+            if obj.SetValue then
+                pcall(function() obj:SetValue(nil) end)
+            end
+        end
+    end
 })
 
-tab.create_input({
-    name = "Right Input",
-    flag = "rightinput",
+tab3.create_button({
+    name = 'Unload UI',
     section = 'right',
-    placeholder = "type here...",
+    callback = function()
+        Library:disconnect()
+        Library:clear()
+    end
 })
+
+
+--[[
+
+Window:
+    Library:visible()                    -- toggle UI on/off
+    Library:exist()                      -- is UI alive
+    Library:disconnect()                 -- disconnect all connections
+    Library:clear()                      -- destroy UI
+
+Configs:
+    Library:SaveConfig(name)             -- Moondiety/Configs/<name>.json
+    Library:LoadConfig(name)
+    Library:DeleteConfig(name)
+    Library:ListConfigs()                -- returns array of names
+
+Themes:
+    Library:SetTheme("Dark")
+    Library:SetTheme("Sapphire")
+    Library:SetTheme("Red")
+    Library.Theme                        -- current theme name
+
+]]
+
+
+
+return Library
