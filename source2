@@ -176,6 +176,7 @@ function ApplyTheme(name)
         if obj.Name == "Toggle" and getgenv().togglecolor then obj.BackgroundColor3 = getgenv().togglecolor end
         if obj.Name == "Checkbox1" and getgenv().checkboxcolor then obj.BackgroundColor3 = getgenv().checkboxcolor end
         if obj.Name == "Container" and getgenv().uicontainer then obj.BackgroundColor3 = getgenv().uicontainer end
+          if (obj.Name == "StickyLeft" or obj.Name == "StickyRight" or obj.Name == "Fade") and getgenv().uicontainer then obj.BackgroundColor3 = getgenv().uicontainer end
         if obj.Name == "Line" and getgenv().uiline then obj.BackgroundColor3 = getgenv().uiline end
         if obj.Name == "UserCard" and getgenv().tabcolor then obj.BackgroundColor3 = getgenv().tabcolor end
         if obj.Name == "ColorPalette" and getgenv().dropdownoptionscolor then obj.BackgroundColor3 = getgenv().dropdownoptionscolor end
@@ -915,6 +916,11 @@ function Library:new()
         }
         fadeRightGrad.Parent = stickyFadeRight
 
+        table.insert(getgenv().UIElements, stickyLayerLeft)
+        table.insert(getgenv().UIElements, stickyLayerRight)
+        table.insert(getgenv().UIElements, stickyFadeLeft)
+        table.insert(getgenv().UIElements, stickyFadeRight)
+
         local stickyLeftList = {}
         local stickyRightList = {}
 
@@ -1003,13 +1009,14 @@ function Library:new()
                 targetList = stickyRightList
             end
 
-            local stickyClone = title:Clone()
+                       local stickyClone = title:Clone()
             stickyClone.AnchorPoint = Vector2.new(0, 0)
             stickyClone.Position = UDim2.new(0, 0, 0, 0)
             stickyClone.Visible = false
             stickyClone.Active = false
             stickyClone.ZIndex = 51
             stickyClone.Parent = targetLayer
+            table.insert(getgenv().UIElements, stickyClone)
 
             table.insert(targetList, { title = title, clone = stickyClone })
         end
