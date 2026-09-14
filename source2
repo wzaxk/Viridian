@@ -35,9 +35,9 @@ local BaseColors = {
     Dark = Color3.fromRGB(27, 28, 33),
     DarkSecondColor = Color3.fromRGB(22, 23, 27),
     Sapphire = Color3.fromRGB(24, 36, 85),
-    SapphireSecondColor = Color3.fromRGB(17,26,65),
-    Red = Color3.fromRGB(70, 30, 38),
-    RedSecondColor = Color3.fromRGB(40, 22, 26),
+    SapphireSecondColor = Color3.fromRGB(17, 26, 65),
+    Amethyst = Color3.fromRGB(45, 30, 68),
+    AmethystSecondColor = Color3.fromRGB(28, 20, 44),
 }
 
 local Themes = {
@@ -48,14 +48,14 @@ local Themes = {
             ColorSequenceKeypoint.new(1.00, Color3.fromRGB(40, 76, 83))
         },
         tabtextcolor = Color3.fromRGB(255, 255, 255),
-        uicontainer = Color3.fromRGB(30, 18, 22), uiline = BaseColors.Dark,
-        shadowcolor = Color3.fromRGB(0,0,0),
-        togglecoloron = Color3.fromRGB(65,130,140), togglecoloroff = Color3.fromRGB(22,23,27),
+        uicontainer = Color3.fromRGB(22, 23, 28), uiline = Color3.fromRGB(27, 28, 33),
+        shadowcolor = Color3.fromRGB(0, 0, 0),
+        togglecoloron = Color3.fromRGB(65, 130, 140), togglecoloroff = Color3.fromRGB(22, 23, 27),
         togglecolor = BaseColors.Dark, buttoncolor = BaseColors.Dark, originalColor = BaseColors.Dark,
         checkboxcolor = BaseColors.Dark,
         checkboxturnon = ColorSequence.new{
             ColorSequenceKeypoint.new(0, Color3.fromRGB(40, 85, 95)),
-            ColorSequenceKeypoint.new(1, Color3.fromRGB(65,130,140))
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(65, 130, 140))
         },
         checkboxturnoff = BaseColors.DarkSecondColor,
         dropdowncolor = Color3.fromRGB(27, 28, 33), dropdownboxscolor = BaseColors.DarkSecondColor,
@@ -66,10 +66,12 @@ local Themes = {
         sidedropdownoptionscolor = BaseColors.DarkSecondColor,
         multisidedropdown = Color3.fromRGB(27, 28, 33), multisidedropdownBox = BaseColors.DarkSecondColor,
         multisidedropdownOptions = BaseColors.DarkSecondColor,
-        slider = BaseColors.Dark, trackcolor = Color3.fromRGB(40,40,40),
-        sliderfill = Color3.fromRGB(90,90,90), knob = Color3.fromRGB(120,120,120),
+        slider = BaseColors.Dark, trackcolor = Color3.fromRGB(40, 40, 40),
+        sliderfill = Color3.fromRGB(90, 90, 90), knob = Color3.fromRGB(120, 120, 120),
         inputButton = BaseColors.Dark, InputBox = BaseColors.DarkSecondColor,
         Keybind = BaseColors.Dark, KeybindBox = BaseColors.DarkSecondColor,
+        blockedoverlay = Color3.fromRGB(0, 0, 0),
+        blockedtext = Color3.fromRGB(210, 210, 210),
     },
     Sapphire = {
         main = BaseColors.Sapphire, tabcolor = BaseColors.Sapphire,
@@ -79,7 +81,7 @@ local Themes = {
         },
         tabtextcolor = Color3.fromRGB(255, 255, 255),
         uicontainer = Color3.fromRGB(12, 20, 55), uiline = Color3.fromRGB(18, 26, 48),
-        shadowcolor = Color3.fromRGB(120,170,255),
+        shadowcolor = Color3.fromRGB(120, 170, 255),
         togglecoloron = Color3.fromRGB(59, 130, 246), togglecoloroff = BaseColors.SapphireSecondColor,
         togglecolor = BaseColors.Sapphire, buttoncolor = BaseColors.Sapphire, originalColor = BaseColors.Sapphire,
         checkboxcolor = BaseColors.Sapphire,
@@ -97,39 +99,43 @@ local Themes = {
         multisidedropdown = BaseColors.Sapphire, multisidedropdownBox = BaseColors.SapphireSecondColor,
         multisidedropdownOptions = BaseColors.SapphireSecondColor,
         slider = BaseColors.Sapphire, trackcolor = BaseColors.SapphireSecondColor,
-        sliderfill = Color3.fromRGB(25,64,148), knob = Color3.fromRGB(41,75,150),
+        sliderfill = Color3.fromRGB(25, 64, 148), knob = Color3.fromRGB(41, 75, 150),
         inputButton = BaseColors.Sapphire, InputBox = BaseColors.SapphireSecondColor,
         Keybind = BaseColors.Sapphire, KeybindBox = BaseColors.SapphireSecondColor,
+        blockedoverlay = Color3.fromRGB(6, 12, 32),
+        blockedtext = Color3.fromRGB(170, 200, 255),
     },
-    Red = {
-        main = BaseColors.Red, tabcolor = BaseColors.Red,
+    Amethyst = {
+        main = BaseColors.Amethyst, tabcolor = BaseColors.Amethyst,
         tabselectedcolor = ColorSequence.new{
-            ColorSequenceKeypoint.new(0, Color3.fromRGB(160, 30, 30)),
-            ColorSequenceKeypoint.new(1, Color3.fromRGB(110, 20, 20))
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(140, 95, 220)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(60, 175, 215))
         },
         tabtextcolor = Color3.fromRGB(255, 255, 255),
-        uicontainer = Color3.fromRGB(40, 22, 26), uiline = Color3.fromRGB(39, 20, 25),
-        shadowcolor = Color3.fromRGB(120,170,255),
-        togglecoloron = Color3.fromRGB(200, 60, 60), togglecoloroff = BaseColors.RedSecondColor,
-        togglecolor = BaseColors.Red, buttoncolor = BaseColors.Red, originalColor = BaseColors.Red,
-        checkboxcolor = BaseColors.Red,
+        uicontainer = Color3.fromRGB(24, 18, 38), uiline = Color3.fromRGB(35, 24, 55),
+        shadowcolor = Color3.fromRGB(150, 130, 230),
+        togglecoloron = Color3.fromRGB(140, 95, 220), togglecoloroff = BaseColors.AmethystSecondColor,
+        togglecolor = BaseColors.Amethyst, buttoncolor = BaseColors.Amethyst, originalColor = BaseColors.Amethyst,
+        checkboxcolor = BaseColors.Amethyst,
         checkboxturnon = ColorSequence.new{
-            ColorSequenceKeypoint.new(0, Color3.fromRGB(160, 30, 30)),
-            ColorSequenceKeypoint.new(1, Color3.fromRGB(110, 20, 20))
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(140, 95, 220)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(60, 175, 215))
         },
-        checkboxturnoff = BaseColors.RedSecondColor,
-        dropdowncolor = BaseColors.Red, dropdownboxscolor = BaseColors.RedSecondColor,
-        dropdownoptionscolor = BaseColors.RedSecondColor,
-        multidropdowncolor = BaseColors.Red, multidropdownboxcolor = BaseColors.RedSecondColor,
-        multidropdownoptioncolor = BaseColors.RedSecondColor,
-        sidedropdowncolor = BaseColors.Red, sidedropdownboxcolor = BaseColors.RedSecondColor,
-        sidedropdownoptionscolor = BaseColors.RedSecondColor,
-        multisidedropdown = BaseColors.Red, multisidedropdownBox = BaseColors.RedSecondColor,
-        multisidedropdownOptions = BaseColors.RedSecondColor,
-        slider = BaseColors.Red, trackcolor = BaseColors.RedSecondColor,
-        sliderfill = Color3.fromRGB(109, 10, 32), knob = Color3.fromRGB(122,33,53),
-        inputButton = BaseColors.Red, InputBox = BaseColors.RedSecondColor,
-        Keybind = BaseColors.Red, KeybindBox = BaseColors.RedSecondColor,
+        checkboxturnoff = BaseColors.AmethystSecondColor,
+        dropdowncolor = BaseColors.Amethyst, dropdownboxscolor = BaseColors.AmethystSecondColor,
+        dropdownoptionscolor = BaseColors.AmethystSecondColor,
+        multidropdowncolor = BaseColors.Amethyst, multidropdownboxcolor = BaseColors.AmethystSecondColor,
+        multidropdownoptioncolor = BaseColors.AmethystSecondColor,
+        sidedropdowncolor = BaseColors.Amethyst, sidedropdownboxcolor = BaseColors.AmethystSecondColor,
+        sidedropdownoptionscolor = BaseColors.AmethystSecondColor,
+        multisidedropdown = BaseColors.Amethyst, multisidedropdownBox = BaseColors.AmethystSecondColor,
+        multisidedropdownOptions = BaseColors.AmethystSecondColor,
+        slider = BaseColors.Amethyst, trackcolor = BaseColors.AmethystSecondColor,
+        sliderfill = Color3.fromRGB(120, 80, 200), knob = Color3.fromRGB(150, 120, 220),
+        inputButton = BaseColors.Amethyst, InputBox = BaseColors.AmethystSecondColor,
+        Keybind = BaseColors.Amethyst, KeybindBox = BaseColors.AmethystSecondColor,
+        blockedoverlay = Color3.fromRGB(10, 6, 20),
+        blockedtext = Color3.fromRGB(200, 180, 240),
     },
 }
 
@@ -171,6 +177,9 @@ function ApplyTheme(name)
         if obj.Name == "Container" and getgenv().uicontainer then obj.BackgroundColor3 = getgenv().uicontainer end
         if obj.Name == "Line" and getgenv().uiline then obj.BackgroundColor3 = getgenv().uiline end
         if obj.Name == "UserCard" and getgenv().tabcolor then obj.BackgroundColor3 = getgenv().tabcolor end
+        if obj.Name == "ColorPalette" and getgenv().dropdownoptionscolor then obj.BackgroundColor3 = getgenv().dropdownoptionscolor end
+        if obj.Name == "BlockedOverlay" and getgenv().blockedoverlay then obj.BackgroundColor3 = getgenv().blockedoverlay end
+        if obj.Name == "BlockedText" and getgenv().blockedtext then obj.TextColor3 = getgenv().blockedtext end
         if (obj:IsA("TextButton") or obj:IsA("TextLabel")) and getgenv().tabtextcolor then obj.TextColor3 = getgenv().tabtextcolor end
         if obj:IsA("TextButton") and obj.Name == "Tab" and getgenv().tabcolor then obj.BackgroundColor3 = getgenv().tabcolor end
         if obj:IsA("UIGradient") and getgenv().tabselectedcolor and obj.Name == "tabselectedcolor" then obj.Color = getgenv().tabselectedcolor end
