@@ -375,11 +375,8 @@ Configs:
 Themes:
     Library:SetTheme("Dark")
     Library:SetTheme("Sapphire")
-    Library:SetTheme("Red")
+    Library:SetTheme("Amethyst")
     Library.Theme                        -- current theme name
 
 ]]
 
-
-
-return Library
