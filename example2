@@ -322,7 +322,7 @@ tab3.create_dropdown({
     flag = 'themeselect',
     section = 'right',
     option = Library.Theme or 'Dark',
-    options = { 'Dark', 'Sapphire', 'Red' },
+    options = { 'Dark', 'Sapphire', 'Amethyst' },
     callback = function(value)
         Library:SetTheme(value)
     end
