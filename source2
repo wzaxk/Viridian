@@ -1794,262 +1794,267 @@ end
             return button
         end
 
-       function Module:create_slider()
-    local section = pickSection(self)
-    local LEFT_PADDING = 4
-    local RIGHT_PADDING = 4
+        function Module:create_slider()
+            local section = pickSection(self)
+            local LEFT_PADDING = 4
+            local RIGHT_PADDING = 4
 
-    local slider = Instance.new("TextButton")
-    slider.Name = "slider"
-    slider.BackgroundColor3 = getgenv().slider or Color3.fromRGB(27,28,33)
-    slider.Size = UDim2.new(0.96, 0, 0, ELEMENT_HEIGHT)
-    slider.AutoButtonColor = false
-    slider.Text = ""
-    slider.Parent = section
-    table.insert(getgenv().UIElements, slider)
+            local slider = Instance.new("TextButton")
+            slider.Name = "slider"
+            slider.BackgroundColor3 = getgenv().slider or Color3.fromRGB(27, 28, 33)
+            slider.Size = UDim2.new(0.96, 0, 0, ELEMENT_HEIGHT)
+            slider.AutoButtonColor = false
+            slider.Text = ""
+            slider.Parent = section
+            table.insert(getgenv().UIElements, slider)
 
-    local sliderCorner = Instance.new("UICorner")
-    sliderCorner.CornerRadius = UDim.new(0, 10)
-    sliderCorner.Parent = slider
+            local sliderCorner = Instance.new("UICorner")
+            sliderCorner.CornerRadius = UDim.new(0, 10)
+            sliderCorner.Parent = slider
 
-    local track = Instance.new("Frame")
-    track.Name = "trackcolor"
-    track.Parent = slider
-    track.AnchorPoint = Vector2.new(0.5, 0.5)
-    track.Position = UDim2.new(0.5, 0, 0.78, 0)
-    track.Size = UDim2.new(0.9, 0, 0, 5)
-    track.BackgroundColor3 = getgenv().trackcolor or Color3.fromRGB(40,40,40)
-    track.BorderSizePixel = 0
-    table.insert(getgenv().UIElements, track)
+            local track = Instance.new("Frame")
+            track.Name = "trackcolor"
+            track.Parent = slider
+            track.AnchorPoint = Vector2.new(0.5, 0.5)
+            track.Position = UDim2.new(0.5, 0, 0.78, 0)
+            track.Size = UDim2.new(0.9, 0, 0, 5)
+            track.BackgroundColor3 = getgenv().trackcolor or Color3.fromRGB(40, 40, 40)
+            track.BorderSizePixel = 0
+            table.insert(getgenv().UIElements, track)
 
-    local trackCorner = Instance.new("UICorner")
-    trackCorner.CornerRadius = UDim.new(1, 0)
-    trackCorner.Parent = track
+            local trackCorner = Instance.new("UICorner")
+            trackCorner.CornerRadius = UDim.new(1, 0)
+            trackCorner.Parent = track
 
-    local fill = Instance.new("Frame")
-    fill.Parent = track
-    fill.Name = "sliderfill"
-    fill.AnchorPoint = Vector2.new(0, 0.5)
-    fill.Position = UDim2.new(0, 0, 0.5, 0)
-    fill.Size = UDim2.new(0, 0, 1, 0)
-    fill.BackgroundColor3 = getgenv().sliderfill or Color3.fromRGB(90,90,90)
-    fill.BorderSizePixel = 0
-    table.insert(getgenv().UIElements, fill)
+            local fill = Instance.new("Frame")
+            fill.Parent = track
+            fill.Name = "sliderfill"
+            fill.AnchorPoint = Vector2.new(0, 0.5)
+            fill.Position = UDim2.new(0, 0, 0.5, 0)
+            fill.Size = UDim2.new(0, 0, 1, 0)
+            fill.BackgroundColor3 = getgenv().sliderfill or Color3.fromRGB(90, 90, 90)
+            fill.BorderSizePixel = 0
+            table.insert(getgenv().UIElements, fill)
 
-    local fillCorner = Instance.new("UICorner")
-    fillCorner.CornerRadius = UDim.new(1, 0)
-    fillCorner.Parent = fill
+            local fillCorner = Instance.new("UICorner")
+            fillCorner.CornerRadius = UDim.new(1, 0)
+            fillCorner.Parent = fill
 
-    local knob = Instance.new("Frame")
-    knob.Parent = track
-    knob.Name = "knob"
-    knob.Size = UDim2.new(0, 15, 0, 15)
-    knob.AnchorPoint = Vector2.new(0.5, 0.5)
-    knob.Position = UDim2.new(0, 0, 0.5, 0)
-    knob.BackgroundColor3 = getgenv().knob or Color3.fromRGB(120,120,120)
-    knob.BorderSizePixel = 0
-    table.insert(getgenv().UIElements, knob)
+            local knob = Instance.new("Frame")
+            knob.Parent = track
+            knob.Name = "knob"
+            knob.Size = UDim2.new(0, 15, 0, 15)
+            knob.AnchorPoint = Vector2.new(0.5, 0.5)
+            knob.Position = UDim2.new(0, 0, 0.5, 0)
+            knob.BackgroundColor3 = getgenv().knob or Color3.fromRGB(120, 120, 120)
+            knob.BorderSizePixel = 0
+            table.insert(getgenv().UIElements, knob)
 
-    local knobCorner = Instance.new("UICorner")
-    knobCorner.CornerRadius = UDim.new(1, 0)
-    knobCorner.Parent = knob
+            local knobCorner = Instance.new("UICorner")
+            knobCorner.CornerRadius = UDim.new(1, 0)
+            knobCorner.Parent = knob
 
-    local hole = Instance.new("Frame")
-    hole.Parent = knob
-    hole.AnchorPoint = Vector2.new(0.5, 0.5)
-    hole.Position = UDim2.new(0.5, 0, 0.5, 0)
-    hole.Size = UDim2.new(0.5, 0, 0.5, 0)
-    hole.BackgroundColor3 = Color3.fromRGB(27,28,33)
-    hole.BorderSizePixel = 0
+            local hole = Instance.new("Frame")
+            hole.Parent = knob
+            hole.AnchorPoint = Vector2.new(0.5, 0.5)
+            hole.Position = UDim2.new(0.5, 0, 0.5, 0)
+            hole.Size = UDim2.new(0.5, 0, 0.5, 0)
+            hole.BackgroundColor3 = Color3.fromRGB(27, 28, 33)
+            hole.BorderSizePixel = 0
 
-    local holeCorner = Instance.new("UICorner")
-    holeCorner.CornerRadius = UDim.new(1, 0)
-    holeCorner.Parent = hole
+            local holeCorner = Instance.new("UICorner")
+            holeCorner.CornerRadius = UDim.new(1, 0)
+            holeCorner.Parent = hole
 
-    local label = Instance.new("TextLabel")
-    label.Parent = slider
-    label.AnchorPoint = Vector2.new(0, 0.5)
-    label.Position = UDim2.new(0, 12, 0.32, 0)
-    label.Size = UDim2.new(1, -60, 0, 13)
-    label.BackgroundTransparency = 1
-    label.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.SemiBold)
-    label.TextColor3 = Color3.fromRGB(255,255,255)
-    label.TextSize = 13
-    label.TextXAlignment = Enum.TextXAlignment.Left
-    label.Text = self.name
+            local label = Instance.new("TextLabel")
+            label.Parent = slider
+            label.AnchorPoint = Vector2.new(0, 0.5)
+            label.Position = UDim2.new(0, 12, 0.32, 0)
+            label.Size = UDim2.new(1, -60, 0, 13)
+            label.BackgroundTransparency = 1
+            label.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.SemiBold)
+            label.TextColor3 = Color3.fromRGB(255, 255, 255)
+            label.TextSize = 13
+            label.TextXAlignment = Enum.TextXAlignment.Left
+            label.Text = self.name
 
-    local number = Instance.new("TextLabel")
-    number.Parent = slider
-    number.AnchorPoint = Vector2.new(1, 0.5)
-    number.Position = UDim2.new(0.97, 0, 0.32, 0)
-    number.Size = UDim2.new(0, 50, 0, 13)
-    number.BackgroundTransparency = 1
-    number.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.SemiBold)
-    number.TextColor3 = Color3.fromRGB(255,255,255)
-    number.TextSize = 13
-    number.TextXAlignment = Enum.TextXAlignment.Right
-    number.Text = "0"
+            local number = Instance.new("TextLabel")
+            number.Parent = slider
+            number.AnchorPoint = Vector2.new(1, 0.5)
+            number.Position = UDim2.new(0.97, 0, 0.32, 0)
+            number.Size = UDim2.new(0, 50, 0, 13)
+            number.BackgroundTransparency = 1
+            number.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.SemiBold)
+            number.TextColor3 = Color3.fromRGB(255, 255, 255)
+            number.TextSize = 13
+            number.TextXAlignment = Enum.TextXAlignment.Right
+            number.Text = "0"
 
-    local min_v = tonumber(self.minimum_value) or 0
-    local max_v = tonumber(self.maximum_value) or 100
-    if max_v <= min_v then max_v = min_v + 1 end
+            local min_v = tonumber(self.minimum_value) or 0
+            local max_v = tonumber(self.maximum_value) or 100
+            if max_v <= min_v then max_v = min_v + 1 end
 
-    local step = tonumber(self.step)
-    if not step or step <= 0 then
-        local range = max_v - min_v
-        if range <= 1 then
-            step = 0.01
-        elseif range <= 10 then
-            step = 0.1
-        elseif range <= 100 then
-            step = 0.5
-        else
-            step = 1
+            local step = tonumber(self.step)
+            if not step or step <= 0 then
+                local minIsInt = (min_v == math.floor(min_v))
+                local maxIsInt = (max_v == math.floor(max_v))
+                local range = max_v - min_v
+
+                if minIsInt and maxIsInt and range >= 1 then
+                    step = 1
+                elseif range <= 1 then
+                    step = 0.01
+                elseif range <= 10 then
+                    step = 0.1
+                elseif range <= 100 then
+                    step = 0.5
+                else
+                    step = 1
+                end
+            end
+
+            local decimals
+            if step >= 1 then
+                decimals = 0
+            elseif step >= 0.1 then
+                decimals = 1
+            elseif step >= 0.01 then
+                decimals = 2
+            else
+                decimals = 3
+            end
+
+            local function roundValue(val)
+                if type(val) ~= "number" then return min_v end
+                local normalized = (val - min_v) / step
+                local rounded = math.floor(normalized + 0.5) * step + min_v
+                rounded = math.clamp(rounded, min_v, max_v)
+                if decimals > 0 then
+                    rounded = tonumber(string.format("%." .. decimals .. "f", rounded)) or min_v
+                else
+                    rounded = math.floor(rounded + 0.5)
+                end
+                rounded = math.clamp(rounded, min_v, max_v)
+                return rounded
+            end
+
+            local function formatNumber(v)
+                if decimals > 0 then
+                    return string.format("%." .. decimals .. "f", v)
+                else
+                    return tostring(math.floor(v + 0.5))
+                end
+            end
+
+            local function setFromPercent(percent)
+                percent = math.clamp(tonumber(percent) or 0, 0, 1)
+                local trackWidth = track.AbsoluteSize.X
+                if trackWidth > 0 then
+                    local usableWidth = trackWidth - LEFT_PADDING - RIGHT_PADDING
+                    local pixelX = LEFT_PADDING + percent * usableWidth
+                    fill.Size = UDim2.new(0, pixelX, 1, 0)
+                    knob.Position = UDim2.new(0, pixelX, 0.5, 0)
+                else
+                    fill.Size = UDim2.new(percent, 0, 1, 0)
+                    knob.Position = UDim2.new(percent, 0, 0.5, 0)
+                end
+                local raw = min_v + percent * (max_v - min_v)
+                local final = roundValue(raw)
+                Library.Flags[self.flag] = final
+                number.Text = formatNumber(final)
+                if self.callback then self.callback(final) end
+            end
+
+            local function updateFromX(x)
+                local trackStart = track.AbsolutePosition.X
+                local trackWidth = track.AbsoluteSize.X
+                if trackWidth <= 0 then return end
+                local usableWidth = trackWidth - LEFT_PADDING - RIGHT_PADDING
+                local minX = trackStart + LEFT_PADDING
+                local percent = (x - minX) / usableWidth
+                setFromPercent(percent)
+            end
+
+            local saved = Library.Flags[self.flag]
+            local initialValue
+            if type(saved) == "number" then
+                initialValue = saved
+            elseif Library.savedFlags and type(Library.savedFlags[self.flag]) == "number" then
+                initialValue = Library.savedFlags[self.flag]
+            else
+                initialValue = tonumber(self.value) or min_v
+            end
+            Library.Flags[self.flag] = roundValue(initialValue)
+
+            local startPercent = (Library.Flags[self.flag] - min_v) / (max_v - min_v)
+            startPercent = math.clamp(startPercent, 0, 1)
+            setFromPercent(startPercent)
+
+            task.defer(function()
+                if track.AbsoluteSize.X > 0 then
+                    local p = (Library.Flags[self.flag] - min_v) / (max_v - min_v)
+                    setFromPercent(math.clamp(p, 0, 1))
+                end
+            end)
+
+            local dragging = false
+
+            local function animate(size)
+                TweenService:Create(knob, TweenInfo.new(0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = size}):Play()
+            end
+
+            local function beginDrag(x)
+                dragging = true
+                animate(UDim2.new(0, 18, 0, 18))
+                updateFromX(x)
+            end
+
+            local function endDrag()
+                dragging = false
+                animate(UDim2.new(0, 15, 0, 15))
+                Library.save_flags()
+            end
+
+            local function inputBegan(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                    beginDrag(input.Position.X)
+                end
+            end
+
+            local function inputChanged(input)
+                if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+                    updateFromX(input.Position.X)
+                end
+            end
+
+            local function inputEnded(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                    endDrag()
+                end
+            end
+
+            track.InputBegan:Connect(inputBegan)
+            knob.InputBegan:Connect(inputBegan)
+            UserInputService.InputChanged:Connect(inputChanged)
+            UserInputService.InputEnded:Connect(inputEnded)
+
+            local SliderObj = {}
+            SliderObj.min = min_v
+            SliderObj.max = max_v
+            SliderObj.step = step
+            SliderObj.flag = self.flag
+
+            function SliderObj:GetValue() return Library.Flags[self.flag] end
+            function SliderObj:SetValue(v)
+                if type(v) ~= "number" then return end
+                local percent = (v - self.min) / (self.max - self.min)
+                setFromPercent(math.clamp(percent, 0, 1))
+                Library.save_flags()
+            end
+
+            Library:RegisterObject(self.flag, SliderObj)
+            return SliderObj
         end
-    end
-
-    local decimals
-    if step >= 1 then
-        decimals = 0
-    elseif step >= 0.1 then
-        decimals = 1
-    elseif step >= 0.01 then
-        decimals = 2
-    else
-        decimals = 3
-    end
-
-    local function roundValue(val)
-        if type(val) ~= "number" then return min_v end
-        local normalized = (val - min_v) / step
-        local rounded = math.floor(normalized + 0.5) * step + min_v
-        rounded = math.clamp(rounded, min_v, max_v)
-        if decimals > 0 then
-            rounded = tonumber(string.format("%." .. decimals .. "f", rounded)) or min_v
-        else
-            rounded = math.floor(rounded + 0.5)
-        end
-        rounded = math.clamp(rounded, min_v, max_v)
-        return rounded
-    end
-
-    local function formatNumber(v)
-        if decimals > 0 then
-            return string.format("%." .. decimals .. "f", v)
-        else
-            return tostring(math.floor(v + 0.5))
-        end
-    end
-
-    local function setFromPercent(percent)
-        percent = math.clamp(tonumber(percent) or 0, 0, 1)
-        local trackWidth = track.AbsoluteSize.X
-        if trackWidth > 0 then
-            local usableWidth = trackWidth - LEFT_PADDING - RIGHT_PADDING
-            local pixelX = LEFT_PADDING + percent * usableWidth
-            fill.Size = UDim2.new(0, pixelX, 1, 0)
-            knob.Position = UDim2.new(0, pixelX, 0.5, 0)
-        else
-            fill.Size = UDim2.new(percent, 0, 1, 0)
-            knob.Position = UDim2.new(percent, 0, 0.5, 0)
-        end
-        local raw = min_v + percent * (max_v - min_v)
-        local final = roundValue(raw)
-        Library.Flags[self.flag] = final
-        number.Text = formatNumber(final)
-        if self.callback then self.callback(final) end
-    end
-
-    local function updateFromX(x)
-        local trackStart = track.AbsolutePosition.X
-        local trackWidth = track.AbsoluteSize.X
-        if trackWidth <= 0 then return end
-        local usableWidth = trackWidth - LEFT_PADDING - RIGHT_PADDING
-        local minX = trackStart + LEFT_PADDING
-        local percent = (x - minX) / usableWidth
-        setFromPercent(percent)
-    end
-
-    local saved = Library.Flags[self.flag]
-    local initialValue
-    if type(saved) == "number" then
-        initialValue = saved
-    elseif Library.savedFlags and type(Library.savedFlags[self.flag]) == "number" then
-        initialValue = Library.savedFlags[self.flag]
-    else
-        initialValue = tonumber(self.value) or min_v
-    end
-    Library.Flags[self.flag] = roundValue(initialValue)
-
-    local startPercent = (Library.Flags[self.flag] - min_v) / (max_v - min_v)
-    startPercent = math.clamp(startPercent, 0, 1)
-    setFromPercent(startPercent)
-
-    task.defer(function()
-        if track.AbsoluteSize.X > 0 then
-            local p = (Library.Flags[self.flag] - min_v) / (max_v - min_v)
-            setFromPercent(math.clamp(p, 0, 1))
-        end
-    end)
-
-    local dragging = false
-
-    local function animate(size)
-        TweenService:Create(knob, TweenInfo.new(0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = size}):Play()
-    end
-
-    local function beginDrag(x)
-        dragging = true
-        animate(UDim2.new(0, 18, 0, 18))
-        updateFromX(x)
-    end
-
-    local function endDrag()
-        dragging = false
-        animate(UDim2.new(0, 15, 0, 15))
-        Library.save_flags()
-    end
-
-    local function inputBegan(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-            beginDrag(input.Position.X)
-        end
-    end
-
-    local function inputChanged(input)
-        if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
-            updateFromX(input.Position.X)
-        end
-    end
-
-    local function inputEnded(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-            endDrag()
-        end
-    end
-
-    track.InputBegan:Connect(inputBegan)
-    knob.InputBegan:Connect(inputBegan)
-    UserInputService.InputChanged:Connect(inputChanged)
-    UserInputService.InputEnded:Connect(inputEnded)
-
-    local SliderObj = {}
-    SliderObj.min = min_v
-    SliderObj.max = max_v
-    SliderObj.step = step
-    SliderObj.flag = self.flag
-
-    function SliderObj:GetValue() return Library.Flags[self.flag] end
-    function SliderObj:SetValue(v)
-        if type(v) ~= "number" then return end
-        local percent = (v - self.min) / (self.max - self.min)
-        setFromPercent(math.clamp(percent, 0, 1))
-        Library.save_flags()
-    end
-
-    Library:RegisterObject(self.flag, SliderObj)
-    return SliderObj
-end
 
         function Module:create_textbox()
             local section = pickSection(self)
