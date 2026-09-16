@@ -19,6 +19,13 @@ tab.create_title({
     section = 'left'
 })
 
+tab.create_note({
+    title = 'note',
+    description = 'this is a note\nit supports multiple lines\nand wraps long text automatically',
+    color = '#613EA7',
+    section = 'left'
+})
+
 tab.create_button({
     name = 'button',
     description = 'callback without arguments',
@@ -169,6 +176,13 @@ tab.create_multisidedropdown({
 
 tab.create_title({
     name = 'middle section',
+    section = 'middle'
+})
+
+tab.create_note({
+    title = 'middle note',
+    description = 'a note in the middle section takes the full width of both columns',
+    color = '#9A6BFF',
     section = 'middle'
 })
 
@@ -353,5 +367,19 @@ Flags:
 Objects:
     Library.Objects.<flag>:GetValue()
     Library.Objects.<flag>:SetValue(v)
+
+Notes:
+    tab.create_note({
+        title = 'Warning',               -- optional; 13px SemiBold
+        description = 'line1\nline2',    -- 11px Regular, wraps, supports \n
+        color = '#613EA7',               -- hex color for the left stripe
+        section = 'left',                -- 'left' | 'right' | 'middle'
+        flag = 'note_flag'               -- optional; makes it configurable
+    })
+
+    NoteObj:GetValue()                   -- current description text
+    NoteObj:SetValue(text)               -- set description
+    NoteObj:SetTitle(text)               -- set title
+    NoteObj:SetColor('#RRGGBB')          -- change stripe color
 
 ]]
