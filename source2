@@ -1774,6 +1774,144 @@ function Library:new()
             end)
         end
 
+function Module:create_note()
+    local side = getSide(self)
+
+    local function hexToColor(hex, fallback)
+        if type(hex) ~= "string" then return fallback end
+        hex = hex:gsub("#", "")
+        if #hex == 3 then
+            hex = hex:sub(1,1):rep(2) .. hex:sub(2,2):rep(2) .. hex:sub(3,3):rep(2)
+        end
+        if #hex ~= 6 then return fallback end
+        local r = tonumber(hex:sub(1,2), 16)
+        local g = tonumber(hex:sub(3,4), 16)
+        local b = tonumber(hex:sub(5,6), 16)
+        if not r or not g or not b then return fallback end
+        return Color3.fromRGB(r, g, b)
+    end
+
+    local accent = hexToColor(self.color, Color3.fromRGB(97, 62, 167))
+
+    local STRIPE_INSET = 8
+    local STRIPE_W     = 3
+    local PAD_RIGHT    = 12
+    local PAD_Y        = 10
+    local GAP          = 4
+    local TEXT_LEFT    = STRIPE_INSET + STRIPE_W + 10
+
+    local note = Instance.new("Frame")
+    note.Name = "Note"
+    note.BackgroundColor3 = getgenv().tabcolor or Color3.fromRGB(27, 28, 33)
+    note.BorderSizePixel = 0
+    note.ClipsDescendants = true
+    note.Parent = itemsSection
+    table.insert(getgenv().UIElements, note)
+
+    local UICorner = Instance.new("UICorner")
+    UICorner.CornerRadius = UDim.new(0, 10)
+    UICorner.Parent = note
+
+    local stripe = Instance.new("Frame")
+    stripe.Name = "Stripe"
+    stripe.BackgroundColor3 = accent
+    stripe.BorderSizePixel = 0
+    stripe.Position = UDim2.new(0, STRIPE_INSET, 0, STRIPE_INSET)
+    stripe.Size = UDim2.new(0, STRIPE_W, 1, -STRIPE_INSET * 2)
+    stripe.ZIndex = 2
+    stripe.Parent = note
+
+    local stripeCorner = Instance.new("UICorner")
+    stripeCorner.CornerRadius = UDim.new(1, 0)
+    stripeCorner.Parent = stripe
+
+    local content = Instance.new("Frame")
+    content.Name = "Content"
+    content.BackgroundTransparency = 1
+    content.Position = UDim2.new(0, TEXT_LEFT, 0, PAD_Y)
+    content.Size = UDim2.new(1, -TEXT_LEFT - PAD_RIGHT, 0, 0)
+    content.AutomaticSize = Enum.AutomaticSize.Y
+    content.Parent = note
+
+    local layout = Instance.new("UIListLayout")
+    layout.FillDirection = Enum.FillDirection.Vertical
+    layout.SortOrder = Enum.SortOrder.LayoutOrder
+    layout.Padding = UDim.new(0, GAP)
+    layout.Parent = content
+
+    local titleLabel = Instance.new("TextLabel")
+    titleLabel.Name = "Title"
+    titleLabel.LayoutOrder = 1
+    titleLabel.BackgroundTransparency = 1
+    titleLabel.Size = UDim2.new(1, 0, 0, 0)
+    titleLabel.AutomaticSize = Enum.AutomaticSize.Y
+    titleLabel.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.SemiBold)
+    titleLabel.TextColor3 = getgenv().tabtextcolor or Color3.fromRGB(255, 255, 255)
+    titleLabel.TextSize = 17
+    titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+    titleLabel.TextYAlignment = Enum.TextYAlignment.Top
+    titleLabel.TextWrapped = true
+    titleLabel.Text = self.title or ""
+    titleLabel.Visible = (self.title ~= nil and self.title ~= "")
+    titleLabel.Parent = content
+
+    local descLabel = Instance.new("TextLabel")
+    descLabel.Name = "Description"
+    descLabel.LayoutOrder = 2
+    descLabel.BackgroundTransparency = 1
+    descLabel.Size = UDim2.new(1, 0, 0, 0)
+    descLabel.AutomaticSize = Enum.AutomaticSize.Y
+    descLabel.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.Regular)
+    descLabel.TextColor3 = Color3.fromRGB(180, 180, 180)
+    descLabel.TextSize = 14
+    descLabel.TextXAlignment = Enum.TextXAlignment.Left
+    descLabel.TextYAlignment = Enum.TextYAlignment.Top
+    descLabel.TextWrapped = true
+    descLabel.Text = self.description or ""
+    descLabel.Visible = (self.description ~= nil and self.description ~= "")
+    descLabel.Parent = content
+
+    registerItem(note, side, 40)
+
+    local lastSetH = -1
+    local function applyHeight()
+        local ch = content.AbsoluteSize.Y
+        if not ch or ch <= 0 then return end
+        local targetH = ch + PAD_Y * 2
+        if math.abs(targetH - lastSetH) < 0.5 then return end
+        lastSetH = targetH
+        updateItemHeight(note, targetH, false)
+    end
+
+    content:GetPropertyChangedSignal("AbsoluteSize"):Connect(applyHeight)
+    layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(applyHeight)
+    task.defer(applyHeight)
+
+    local NoteObj = {}
+    NoteObj.flag = self.flag
+
+    function NoteObj:GetValue() return descLabel.Text end
+
+    function NoteObj:SetValue(v)
+        descLabel.Text = tostring(v or "")
+        descLabel.Visible = descLabel.Text ~= ""
+    end
+
+    function NoteObj:SetTitle(v)
+        titleLabel.Text = tostring(v or "")
+        titleLabel.Visible = titleLabel.Text ~= ""
+    end
+
+    function NoteObj:SetColor(hex)
+        stripe.BackgroundColor3 = hexToColor(hex, accent)
+    end
+
+    if self.flag then
+        Library:RegisterObject(self.flag, NoteObj)
+    end
+
+    return NoteObj
+end
         function Module:create_button(config)
             local side = getSide(self)
             local button = Instance.new("TextButton")
