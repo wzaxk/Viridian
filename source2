@@ -35,8 +35,8 @@ local BaseColors = {
     DarkSecondColor = Color3.fromRGB(22, 23, 27),
     Sapphire = Color3.fromRGB(24, 36, 85),
     SapphireSecondColor = Color3.fromRGB(17, 26, 65),
-    Amethyst = Color3.fromRGB(45, 30, 68),
-    AmethystSecondColor = Color3.fromRGB(28, 20, 44),
+    Amethyst = Color3.fromRGB(59, 44, 94),
+    AmethystSecondColor = Color3.fromRGB(49, 34, 85),
 }
 
 local Themes = {
@@ -104,21 +104,21 @@ local Themes = {
         blockedoverlay = Color3.fromRGB(6, 12, 32),
         blockedtext = Color3.fromRGB(170, 200, 255),
     },
-    Amethyst = {
+        Amethyst = {
         main = BaseColors.Amethyst, tabcolor = BaseColors.Amethyst,
         tabselectedcolor = ColorSequence.new{
-            ColorSequenceKeypoint.new(0, Color3.fromRGB(140, 95, 220)),
-            ColorSequenceKeypoint.new(1, Color3.fromRGB(60, 175, 215))
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(97, 62, 167)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(68, 42, 122))
         },
         tabtextcolor = Color3.fromRGB(255, 255, 255),
-        uicontainer = Color3.fromRGB(24, 18, 38), uiline = Color3.fromRGB(35, 24, 55),
-        shadowcolor = Color3.fromRGB(150, 130, 230),
-        togglecoloron = Color3.fromRGB(140, 95, 220), togglecoloroff = BaseColors.AmethystSecondColor,
+        uicontainer = Color3.fromRGB(48, 35, 78), uiline = Color3.fromRGB(70, 52, 110),
+        shadowcolor = Color3.fromRGB(97, 62, 167),
+        togglecoloron = Color3.fromRGB(97, 62, 167), togglecoloroff = BaseColors.AmethystSecondColor,
         togglecolor = BaseColors.Amethyst, buttoncolor = BaseColors.Amethyst, originalColor = BaseColors.Amethyst,
         checkboxcolor = BaseColors.Amethyst,
         checkboxturnon = ColorSequence.new{
-            ColorSequenceKeypoint.new(0, Color3.fromRGB(140, 95, 220)),
-            ColorSequenceKeypoint.new(1, Color3.fromRGB(60, 175, 215))
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(97, 62, 167)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(140, 100, 210))
         },
         checkboxturnoff = BaseColors.AmethystSecondColor,
         dropdowncolor = BaseColors.Amethyst, dropdownboxscolor = BaseColors.AmethystSecondColor,
@@ -129,11 +129,11 @@ local Themes = {
         sidedropdownoptionscolor = BaseColors.AmethystSecondColor,
         multisidedropdown = BaseColors.Amethyst, multisidedropdownBox = BaseColors.AmethystSecondColor,
         multisidedropdownOptions = BaseColors.AmethystSecondColor,
-        slider = BaseColors.Amethyst, trackcolor = BaseColors.AmethystSecondColor,
-        sliderfill = Color3.fromRGB(120, 80, 200), knob = Color3.fromRGB(150, 120, 220),
+        slider = BaseColors.Amethyst, trackcolor = Color3.fromRGB(44, 32, 72),
+        sliderfill = Color3.fromRGB(97, 62, 167), knob = Color3.fromRGB(140, 100, 210),
         inputButton = BaseColors.Amethyst, InputBox = BaseColors.AmethystSecondColor,
         Keybind = BaseColors.Amethyst, KeybindBox = BaseColors.AmethystSecondColor,
-        blockedoverlay = Color3.fromRGB(10, 6, 20),
+        blockedoverlay = Color3.fromRGB(20, 14, 35),
         blockedtext = Color3.fromRGB(200, 180, 240),
     },
 }
@@ -2612,37 +2612,48 @@ end
 
             local Dropdown = {}
             local parentScroll = getParentScrollingFrame(dropdown)
+			local animToken = 0
             Dropdown.selectedOption = nil
 
-            function Dropdown:open()
-    open = true
-    Options.Visible = true
-    dropdown.ZIndex = 50; Box.ZIndex = 51; Options.ZIndex = 52
-    Title.ZIndex = 53; Selected.ZIndex = 53; Arrow.ZIndex = 53
-    for _, child in ipairs(Options:GetChildren()) do
-        if child.Name == "Option" then child.ZIndex = 53 end
-    end
-    local targetHeight = math.min(16 + list_size, MAX_HEIGHT)
-    TweenService:Create(Options, TweenInfo.new(0.5), {Size = UDim2.new(1, 0, 0, targetHeight)}):Play()
-    TweenService:Create(Arrow, TweenInfo.new(0.5), {Rotation = 180}):Play()
-end
+		function Dropdown:open()
+			open = true
+			animToken += 1
+			local myToken = animToken
 
-function Dropdown:close()
-    open = false
-    if parentScroll then parentScroll.ScrollingEnabled = true end
-    local tw = TweenService:Create(Options, TweenInfo.new(0.5), {Size = UDim2.new(1, 0, 0, 0)})
-    tw:Play()
-    TweenService:Create(Arrow, TweenInfo.new(0.5), {Rotation = 0}):Play()
-    tw.Completed:Once(function()
-        Options.Visible = false
-        Options.CanvasPosition = Vector2.new(0, 0)
-        dropdown.ZIndex = 1; Box.ZIndex = 2; Options.ZIndex = 2
-        Title.ZIndex = 1; Selected.ZIndex = 2; Arrow.ZIndex = 2
-        for _, child in ipairs(Options:GetChildren()) do
-            if child.Name == "Option" then child.ZIndex = 2 end
-        end
-    end)
-end
+			Options.Visible = true
+			dropdown.ZIndex = 50; Box.ZIndex = 51; Options.ZIndex = 52
+			Title.ZIndex = 53; Selected.ZIndex = 53; Arrow.ZIndex = 53
+			for _, child in ipairs(Options:GetChildren()) do
+				if child.Name == "Option" then child.ZIndex = 53 end
+			end
+
+			local targetHeight = math.min(16 + list_size, MAX_HEIGHT)
+			TweenService:Create(Options, TweenInfo.new(0.5), {Size = UDim2.new(1, 0, 0, targetHeight)}):Play()
+			TweenService:Create(Arrow, TweenInfo.new(0.5), {Rotation = 180}):Play()
+		end
+
+		function Dropdown:close()
+			open = false
+			animToken += 1
+			local myToken = animToken
+
+			if parentScroll then parentScroll.ScrollingEnabled = true end
+
+			local tw = TweenService:Create(Options, TweenInfo.new(0.5), {Size = UDim2.new(1, 0, 0, 0)})
+			tw:Play()
+			TweenService:Create(Arrow, TweenInfo.new(0.5), {Rotation = 0}):Play()
+
+			tw.Completed:Once(function()
+				if myToken ~= animToken then return end
+				Options.Visible = false
+				Options.CanvasPosition = Vector2.new(0, 0)
+				dropdown.ZIndex = 1; Box.ZIndex = 2; Options.ZIndex = 2
+				Title.ZIndex = 1; Selected.ZIndex = 2; Arrow.ZIndex = 2
+				for _, child in ipairs(Options:GetChildren()) do
+					if child.Name == "Option" then child.ZIndex = 2 end
+				end
+			end)
+		end
 
             function Dropdown:clear()
                 for _, object in Options:GetChildren() do
@@ -2850,37 +2861,47 @@ end
 
             local Dropdown = {}
             local parentScroll = getParentScrollingFrame(dropdown)
+			local animToken = 0
             Dropdown.selectedOptions = {}
 
-            function Dropdown:open()
-    open = true
-    Options.Visible = true
-    dropdown.ZIndex = 50; Box.ZIndex = 51; Options.ZIndex = 52
-    Title.ZIndex = 53; Selected.ZIndex = 53; Arrow.ZIndex = 53
-    for _, child in ipairs(Options:GetChildren()) do
-        if child.Name == "Option" then child.ZIndex = 53 end
-    end
-    local targetHeight = math.min(16 + list_size, MAX_HEIGHT)
-    TweenService:Create(Options, TweenInfo.new(0.5), {Size = UDim2.new(1, 0, 0, targetHeight)}):Play()
-    TweenService:Create(Arrow, TweenInfo.new(0.5), {Rotation = 180}):Play()
-end
+		function Dropdown:open()
+			open = true
+			animToken += 1
 
-function Dropdown:close()
-    open = false
-    if parentScroll then parentScroll.ScrollingEnabled = true end
-    local tw = TweenService:Create(Options, TweenInfo.new(0.5), {Size = UDim2.new(1, 0, 0, 0)})
-    tw:Play()
-    TweenService:Create(Arrow, TweenInfo.new(0.5), {Rotation = 0}):Play()
-    tw.Completed:Once(function()
-        Options.Visible = false
-        Options.CanvasPosition = Vector2.new(0, 0)
-        dropdown.ZIndex = 1; Box.ZIndex = 2; Options.ZIndex = 2
-        Title.ZIndex = 1; Selected.ZIndex = 2; Arrow.ZIndex = 2
-        for _, child in ipairs(Options:GetChildren()) do
-            if child.Name == "Option" then child.ZIndex = 2 end
-        end
-    end)
-end
+			Options.Visible = true
+			dropdown.ZIndex = 50; Box.ZIndex = 51; Options.ZIndex = 52
+			Title.ZIndex = 53; Selected.ZIndex = 53; Arrow.ZIndex = 53
+			for _, child in ipairs(Options:GetChildren()) do
+				if child.Name == "Option" then child.ZIndex = 53 end
+			end
+
+			local targetHeight = math.min(16 + list_size, MAX_HEIGHT)
+			TweenService:Create(Options, TweenInfo.new(0.5), {Size = UDim2.new(1, 0, 0, targetHeight)}):Play()
+			TweenService:Create(Arrow, TweenInfo.new(0.5), {Rotation = 180}):Play()
+		end
+
+		function Dropdown:close()
+			open = false
+			animToken += 1
+			local myToken = animToken
+
+			if parentScroll then parentScroll.ScrollingEnabled = true end
+
+			local tw = TweenService:Create(Options, TweenInfo.new(0.5), {Size = UDim2.new(1, 0, 0, 0)})
+			tw:Play()
+			TweenService:Create(Arrow, TweenInfo.new(0.5), {Rotation = 0}):Play()
+
+			tw.Completed:Once(function()
+				if myToken ~= animToken then return end
+				Options.Visible = false
+				Options.CanvasPosition = Vector2.new(0, 0)
+				dropdown.ZIndex = 1; Box.ZIndex = 2; Options.ZIndex = 2
+				Title.ZIndex = 1; Selected.ZIndex = 2; Arrow.ZIndex = 2
+				for _, child in ipairs(Options:GetChildren()) do
+					if child.Name == "Option" then child.ZIndex = 2 end
+				end
+			end)
+		end
 
             function Dropdown:clear()
                 for _, object in Options:GetChildren() do
@@ -3072,6 +3093,7 @@ end
             registerItem(dropdown, side, ELEMENT_HEIGHT)
 
             local Dropdown = {}
+			
             Dropdown.selectedOption = nil
 
             function Dropdown:open()
