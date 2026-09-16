@@ -177,6 +177,7 @@ function ApplyTheme(name)
         if (obj.Name == "StickyLeft" or obj.Name == "StickyRight" or obj.Name == "StickyMerge") and getgenv().uicontainer then obj.BackgroundColor3 = getgenv().uicontainer end
         if obj.Name == "Line" and getgenv().uiline then obj.BackgroundColor3 = getgenv().uiline end
         if obj.Name == "UserCard" and getgenv().tabcolor then obj.BackgroundColor3 = getgenv().tabcolor end
+		if obj.Name == "Note" and getgenv().tabcolor then obj.BackgroundColor3 = getgenv().tabcolor end
         if obj.Name == "ColorPalette" and getgenv().dropdownoptionscolor then obj.BackgroundColor3 = getgenv().dropdownoptionscolor end
         if obj.Name == "BlockedOverlay" and getgenv().blockedoverlay then obj.BackgroundColor3 = getgenv().blockedoverlay end
         if obj.Name == "BlockedText" and getgenv().blockedtext then obj.TextColor3 = getgenv().blockedtext end
@@ -1855,6 +1856,8 @@ function Module:create_note()
     titleLabel.Visible = (self.title ~= nil and self.title ~= "")
     titleLabel.Parent = content
 
+	table.insert(getgenv().UIElements, titleLabel)
+
     local descLabel = Instance.new("TextLabel")
     descLabel.Name = "Description"
     descLabel.LayoutOrder = 2
@@ -1871,6 +1874,7 @@ function Module:create_note()
     descLabel.Visible = (self.description ~= nil and self.description ~= "")
     descLabel.Parent = content
 
+	table.insert(getgenv().UIElements, descLabel)
     registerItem(note, side, 40)
 
     local lastSetH = -1
