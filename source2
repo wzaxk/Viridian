@@ -1794,10 +1794,10 @@ function Module:create_note()
     local accent = hexToColor(self.color, Color3.fromRGB(97, 62, 167))
 
     local STRIPE_INSET = 8
-    local STRIPE_W     = 3
+    local STRIPE_W     = 4
     local PAD_RIGHT    = 12
     local PAD_Y        = 10
-    local GAP          = 4
+    local GAP          = 6
     local TEXT_LEFT    = STRIPE_INSET + STRIPE_W + 10
 
     local note = Instance.new("Frame")
@@ -1861,9 +1861,9 @@ function Module:create_note()
     descLabel.BackgroundTransparency = 1
     descLabel.Size = UDim2.new(1, 0, 0, 0)
     descLabel.AutomaticSize = Enum.AutomaticSize.Y
-    descLabel.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.Regular)
+    descLabel.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.Medium)
     descLabel.TextColor3 = Color3.fromRGB(180, 180, 180)
-    descLabel.TextSize = 14
+    descLabel.TextSize = 13
     descLabel.TextXAlignment = Enum.TextXAlignment.Left
     descLabel.TextYAlignment = Enum.TextYAlignment.Top
     descLabel.TextWrapped = true
