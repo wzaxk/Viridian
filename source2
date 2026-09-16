@@ -1,5 +1,3 @@
--- hub name №1338
-
 local UserInputService = game:GetService('UserInputService')
 local LocalPlayer = game:GetService('Players').LocalPlayer
 local TweenService = game:GetService('TweenService')
@@ -45,18 +43,18 @@ local Themes = {
     Dark = {
         main = BaseColors.Dark, tabcolor = BaseColors.Dark,
         tabselectedcolor = ColorSequence.new{
-            ColorSequenceKeypoint.new(0.00, Color3.fromRGB(52, 117, 130)),
-            ColorSequenceKeypoint.new(1.00, Color3.fromRGB(40, 76, 83))
+            ColorSequenceKeypoint.new(0.00, Color3.fromRGB(90, 90, 96)),
+            ColorSequenceKeypoint.new(1.00, Color3.fromRGB(55, 55, 60))
         },
         tabtextcolor = Color3.fromRGB(255, 255, 255),
         uicontainer = Color3.fromRGB(22, 23, 28), uiline = Color3.fromRGB(27, 28, 33),
         shadowcolor = Color3.fromRGB(0, 0, 0),
-        togglecoloron = Color3.fromRGB(65, 130, 140), togglecoloroff = Color3.fromRGB(22, 23, 27),
+        togglecoloron = Color3.fromRGB(120, 120, 126), togglecoloroff = Color3.fromRGB(22, 23, 27),
         togglecolor = BaseColors.Dark, buttoncolor = BaseColors.Dark, originalColor = BaseColors.Dark,
         checkboxcolor = BaseColors.Dark,
         checkboxturnon = ColorSequence.new{
-            ColorSequenceKeypoint.new(0, Color3.fromRGB(40, 85, 95)),
-            ColorSequenceKeypoint.new(1, Color3.fromRGB(65, 130, 140))
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(90, 90, 96)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(140, 140, 146))
         },
         checkboxturnoff = BaseColors.DarkSecondColor,
         dropdowncolor = Color3.fromRGB(27, 28, 33), dropdownboxscolor = BaseColors.DarkSecondColor,
@@ -68,7 +66,7 @@ local Themes = {
         multisidedropdown = Color3.fromRGB(27, 28, 33), multisidedropdownBox = BaseColors.DarkSecondColor,
         multisidedropdownOptions = BaseColors.DarkSecondColor,
         slider = BaseColors.Dark, trackcolor = Color3.fromRGB(40, 40, 40),
-        sliderfill = Color3.fromRGB(90, 90, 90), knob = Color3.fromRGB(120, 120, 120),
+        sliderfill = Color3.fromRGB(120, 120, 126), knob = Color3.fromRGB(160, 160, 166),
         inputButton = BaseColors.Dark, InputBox = BaseColors.DarkSecondColor,
         Keybind = BaseColors.Dark, KeybindBox = BaseColors.DarkSecondColor,
         blockedoverlay = Color3.fromRGB(0, 0, 0),
@@ -176,7 +174,7 @@ function ApplyTheme(name)
         if obj.Name == "Toggle" and getgenv().togglecolor then obj.BackgroundColor3 = getgenv().togglecolor end
         if obj.Name == "Checkbox1" and getgenv().checkboxcolor then obj.BackgroundColor3 = getgenv().checkboxcolor end
         if obj.Name == "Container" and getgenv().uicontainer then obj.BackgroundColor3 = getgenv().uicontainer end
-          if (obj.Name == "StickyLeft" or obj.Name == "StickyRight" or obj.Name == "Fade") and getgenv().uicontainer then obj.BackgroundColor3 = getgenv().uicontainer end
+        if (obj.Name == "StickyLeft" or obj.Name == "StickyRight" or obj.Name == "StickyMerge") and getgenv().uicontainer then obj.BackgroundColor3 = getgenv().uicontainer end
         if obj.Name == "Line" and getgenv().uiline then obj.BackgroundColor3 = getgenv().uiline end
         if obj.Name == "UserCard" and getgenv().tabcolor then obj.BackgroundColor3 = getgenv().tabcolor end
         if obj.Name == "ColorPalette" and getgenv().dropdownoptionscolor then obj.BackgroundColor3 = getgenv().dropdownoptionscolor end
@@ -706,22 +704,15 @@ function Library:new()
 
     local Tab = {}
 
-    function Tab:update_sections()
-        if self.left_section then self.left_section.Visible = true end
-        if self.right_section then self.right_section.Visible = true end
-        for _, object in Container:GetChildren() do
+    function Tab:open_tab()
+        for _, object in ipairs(Container:GetChildren()) do
+            if object.Name == "ItemsSection" or object.Name == "StickyLeft" or object.Name == "StickyRight" or object.Name == "StickyMerge" then
+                object.Visible = false
+            end
             if object.Name == "ColorPalette" then object.Visible = false end
         end
-        for _, object in Container:GetChildren() do
-            if not object.Name:find("Section") then continue end
-            if object == self.left_section then continue end
-            if object == self.right_section then continue end
-            object.Visible = false
-        end
-    end
+        if self.section then self.section.Visible = true end
 
-    function Tab:open_tab()
-        Tab.update_sections({left_section = self.left_section, right_section = self.right_section})
         TweenService:Create(self.tab.Fill, TweenInfo.new(0.4), {BackgroundTransparency = 0}):Play()
         TweenService:Create(self.tab.Glow, TweenInfo.new(0.4), {ImageTransparency = 0}):Play()
         TweenService:Create(self.tab.TextLabel, TweenInfo.new(0.4), {TextTransparency = 0}):Play()
@@ -805,148 +796,163 @@ function Library:new()
 
         local UIGradient = Instance.new("UIGradient")
         UIGradient.Name = "tabselectedcolor"
-        UIGradient.Color = getgenv().tabselectedcolor or ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(52, 117, 130)), ColorSequenceKeypoint.new(1, Color3.fromRGB(40, 76, 83))}
+        UIGradient.Color = getgenv().tabselectedcolor or ColorSequence.new{ColorSequenceKeypoint.new(0, Color3.fromRGB(90, 90, 96)), ColorSequenceKeypoint.new(1, Color3.fromRGB(55, 55, 60))}
         UIGradient.Rotation = 20
         UIGradient.Parent = Fill
         table.insert(getgenv().UIElements, UIGradient)
 
-        local left_section = Instance.new("ScrollingFrame")
-        left_section.Name = "LeftSection"
-        left_section.Active = true
-        left_section.ScrollingEnabled = true
-        left_section.ClipsDescendants = true
-        left_section.BackgroundTransparency = 1
-        left_section.BorderSizePixel = 0
-        left_section.Position = UDim2.new(0.245, 0, 0.127, 0)
-        left_section.Size = UDim2.new(0.365, 0, 0.87, 0)
-        left_section.ScrollBarThickness = 0
-        left_section.ElasticBehavior = Enum.ElasticBehavior.Never
+        local itemsSection = Instance.new("ScrollingFrame")
+        itemsSection.Name = "ItemsSection"
+        itemsSection.Active = true
+        itemsSection.ScrollingEnabled = true
+        itemsSection.ClipsDescendants = true
+        itemsSection.BackgroundTransparency = 1
+        itemsSection.BorderSizePixel = 0
+        itemsSection.Position = UDim2.new(0.245, 0, 0.127, 0)
+        itemsSection.Size = UDim2.new(0.74, 0, 0.87, 0)
+        itemsSection.ScrollBarThickness = 0
+        itemsSection.ElasticBehavior = Enum.ElasticBehavior.Never
+        itemsSection.CanvasSize = UDim2.new(0, 0, 0, 0)
+        itemsSection.Visible = false
 
-        local layout_sec = Instance.new("UIListLayout")
-        layout_sec.Padding = UDim.new(0, 6)
-        layout_sec.SortOrder = Enum.SortOrder.LayoutOrder
-        layout_sec.Parent = left_section
-        layout_sec:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
-            left_section.CanvasSize = UDim2.new(0, 0, 0, math.max(layout_sec.AbsoluteContentSize.Y + 10, left_section.AbsoluteSize.Y))
-        end)
+        local GAP = 6
+        local LEFT_W = 0.48993
+        local RIGHT_X = 0.51007
 
-        local right_section = Instance.new("ScrollingFrame")
-        right_section.Name = "RightSection"
-        right_section.Active = true
-        right_section.ScrollingEnabled = true
-        right_section.ClipsDescendants = true
-        right_section.BackgroundTransparency = 1
-        right_section.BorderSizePixel = 0
-        right_section.Position = UDim2.new(0.625, 0, 0.127, 0)
-        right_section.Size = UDim2.new(0.365, 0, 0.87, 0)
-        right_section.ScrollBarThickness = 0
-        right_section.ElasticBehavior = Enum.ElasticBehavior.Never
+        local ItemsList = {}
 
-        local rightsectionlist = Instance.new("UIListLayout")
-        rightsectionlist.Parent = right_section
-        rightsectionlist.SortOrder = Enum.SortOrder.LayoutOrder
-        rightsectionlist.Padding = UDim.new(0, 6)
-        rightsectionlist:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
-            right_section.CanvasSize = UDim2.new(0, 0, 0, math.max(rightsectionlist.AbsoluteContentSize.Y + 10, right_section.AbsoluteSize.Y))
-        end)
+        local SCROLL_TWEEN = TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
 
-        if Container:FindFirstChild('RightSection') then
-            left_section.Visible = false
-            right_section.Visible = false
-        else
-            Tab.open_tab({tab = tab, left_section = left_section, right_section = right_section})
+        local function relayout(animate)
+            local leftY = 0
+            local rightY = 0
+            local info = {}
+            for _, e in ipairs(ItemsList) do
+                local h = e.height
+                local t = {h = h}
+                if e.side == "right" then
+                    t.pos = UDim2.new(RIGHT_X, 0, 0, rightY)
+                    t.w = LEFT_W
+                    rightY = rightY + h + GAP
+                elseif e.side == "middle" then
+                    local y = math.max(leftY, rightY)
+                    t.pos = UDim2.new(0, 0, 0, y)
+                    t.w = 1
+                    leftY = y + h + GAP
+                    rightY = y + h + GAP
+                else
+                    t.pos = UDim2.new(0, 0, 0, leftY)
+                    t.w = LEFT_W
+                    leftY = leftY + h + GAP
+                end
+                info[e] = t
+            end
+
+            local totalY = math.max(leftY, rightY) + 6
+            local targetCanvas = UDim2.new(0, 0, 0, totalY)
+            local windowH = itemsSection.AbsoluteWindowSize.Y
+            local maxScroll = math.max(0, totalY - windowH)
+            local curScroll = itemsSection.CanvasPosition.Y
+            local targetScroll = math.min(curScroll, maxScroll)
+
+            if animate then
+                TweenService:Create(itemsSection, SCROLL_TWEEN, {
+                    CanvasSize = targetCanvas,
+                    CanvasPosition = Vector2.new(itemsSection.CanvasPosition.X, targetScroll)
+                }):Play()
+            else
+                itemsSection.CanvasSize = targetCanvas
+                itemsSection.CanvasPosition = Vector2.new(itemsSection.CanvasPosition.X, targetScroll)
+            end
+
+            for _, e in ipairs(ItemsList) do
+                local t = info[e]
+                local sz = UDim2.new(t.w, 0, 0, t.h)
+                if animate then
+                    TweenService:Create(e.obj, SCROLL_TWEEN, {Position = t.pos, Size = sz}):Play()
+                else
+                    e.obj.Position = t.pos
+                    e.obj.Size = sz
+                end
+            end
         end
 
-        left_section.Parent = Container
-        right_section.Parent = Container
+        local function registerItem(obj, side, height)
+            table.insert(ItemsList, {obj = obj, side = side or "left", height = height or ELEMENT_HEIGHT})
+            relayout(false)
+            return obj
+        end
 
-             local stickyLayerLeft = Instance.new("Frame")
+        local function updateItemHeight(obj, newHeight, animate)
+            for _, e in ipairs(ItemsList) do
+                if e.obj == obj then
+                    e.height = newHeight
+                    break
+                end
+            end
+            if animate == nil then animate = true end
+            relayout(animate)
+        end
+
+        local stickyLayerLeft = Instance.new("Frame")
         stickyLayerLeft.Name = "StickyLeft"
         stickyLayerLeft.BackgroundColor3 = getgenv().uicontainer or Color3.fromRGB(22, 23, 28)
         stickyLayerLeft.BorderSizePixel = 0
-        stickyLayerLeft.Position = left_section.Position
-        stickyLayerLeft.Size = UDim2.new(left_section.Size.X.Scale, left_section.Size.X.Offset, 0, 24)
+        stickyLayerLeft.Position = UDim2.new(0.245, 0, 0.127, 0)
+        stickyLayerLeft.Size = UDim2.new(0.36255, 0, 0, 24)
         stickyLayerLeft.ZIndex = 50
         stickyLayerLeft.ClipsDescendants = false
         stickyLayerLeft.Active = false
         stickyLayerLeft.Visible = false
         stickyLayerLeft.Parent = Container
 
-        local stickyFadeLeft = Instance.new("Frame")
-        stickyFadeLeft.Name = "Fade"
-        stickyFadeLeft.BackgroundColor3 = getgenv().uicontainer or Color3.fromRGB(22, 23, 28)
-        stickyFadeLeft.BorderSizePixel = 0
-        stickyFadeLeft.Position = UDim2.new(0, 0, 1, 0)
-        stickyFadeLeft.Size = UDim2.new(1, 0, 0, 10)
-        stickyFadeLeft.ZIndex = 51
-        stickyFadeLeft.Parent = stickyLayerLeft
-        local fadeLeftGrad = Instance.new("UIGradient")
-        fadeLeftGrad.Rotation = 90
-        fadeLeftGrad.Transparency = NumberSequence.new{
-            NumberSequenceKeypoint.new(0, 0),
-            NumberSequenceKeypoint.new(1, 1)
-        }
-        fadeLeftGrad.Parent = stickyFadeLeft
-
         local stickyLayerRight = Instance.new("Frame")
         stickyLayerRight.Name = "StickyRight"
         stickyLayerRight.BackgroundColor3 = getgenv().uicontainer or Color3.fromRGB(22, 23, 28)
         stickyLayerRight.BorderSizePixel = 0
-        stickyLayerRight.Position = right_section.Position
-        stickyLayerRight.Size = UDim2.new(right_section.Size.X.Scale, right_section.Size.X.Offset, 0, 24)
+        stickyLayerRight.Position = UDim2.new(0.62245, 0, 0.127, 0)
+        stickyLayerRight.Size = UDim2.new(0.36255, 0, 0, 24)
         stickyLayerRight.ZIndex = 50
         stickyLayerRight.ClipsDescendants = false
         stickyLayerRight.Active = false
         stickyLayerRight.Visible = false
         stickyLayerRight.Parent = Container
 
-        local stickyFadeRight = Instance.new("Frame")
-        stickyFadeRight.Name = "Fade"
-        stickyFadeRight.BackgroundColor3 = getgenv().uicontainer or Color3.fromRGB(22, 23, 28)
-        stickyFadeRight.BorderSizePixel = 0
-        stickyFadeRight.Position = UDim2.new(0, 0, 1, 0)
-        stickyFadeRight.Size = UDim2.new(1, 0, 0, 10)
-        stickyFadeRight.ZIndex = 51
-        stickyFadeRight.Parent = stickyLayerRight
-        local fadeRightGrad = Instance.new("UIGradient")
-        fadeRightGrad.Rotation = 90
-        fadeRightGrad.Transparency = NumberSequence.new{
-            NumberSequenceKeypoint.new(0, 0),
-            NumberSequenceKeypoint.new(1, 1)
-        }
-        fadeRightGrad.Parent = stickyFadeRight
+        local stickyMerge = Instance.new("Frame")
+        stickyMerge.Name = "StickyMerge"
+        stickyMerge.BackgroundColor3 = getgenv().uicontainer or Color3.fromRGB(22, 23, 28)
+        stickyMerge.BorderSizePixel = 0
+        stickyMerge.Position = UDim2.new(0.245, 0, 0.127, 0)
+        stickyMerge.Size = UDim2.new(0.74, 0, 0, 24)
+        stickyMerge.ZIndex = 49
+        stickyMerge.Visible = false
+        stickyMerge.Parent = Container
+        table.insert(getgenv().UIElements, stickyMerge)
 
         table.insert(getgenv().UIElements, stickyLayerLeft)
         table.insert(getgenv().UIElements, stickyLayerRight)
-        table.insert(getgenv().UIElements, stickyFadeLeft)
-        table.insert(getgenv().UIElements, stickyFadeRight)
 
         local stickyLeftList = {}
         local stickyRightList = {}
 
-        local function updateSticky(section, list, layer)
-            if not section.Visible or not section.Parent then
+        local function updateSticky(list, layer)
+            if not itemsSection.Visible or not itemsSection.Parent then
                 layer.Visible = false
                 for _, e in ipairs(list) do e.clone.Visible = false end
                 return
             end
-            local secTop = section.AbsolutePosition.Y
+            local secTop = itemsSection.AbsolutePosition.Y
             local anyStuck = false
             for i, entry in ipairs(list) do
-                local relCenter = entry.title.AbsolutePosition.Y - secTop
+                local relTop = entry.title.AbsolutePosition.Y - secTop
                 local h = entry.title.AbsoluteSize.Y
-                local halfH = h * 0.0001
-                local bottom = relCenter + halfH
-
-                if bottom > 0 then
+                if relTop >= 0 then
                     entry.clone.Visible = false
                 else
                     local pushY = 0
                     local nextEntry = list[i + 1]
                     if nextEntry then
-                        local nextCenter = nextEntry.title.AbsolutePosition.Y - secTop
-                        local nextHalfH = nextEntry.title.AbsoluteSize.Y * 0.5
-                        local nextTop = nextCenter - nextHalfH
+                        local nextTop = nextEntry.title.AbsolutePosition.Y - secTop
                         if nextTop < h then
                             pushY = nextTop - h
                         end
@@ -963,74 +969,92 @@ function Library:new()
             layer.Visible = anyStuck
         end
 
-
-         RunService.RenderStepped:Connect(function()
-            updateSticky(left_section, stickyLeftList, stickyLayerLeft)
-            updateSticky(right_section, stickyRightList, stickyLayerRight)
+        RunService.RenderStepped:Connect(function()
+            updateSticky(stickyLeftList, stickyLayerLeft)
+            updateSticky(stickyRightList, stickyLayerRight)
+            stickyMerge.Visible = stickyLayerLeft.Visible and stickyLayerRight.Visible
         end)
 
+        itemsSection.Parent = Container
+
+        local isFirst = true
+        for _, obj in ipairs(Container:GetChildren()) do
+            if obj.Name == "ItemsSection" and obj ~= itemsSection then
+                isFirst = false
+                break
+            end
+        end
+        if isFirst then
+            Tab.open_tab({tab = tab, section = itemsSection})
+        end
+
         tab.MouseButton1Click:Connect(function()
-            Tab.open_tab({tab = tab, left_section = left_section, right_section = right_section})
+            Tab.open_tab({tab = tab, section = itemsSection})
         end)
 
         local Module = {}
 
-        local function pickSection(self)
-            return (self.section == "right") and right_section or left_section
+        local function getSide(obj)
+            local s = obj and obj.section
+            if s == "right" then return "right" end
+            if s == "middle" then return "middle" end
+            return "left"
         end
 
         function Module:create_title()
-            local section = pickSection(self)
+            local side = getSide(self)
             local title = Instance.new("TextLabel")
             title.Name = "Title"
-            title.AnchorPoint = Vector2.new(0, 0.5)
+            title.AnchorPoint = Vector2.new(0, 0)
             title.BackgroundTransparency = 1
             title.BorderSizePixel = 0
-            title.Position = UDim2.new(0, 0, 0.14, 0)
-            title.Size = UDim2.new(.96, 0, 0, 15)
+            title.Position = UDim2.new(0, 0, 0, 0)
+            title.Size = UDim2.new(1, 0, 0, 15)
             title.ZIndex = 2
             title.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.SemiBold)
             title.TextColor3 = Color3.fromRGB(255, 255, 255)
             title.TextScaled = true
             title.TextSize = 14
-            title.Parent = section
+            title.Parent = itemsSection
             title.Text = self.name
             title.TextXAlignment = Enum.TextXAlignment.Left
+            title.TextYAlignment = Enum.TextYAlignment.Center
             local padding = Instance.new("UIPadding")
             padding.Parent = title
-            padding.PaddingLeft = UDim.new(0, 8)
+            padding.PaddingLeft = UDim.new(0, 4)
 
-            local targetLayer, targetList
-            if section == left_section then
-                targetLayer = stickyLayerLeft
-                targetList = stickyLeftList
-            else
-                targetLayer = stickyLayerRight
-                targetList = stickyRightList
+            registerItem(title, side, 15)
+
+            if side ~= "middle" then
+                local targetLayer, targetList
+                if side == "right" then
+                    targetLayer = stickyLayerRight
+                    targetList = stickyRightList
+                else
+                    targetLayer = stickyLayerLeft
+                    targetList = stickyLeftList
+                end
+                local stickyClone = title:Clone()
+                stickyClone.AnchorPoint = Vector2.new(0, 0)
+                stickyClone.Position = UDim2.new(0, 0, 0, 0)
+                stickyClone.Visible = false
+                stickyClone.Active = false
+                stickyClone.ZIndex = 51
+                stickyClone.Parent = targetLayer
+                table.insert(getgenv().UIElements, stickyClone)
+                table.insert(targetList, { title = title, clone = stickyClone })
             end
-
-                       local stickyClone = title:Clone()
-            stickyClone.AnchorPoint = Vector2.new(0, 0)
-            stickyClone.Position = UDim2.new(0, 0, 0, 0)
-            stickyClone.Visible = false
-            stickyClone.Active = false
-            stickyClone.ZIndex = 51
-            stickyClone.Parent = targetLayer
-            table.insert(getgenv().UIElements, stickyClone)
-
-            table.insert(targetList, { title = title, clone = stickyClone })
         end
 
         function Module:create_toggle_colorpicker()
-            local section = pickSection(self)
+            local side = getSide(self)
             local open = false
 
             local toggle = Instance.new("TextButton")
             toggle.Name = "Toggle"
-            toggle.Parent = section
+            toggle.Parent = itemsSection
             toggle.BackgroundColor3 = getgenv().togglecolor or Color3.fromRGB(27, 28, 33)
             toggle.BorderSizePixel = 0
-            toggle.Size = UDim2.new(0.96, 0, 0, ELEMENT_HEIGHT)
             toggle.AutoButtonColor = false
             toggle.Text = ""
             table.insert(getgenv().UIElements, toggle)
@@ -1076,7 +1100,7 @@ function Library:new()
             ColorSquare.AnchorPoint = Vector2.new(1, 0.5)
             ColorSquare.Position = UDim2.new(1, -50, 0.5, 0)
             ColorSquare.Size = UDim2.new(0, 20, 0, 20)
-            ColorSquare.BackgroundColor3 = self.default_color or Color3.fromRGB(65, 130, 140)
+            ColorSquare.BackgroundColor3 = self.default_color or Color3.fromRGB(120, 120, 126)
             ColorSquare.BorderSizePixel = 0
             ColorSquare.ZIndex = 3
 
@@ -1111,6 +1135,8 @@ function Library:new()
             local CircleCorner = Instance.new("UICorner")
             CircleCorner.CornerRadius = UDim.new(1, 0)
             CircleCorner.Parent = Circle
+
+            registerItem(toggle, side, ELEMENT_HEIGHT)
 
             local Palette = Instance.new("TextButton")
             Palette.Name = "ColorPalette"
@@ -1414,7 +1440,7 @@ function Library:new()
                 local ti = TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
                 if self.state then
                     TweenService:Create(Circle, ti, {Position = UDim2.new(1, -13, 0.5, 0)}):Play()
-                    TweenService:Create(Switch, ti, {BackgroundColor3 = getgenv().togglecoloron or Color3.fromRGB(65, 130, 140)}):Play()
+                    TweenService:Create(Switch, ti, {BackgroundColor3 = getgenv().togglecoloron or Color3.fromRGB(120, 120, 126)}):Play()
                 else
                     TweenService:Create(Circle, ti, {Position = UDim2.new(0, 2, 0.5, 0)}):Play()
                     TweenService:Create(Switch, ti, {BackgroundColor3 = getgenv().togglecoloroff or Color3.fromRGB(60, 64, 72)}):Play()
@@ -1499,13 +1525,12 @@ function Library:new()
         end
 
         function Module:create_toggle()
-            local section = pickSection(self)
+            local side = getSide(self)
             local toggle = Instance.new("TextButton")
             toggle.Name = "Toggle"
-            toggle.Parent = section
+            toggle.Parent = itemsSection
             toggle.BackgroundColor3 = getgenv().togglecolor or Color3.fromRGB(27, 28, 33)
             toggle.BorderSizePixel = 0
-            toggle.Size = UDim2.new(0.96, 0, 0, ELEMENT_HEIGHT)
             toggle.AutoButtonColor = false
             toggle.Text = ""
             table.insert(getgenv().UIElements, toggle)
@@ -1578,6 +1603,8 @@ function Library:new()
                 DescLabel.Text = self.description
             end
 
+            registerItem(toggle, side, ELEMENT_HEIGHT)
+
             local ToggleObject = {}
             ToggleObject.state = self.enabled or false
             if Library.savedFlags and Library.savedFlags[self.flag] ~= nil and type(Library.savedFlags[self.flag]) == "boolean" then
@@ -1593,7 +1620,7 @@ function Library:new()
                 local ti = TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
                 if self.state then
                     TweenService:Create(Circle, ti, {Position = UDim2.new(1, -13, 0.5, 0)}):Play()
-                    TweenService:Create(Switch, ti, {BackgroundColor3 = getgenv().togglecoloron or Color3.fromRGB(65, 130, 140)}):Play()
+                    TweenService:Create(Switch, ti, {BackgroundColor3 = getgenv().togglecoloron or Color3.fromRGB(120, 120, 126)}):Play()
                 else
                     TweenService:Create(Circle, ti, {Position = UDim2.new(0, 2, 0.5, 0)}):Play()
                     TweenService:Create(Switch, ti, {BackgroundColor3 = getgenv().togglecoloroff or Color3.fromRGB(60, 64, 72)}):Play()
@@ -1615,13 +1642,12 @@ function Library:new()
         end
 
         function Module:create_checkbox()
-            local section = pickSection(self)
+            local side = getSide(self)
             local checkbox = Instance.new("TextButton")
             checkbox.Name = "Checkbox1"
-            checkbox.Parent = section
+            checkbox.Parent = itemsSection
             checkbox.BackgroundColor3 = getgenv().tabcolor or Color3.fromRGB(27, 28, 33)
             checkbox.BorderSizePixel = 0
-            checkbox.Size = UDim2.new(0.96, 0, 0, ELEMENT_HEIGHT)
             checkbox.AutoButtonColor = false
             checkbox.Text = ""
             table.insert(getgenv().UIElements, checkbox)
@@ -1671,8 +1697,8 @@ function Library:new()
             local UIGradient = Instance.new("UIGradient")
             UIGradient.Name = "checkboxturnon"
             UIGradient.Color = getgenv().checkboxturnon or ColorSequence.new{
-                ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 200, 100)),
-                ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 130, 0))
+                ColorSequenceKeypoint.new(0, Color3.fromRGB(90, 90, 96)),
+                ColorSequenceKeypoint.new(1, Color3.fromRGB(140, 140, 146))
             }
             table.insert(getgenv().UIElements, UIGradient)
             UIGradient.Rotation = 20
@@ -1707,6 +1733,8 @@ function Library:new()
                 DescLabel.TextXAlignment = Enum.TextXAlignment.Left
                 DescLabel.Text = self.description
             end
+
+            registerItem(checkbox, side, ELEMENT_HEIGHT)
 
             local ToggleObject = {}
             ToggleObject.state = self.enabled or false
@@ -1744,13 +1772,12 @@ function Library:new()
         end
 
         function Module:create_button(config)
-            local section = pickSection(self)
+            local side = getSide(self)
             local button = Instance.new("TextButton")
             button.Name = "Button"
-            button.Parent = section
+            button.Parent = itemsSection
             button.BackgroundColor3 = getgenv().tabcolor or Color3.fromRGB(27, 28, 33)
             button.BorderSizePixel = 0
-            button.Size = UDim2.new(0.96, 0, 0, ELEMENT_HEIGHT)
             button.AutoButtonColor = false
             button.Text = ""
             table.insert(getgenv().UIElements, button)
@@ -1789,10 +1816,12 @@ function Library:new()
                 DescLabel.Text = self.description
             end
 
-            local origSize = UDim2.new(0.96, 0, 0, ELEMENT_HEIGHT)
-            local pressSize = UDim2.new(0.94, 0, 0, ELEMENT_HEIGHT - 2)
+            registerItem(button, side, ELEMENT_HEIGHT)
 
-                        button.MouseButton1Click:Connect(function()
+            local origSize = button.Size
+            local pressSize = UDim2.new(origSize.X.Scale - 0.01, origSize.X.Offset, 0, ELEMENT_HEIGHT - 2)
+
+            button.MouseButton1Click:Connect(function()
                 local baseColor = getgenv().buttoncolor or getgenv().originalColor or Color3.fromRGB(27, 28, 33)
                 local pressedColor = baseColor:lerp(Color3.fromRGB(200, 200, 200), 0.08)
                 local pt = TweenService:Create(button, TweenInfo.new(0.08), {Size = pressSize, BackgroundColor3 = pressedColor})
@@ -1817,13 +1846,12 @@ function Library:new()
 
         function Module.create_blocked_button(config)
             config = config or {}
-            local section = pickSection(config)
+            local side = getSide(config)
             local button = Instance.new("TextButton")
             button.Name = "Button"
-            button.Parent = section
+            button.Parent = itemsSection
             button.BackgroundColor3 = getgenv().tabcolor or Color3.fromRGB(27, 28, 33)
             button.BorderSizePixel = 0
-            button.Size = UDim2.new(0.96, 0, 0, ELEMENT_HEIGHT)
             button.AutoButtonColor = false
             button.Text = ""
             table.insert(getgenv().UIElements, button)
@@ -1887,21 +1915,21 @@ function Library:new()
             lockLabel.TextXAlignment = Enum.TextXAlignment.Center
             lockLabel.ZIndex = 3
 
+            registerItem(button, side, ELEMENT_HEIGHT)
             return button
         end
 
         function Module:create_slider()
-            local section = pickSection(self)
+            local side = getSide(self)
             local LEFT_PADDING = 4
             local RIGHT_PADDING = 4
 
             local slider = Instance.new("TextButton")
             slider.Name = "slider"
             slider.BackgroundColor3 = getgenv().slider or Color3.fromRGB(27, 28, 33)
-            slider.Size = UDim2.new(0.96, 0, 0, ELEMENT_HEIGHT)
             slider.AutoButtonColor = false
             slider.Text = ""
-            slider.Parent = section
+            slider.Parent = itemsSection
             table.insert(getgenv().UIElements, slider)
 
             local sliderCorner = Instance.new("UICorner")
@@ -1985,6 +2013,8 @@ function Library:new()
             number.TextSize = 13
             number.TextXAlignment = Enum.TextXAlignment.Right
             number.Text = "0"
+
+            registerItem(slider, side, ELEMENT_HEIGHT)
 
             local min_v = tonumber(self.minimum_value) or 0
             local max_v = tonumber(self.maximum_value) or 100
@@ -2154,16 +2184,15 @@ function Library:new()
         end
 
         function Module:create_textbox()
-            local section = pickSection(self)
+            local side = getSide(self)
             local Textbox = {}
             local textbox = Instance.new("TextButton")
             textbox.Name = "TextBox"
             textbox.BackgroundColor3 = Color3.fromRGB(27, 28, 33)
             textbox.BorderSizePixel = 0
-            textbox.Size = UDim2.new(0.96, 0, 0, ELEMENT_HEIGHT)
             textbox.AutoButtonColor = false
             textbox.Text = ""
-            textbox.Parent = section
+            textbox.Parent = itemsSection
 
             local UICorner = Instance.new("UICorner")
             UICorner.CornerRadius = UDim.new(0, 10)
@@ -2222,6 +2251,7 @@ function Library:new()
             function Textbox:GetValue() return TextHolder.Text end
             function Textbox:SetValue(v) TextHolder.Text = tostring(v or "") end
 
+            registerItem(textbox, side, ELEMENT_HEIGHT)
             Library:RegisterObject(self.flag, Textbox)
             return Textbox
         end
@@ -2233,16 +2263,15 @@ function Library:new()
             self.section = options.section or "left"
             self.default = options.default or ""
             self.placeholder = options.placeholder or ""
-            local sectionFrame = pickSection(self)
+            local side = getSide(self)
 
             local inputButton = Instance.new("TextButton")
             inputButton.Name = "Input"
             inputButton.BackgroundColor3 = getgenv().inputButton or Color3.fromRGB(27, 28, 33)
             inputButton.BorderSizePixel = 0
-            inputButton.Size = UDim2.new(0.96, 0, 0, ELEMENT_HEIGHT)
             inputButton.AutoButtonColor = false
             inputButton.Text = ""
-            inputButton.Parent = sectionFrame
+            inputButton.Parent = itemsSection
             table.insert(getgenv().UIElements, inputButton)
 
             local UICorner = Instance.new("UICorner")
@@ -2285,6 +2314,8 @@ function Library:new()
             UICorner_2.CornerRadius = UDim.new(0, 4)
             UICorner_2.Parent = TextBox
 
+            registerItem(inputButton, side, ELEMENT_HEIGHT)
+
             local InputObject = {}
             InputObject.value = TextBox.Text
             InputObject.callback = self.callback
@@ -2314,15 +2345,14 @@ function Library:new()
         end
 
         function Module:create_keybind()
-            local section = pickSection(self)
+            local side = getSide(self)
             local keybind = Instance.new("TextButton")
             keybind.Name = "Keybind"
             keybind.BackgroundColor3 = getgenv().Keybind or Color3.fromRGB(27, 28, 33)
             keybind.BorderSizePixel = 0
-            keybind.Size = UDim2.new(0.96, 0, 0, ELEMENT_HEIGHT)
             keybind.AutoButtonColor = false
             keybind.Text = ""
-            keybind.Parent = section
+            keybind.Parent = itemsSection
             table.insert(getgenv().UIElements, keybind)
 
             local UICorner = Instance.new("UICorner")
@@ -2365,6 +2395,8 @@ function Library:new()
             KeyText.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.SemiBold)
             KeyText.TextSize = 12
             KeyText.TextXAlignment = Enum.TextXAlignment.Center
+
+            registerItem(keybind, side, ELEMENT_HEIGHT)
 
             local defaultKey = self.keycode and self.keycode.Name or "H"
             Library.Flags[self.flag] = Library.Flags[self.flag] or defaultKey
@@ -2432,7 +2464,7 @@ function Library:new()
         end
 
         function Module:create_sidedropdown()
-            local section = pickSection(self)
+            local side = getSide(self)
             local list_size = 0
             local open = false
             local MAX_HEIGHT = 130
@@ -2453,11 +2485,10 @@ function Library:new()
             option.TextXAlignment = Enum.TextXAlignment.Left
 
             local dropdown = Instance.new("TextButton")
-            dropdown.Parent = section
+            dropdown.Parent = itemsSection
             dropdown.Name = "SideDropdown"
             dropdown.BackgroundColor3 = getgenv().sidedropdowncolor or Color3.fromRGB(27, 28, 33)
             dropdown.BorderSizePixel = 0
-            dropdown.Size = UDim2.new(0.96, 0, 0, ELEMENT_HEIGHT)
             dropdown.AutoButtonColor = false
             dropdown.Text = ""
             dropdown.ZIndex = 1
@@ -2469,8 +2500,8 @@ function Library:new()
 
             local Title = Instance.new("TextLabel")
             Title.Parent = dropdown
-            Title.AnchorPoint = Vector2.new(0, 0.5)
-            Title.Position = UDim2.new(0.04, 0, 0.5, 0)
+            Title.AnchorPoint = Vector2.new(0, 0)
+            Title.Position = UDim2.new(0.04, 0, 0, (ELEMENT_HEIGHT - 15) / 2)
             Title.Size = UDim2.new(0.4, 0, 0, 15)
             Title.BackgroundTransparency = 1
             Title.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.SemiBold)
@@ -2483,8 +2514,8 @@ function Library:new()
             local Box = Instance.new("Frame")
             Box.Name = "SideBox"
             Box.Parent = dropdown
-            Box.AnchorPoint = Vector2.new(1, 0.5)
-            Box.Position = UDim2.new(0.96, 0, 0.5, 0)
+            Box.AnchorPoint = Vector2.new(1, 0)
+            Box.Position = UDim2.new(0.96, 0, 0, (ELEMENT_HEIGHT - BOX_HEIGHT) / 2)
             Box.BackgroundColor3 = getgenv().sidedropdownboxcolor or Color3.fromRGB(22, 23, 27)
             Box.BorderSizePixel = 0
             Box.Size = UDim2.new(0.46, 0, 0, BOX_HEIGHT)
@@ -2554,34 +2585,41 @@ function Library:new()
             Arrow.ZIndex = 2
             Arrow.Image = "rbxassetid://17400678941"
 
+            registerItem(dropdown, side, ELEMENT_HEIGHT)
+
             local Dropdown = {}
             local parentScroll = getParentScrollingFrame(dropdown)
             Dropdown.selectedOption = nil
 
             function Dropdown:open()
-                open = true
-                dropdown.ZIndex = 50; Box.ZIndex = 51; Options.ZIndex = 52
-                Title.ZIndex = 53; Selected.ZIndex = 53; Arrow.ZIndex = 53
-                for _, child in ipairs(Options:GetChildren()) do
-                    if child.Name == "Option" then child.ZIndex = 53 end
-                end
-                local targetHeight = math.min(16 + list_size, MAX_HEIGHT)
-                TweenService:Create(Options, TweenInfo.new(0.5), {Size = UDim2.new(1, 0, 0, targetHeight)}):Play()
-                TweenService:Create(Arrow, TweenInfo.new(0.5), {Rotation = 180}):Play()
-            end
+    open = true
+    Options.Visible = true
+    dropdown.ZIndex = 50; Box.ZIndex = 51; Options.ZIndex = 52
+    Title.ZIndex = 53; Selected.ZIndex = 53; Arrow.ZIndex = 53
+    for _, child in ipairs(Options:GetChildren()) do
+        if child.Name == "Option" then child.ZIndex = 53 end
+    end
+    local targetHeight = math.min(16 + list_size, MAX_HEIGHT)
+    TweenService:Create(Options, TweenInfo.new(0.5), {Size = UDim2.new(1, 0, 0, targetHeight)}):Play()
+    TweenService:Create(Arrow, TweenInfo.new(0.5), {Rotation = 180}):Play()
+end
 
-            function Dropdown:close()
-                open = false
-                dropdown.ZIndex = 1; Box.ZIndex = 2; Options.ZIndex = 2
-                Title.ZIndex = 1; Selected.ZIndex = 2; Arrow.ZIndex = 2
-                for _, child in ipairs(Options:GetChildren()) do
-                    if child.Name == "Option" then child.ZIndex = 2 end
-                end
-                if parentScroll then parentScroll.ScrollingEnabled = true end
-                TweenService:Create(Options, TweenInfo.new(0.5), {Size = UDim2.new(1, 0, 0, 0)}):Play()
-                TweenService:Create(Arrow, TweenInfo.new(0.5), {Rotation = 0}):Play()
-                Options.CanvasPosition = Vector2.new(0, 0)
-            end
+function Dropdown:close()
+    open = false
+    if parentScroll then parentScroll.ScrollingEnabled = true end
+    local tw = TweenService:Create(Options, TweenInfo.new(0.5), {Size = UDim2.new(1, 0, 0, 0)})
+    tw:Play()
+    TweenService:Create(Arrow, TweenInfo.new(0.5), {Rotation = 0}):Play()
+    tw.Completed:Once(function()
+        Options.Visible = false
+        Options.CanvasPosition = Vector2.new(0, 0)
+        dropdown.ZIndex = 1; Box.ZIndex = 2; Options.ZIndex = 2
+        Title.ZIndex = 1; Selected.ZIndex = 2; Arrow.ZIndex = 2
+        for _, child in ipairs(Options:GetChildren()) do
+            if child.Name == "Option" then child.ZIndex = 2 end
+        end
+    end)
+end
 
             function Dropdown:clear()
                 for _, object in Options:GetChildren() do
@@ -2664,7 +2702,7 @@ function Library:new()
         end
 
         function Module:create_multisidedropdown()
-            local section = pickSection(self)
+            local side = getSide(self)
             local list_size = 0
             local open = false
             local MAX_HEIGHT = 130
@@ -2685,11 +2723,10 @@ function Library:new()
             optionTemplate.TextXAlignment = Enum.TextXAlignment.Left
 
             local dropdown = Instance.new("TextButton")
-            dropdown.Parent = section
+            dropdown.Parent = itemsSection
             dropdown.Name = "multisidedropdown"
             dropdown.BackgroundColor3 = getgenv().multisidedropdown or Color3.fromRGB(27, 28, 33)
             dropdown.BorderSizePixel = 0
-            dropdown.Size = UDim2.new(0.96, 0, 0, ELEMENT_HEIGHT)
             dropdown.AutoButtonColor = false
             dropdown.Text = ""
             dropdown.ZIndex = 1
@@ -2701,8 +2738,8 @@ function Library:new()
 
             local Title = Instance.new("TextLabel")
             Title.Parent = dropdown
-            Title.AnchorPoint = Vector2.new(0, 0.5)
-            Title.Position = UDim2.new(0.04, 0, 0.5, 0)
+            Title.AnchorPoint = Vector2.new(0, 0)
+            Title.Position = UDim2.new(0.04, 0, 0, (ELEMENT_HEIGHT - 15) / 2)
             Title.Size = UDim2.new(0.4, 0, 0, 15)
             Title.BackgroundTransparency = 1
             Title.FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.SemiBold)
@@ -2715,8 +2752,8 @@ function Library:new()
             local Box = Instance.new("Frame")
             Box.Name = "multisidedropdownBox"
             Box.Parent = dropdown
-            Box.AnchorPoint = Vector2.new(1, 0.5)
-            Box.Position = UDim2.new(0.96, 0, 0.5, 0)
+            Box.AnchorPoint = Vector2.new(1, 0)
+            Box.Position = UDim2.new(0.96, 0, 0, (ELEMENT_HEIGHT - BOX_HEIGHT) / 2)
             Box.BackgroundColor3 = getgenv().multisidedropdownBox or Color3.fromRGB(22, 23, 27)
             Box.BorderSizePixel = 0
             Box.Size = UDim2.new(0.46, 0, 0, BOX_HEIGHT)
@@ -2786,34 +2823,41 @@ function Library:new()
             Arrow.ZIndex = 2
             Arrow.Image = "rbxassetid://17400678941"
 
+            registerItem(dropdown, side, ELEMENT_HEIGHT)
+
             local Dropdown = {}
             local parentScroll = getParentScrollingFrame(dropdown)
             Dropdown.selectedOptions = {}
 
             function Dropdown:open()
-                open = true
-                dropdown.ZIndex = 50; Box.ZIndex = 51; Options.ZIndex = 52
-                Title.ZIndex = 53; Selected.ZIndex = 53; Arrow.ZIndex = 53
-                for _, child in ipairs(Options:GetChildren()) do
-                    if child.Name == "Option" then child.ZIndex = 53 end
-                end
-                local targetHeight = math.min(16 + list_size, MAX_HEIGHT)
-                TweenService:Create(Options, TweenInfo.new(0.5), {Size = UDim2.new(1, 0, 0, targetHeight)}):Play()
-                TweenService:Create(Arrow, TweenInfo.new(0.5), {Rotation = 180}):Play()
-            end
+    open = true
+    Options.Visible = true
+    dropdown.ZIndex = 50; Box.ZIndex = 51; Options.ZIndex = 52
+    Title.ZIndex = 53; Selected.ZIndex = 53; Arrow.ZIndex = 53
+    for _, child in ipairs(Options:GetChildren()) do
+        if child.Name == "Option" then child.ZIndex = 53 end
+    end
+    local targetHeight = math.min(16 + list_size, MAX_HEIGHT)
+    TweenService:Create(Options, TweenInfo.new(0.5), {Size = UDim2.new(1, 0, 0, targetHeight)}):Play()
+    TweenService:Create(Arrow, TweenInfo.new(0.5), {Rotation = 180}):Play()
+end
 
-            function Dropdown:close()
-                open = false
-                dropdown.ZIndex = 1; Box.ZIndex = 2; Options.ZIndex = 2
-                Title.ZIndex = 1; Selected.ZIndex = 2; Arrow.ZIndex = 2
-                for _, child in ipairs(Options:GetChildren()) do
-                    if child.Name == "Option" then child.ZIndex = 2 end
-                end
-                if parentScroll then parentScroll.ScrollingEnabled = true end
-                TweenService:Create(Options, TweenInfo.new(0.5), {Size = UDim2.new(1, 0, 0, 0)}):Play()
-                TweenService:Create(Arrow, TweenInfo.new(0.5), {Rotation = 0}):Play()
-                Options.CanvasPosition = Vector2.new(0, 0)
-            end
+function Dropdown:close()
+    open = false
+    if parentScroll then parentScroll.ScrollingEnabled = true end
+    local tw = TweenService:Create(Options, TweenInfo.new(0.5), {Size = UDim2.new(1, 0, 0, 0)})
+    tw:Play()
+    TweenService:Create(Arrow, TweenInfo.new(0.5), {Rotation = 0}):Play()
+    tw.Completed:Once(function()
+        Options.Visible = false
+        Options.CanvasPosition = Vector2.new(0, 0)
+        dropdown.ZIndex = 1; Box.ZIndex = 2; Options.ZIndex = 2
+        Title.ZIndex = 1; Selected.ZIndex = 2; Arrow.ZIndex = 2
+        for _, child in ipairs(Options:GetChildren()) do
+            if child.Name == "Option" then child.ZIndex = 2 end
+        end
+    end)
+end
 
             function Dropdown:clear()
                 for _, object in Options:GetChildren() do
@@ -2900,7 +2944,7 @@ function Library:new()
         end
 
         function Module:create_dropdown()
-            local section = pickSection(self)
+            local side = getSide(self)
             local open = false
             local OPTION_HEIGHT = 20
             local OPTION_GAP = 6
@@ -2923,11 +2967,10 @@ function Library:new()
             option.TextXAlignment = Enum.TextXAlignment.Left
 
             local dropdown = Instance.new("TextButton")
-            dropdown.Parent = section
+            dropdown.Parent = itemsSection
             dropdown.Name = "Dropdown"
             dropdown.BackgroundColor3 = getgenv().dropdowncolor or Color3.fromRGB(27, 28, 33)
             dropdown.BorderSizePixel = 0
-            dropdown.Size = UDim2.new(0.96, 0, 0, ELEMENT_HEIGHT)
             dropdown.AutoButtonColor = false
             dropdown.Text = ""
             dropdown.ClipsDescendants = false
@@ -3003,20 +3046,22 @@ function Library:new()
             UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
             UIListLayout_2.Padding = UDim.new(0, OPTION_GAP)
 
+            registerItem(dropdown, side, ELEMENT_HEIGHT)
+
             local Dropdown = {}
             Dropdown.selectedOption = nil
 
             function Dropdown:open()
                 open = true
                 TweenService:Create(Options, TweenInfo.new(0.4), {Size = UDim2.new(1, 0, 0, optionsHeight)}):Play()
-                TweenService:Create(dropdown, TweenInfo.new(0.4), {Size = UDim2.new(0.96, 0, 0, ELEMENT_HEIGHT + optionsHeight)}):Play()
+                updateItemHeight(dropdown, ELEMENT_HEIGHT + optionsHeight)
                 TweenService:Create(Arrow, TweenInfo.new(0.4), {Rotation = 180}):Play()
             end
 
             function Dropdown:close()
                 open = false
                 TweenService:Create(Options, TweenInfo.new(0.4), {Size = UDim2.new(1, 0, 0, 0)}):Play()
-                TweenService:Create(dropdown, TweenInfo.new(0.4), {Size = UDim2.new(0.96, 0, 0, ELEMENT_HEIGHT)}):Play()
+                updateItemHeight(dropdown, ELEMENT_HEIGHT)
                 TweenService:Create(Arrow, TweenInfo.new(0.4), {Rotation = 0}):Play()
             end
 
@@ -3060,7 +3105,7 @@ function Library:new()
                 end
                 if open then
                     TweenService:Create(Options, TweenInfo.new(0.4), {Size = UDim2.new(1, 0, 0, optionsHeight)}):Play()
-                    TweenService:Create(dropdown, TweenInfo.new(0.4), {Size = UDim2.new(0.96, 0, 0, ELEMENT_HEIGHT + optionsHeight)}):Play()
+                    updateItemHeight(dropdown, ELEMENT_HEIGHT + optionsHeight)
                 end
             end
 
@@ -3094,7 +3139,7 @@ function Library:new()
         end
 
         function Module:create_multidropdown()
-            local section = pickSection(self)
+            local side = getSide(self)
             local open = false
             local OPTION_HEIGHT = 20
             local OPTION_GAP = 6
@@ -3117,11 +3162,10 @@ function Library:new()
             optionTemplate.TextXAlignment = Enum.TextXAlignment.Left
 
             local dropdown1 = Instance.new("TextButton")
-            dropdown1.Parent = section
+            dropdown1.Parent = itemsSection
             dropdown1.Name = "dropdown1"
             dropdown1.BackgroundColor3 = getgenv().multidropdowncolor or Color3.fromRGB(27, 28, 33)
             dropdown1.BorderSizePixel = 0
-            dropdown1.Size = UDim2.new(0.96, 0, 0, ELEMENT_HEIGHT)
             dropdown1.AutoButtonColor = false
             dropdown1.Text = ""
             dropdown1.ClipsDescendants = false
@@ -3196,6 +3240,8 @@ function Library:new()
             UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
             UIListLayout.Padding = UDim.new(0, OPTION_GAP)
 
+            registerItem(dropdown1, side, ELEMENT_HEIGHT)
+
             local Dropdown = {}
             Dropdown.options = self.options or {}
             Dropdown.selectedOptions = {}
@@ -3254,21 +3300,21 @@ function Library:new()
                 end
                 if open then
                     TweenService:Create(Options, TweenInfo.new(0.4), {Size = UDim2.new(1, 0, 0, optionsHeight)}):Play()
-                    TweenService:Create(dropdown1, TweenInfo.new(0.4), {Size = UDim2.new(0.96, 0, 0, ELEMENT_HEIGHT + optionsHeight)}):Play()
+                    updateItemHeight(dropdown1, ELEMENT_HEIGHT + optionsHeight)
                 end
             end
 
             function Dropdown:open()
                 open = true
                 TweenService:Create(Options, TweenInfo.new(0.4), {Size = UDim2.new(1, 0, 0, optionsHeight)}):Play()
-                TweenService:Create(dropdown1, TweenInfo.new(0.4), {Size = UDim2.new(0.96, 0, 0, ELEMENT_HEIGHT + optionsHeight)}):Play()
+                updateItemHeight(dropdown1, ELEMENT_HEIGHT + optionsHeight)
                 TweenService:Create(Arrow, TweenInfo.new(0.4), {Rotation = 180}):Play()
             end
 
             function Dropdown:close()
                 open = false
                 TweenService:Create(Options, TweenInfo.new(0.4), {Size = UDim2.new(1, 0, 0, 0)}):Play()
-                TweenService:Create(dropdown1, TweenInfo.new(0.4), {Size = UDim2.new(0.96, 0, 0, ELEMENT_HEIGHT)}):Play()
+                updateItemHeight(dropdown1, ELEMENT_HEIGHT)
                 TweenService:Create(Arrow, TweenInfo.new(0.4), {Rotation = 0}):Play()
             end
 
