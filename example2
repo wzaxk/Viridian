@@ -2,7 +2,7 @@ getgenv().hubname = 'Example Hub'
 getgenv().hubsubname = 'tutorial'
 getgenv().hubtag = '@my-tag'
 
- local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/wzaxk/Viridian/refs/heads/main/source2"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/wzaxk/Viridian/refs/heads/main/source2"))()
 
 local main = Library.new()
 
@@ -180,6 +180,7 @@ tab.create_toggle({
         print('middle toggle:', value)
     end
 })
+
 tab.create_button({
     name = 'button in middle',
     flag = 'button_middle',
@@ -295,6 +296,18 @@ tab3.create_dropdown({
     end)(),
     callback = function(value)
         Library.Flags.configname = value
+    end
+})
+
+tab3.create_title({ name = 'keybinds', section = 'right' })
+
+tab3.create_keybind({
+    name = 'toggle ui',
+    flag = 'toggleui',
+    section = 'right',
+    keycode = Enum.KeyCode.H,
+    callback = function(key)
+        -- the toggleui flag itself triggers Library.visible()
     end
 })
 
