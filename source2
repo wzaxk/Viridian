@@ -1,3 +1,4 @@
+-- 123
 local UserInputService = game:GetService('UserInputService')
 local LocalPlayer = game:GetService('Players').LocalPlayer
 local TweenService = game:GetService('TweenService')
@@ -9,19 +10,13 @@ local Mouse = LocalPlayer:GetMouse()
 
 local IsMobile = UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled
 
--- ============================================================
--- УНИВЕРСАЛЬНЫЙ ОБРАБОТЧИК КЛИКА/ТАПА
--- Работает и на ПК (мышь), и на мобилке (тач).
--- Срабатывает только если пользователь не "сдвинул" палец/мышь
--- (иначе это был бы скролл ScrollingFrame).
--- ============================================================
 local function bindTap(gui, callback)
     if not gui then return end
-    local TAP_THRESHOLD = 12 -- пикселей
+    local TAP_THRESHOLD = 12 
 
     gui.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
-            -- ПК: используем InputEnded, чтобы не сработало при драге
+          
             local startPos = input.Position
             local conn
             conn = input.Changed:Connect(function()
@@ -382,7 +377,7 @@ function Library:drag()
     if not Library.start_position then return end
     local delta = self.input.Position - Library.drag_position
     local position = UDim2.new(Library.start_position.X.Scale, Library.start_position.X.Offset + delta.X, Library.start_position.Y.Scale, Library.start_position.Y.Offset + delta.Y)
-    -- Без твина, чтобы на мобилке не было "дрожания"
+ 
     self.container.Container.Position = position
     self.container.Shadow.Position = position
 end
@@ -551,7 +546,6 @@ function Library:new()
         end
     end)
 
-    -- Кнопка Open (мобилки)
     local OpenBtn = Instance.new("TextButton")
     OpenBtn.Name = "OpenButton"
     OpenBtn.Parent = container
@@ -705,7 +699,6 @@ function Library:new()
         if success and content then avatar.Image = content end
     end)
 
-    -- Перетаскивание (работает и на ПК, и на мобилке)
     Top.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1
            or input.UserInputType == Enum.UserInputType.Touch then
@@ -1036,7 +1029,6 @@ function Library:new()
             Tab.open_tab({tab = tab, section = itemsSection})
         end
 
-        -- ВАЖНО: используем bindTap вместо MouseButton1Click
         bindTap(tab, function()
             Tab.open_tab({tab = tab, section = itemsSection})
         end)
@@ -2150,7 +2142,7 @@ function Library:new()
             track.Size = UDim2.new(0.9, 0, 0, 5)
             track.BackgroundColor3 = getgenv().trackcolor or Color3.fromRGB(40, 40, 40)
             track.BorderSizePixel = 0
-            track.Active = true           -- ВАЖНО для мобилки
+            track.Active = true          
             track.Selectable = true
             table.insert(getgenv().UIElements, track)
 
@@ -2180,7 +2172,7 @@ function Library:new()
             knob.Position = UDim2.new(0, 0, 0.5, 0)
             knob.BackgroundColor3 = getgenv().knob or Color3.fromRGB(120, 120, 120)
             knob.BorderSizePixel = 0
-            knob.Active = true            -- ВАЖНО для мобилки
+            knob.Active = true           
             knob.Selectable = true
             table.insert(getgenv().UIElements, knob)
 
@@ -2351,7 +2343,6 @@ function Library:new()
                 Library.save_flags()
             end
 
-            -- Обработчики на slider целиком (чтобы работало и на мобилке по любому месту)
             local function inputBegan(input)
                 if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
                     beginDrag(input.Position.X)
@@ -2372,7 +2363,7 @@ function Library:new()
 
             track.InputBegan:Connect(inputBegan)
             knob.InputBegan:Connect(inputBegan)
-            slider.InputBegan:Connect(inputBegan)  -- на мобилке удобнее тапать по всему слайдеру
+            slider.InputBegan:Connect(inputBegan) 
             UserInputService.InputChanged:Connect(inputChanged)
             UserInputService.InputEnded:Connect(inputEnded)
 
