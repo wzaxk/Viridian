@@ -29,6 +29,7 @@ local function bindTap(gui, callback)
         callback(...)
     end
     gui.MouseButton1Click:Connect(fire)
+    pcall(function() gui.TouchTap:Connect(fire) end)
     gui.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.Touch then
             fire()
@@ -36,7 +37,7 @@ local function bindTap(gui, callback)
     end)
 end
 
-local IsMobile = UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled
+local IsMobile = UserInputService.TouchEnabled
 
 local Library = {
     connections = {};
@@ -156,7 +157,7 @@ local Themes = {
         dropdownoptionscolor = BaseColors.AmethystSecondColor,
         multidropdowncolor = BaseColors.Amethyst, multidropdownboxcolor = BaseColors.AmethystSecondColor,
         multidropdownoptioncolor = BaseColors.AmethystSecondColor,
-        sidedropdowncolor = BaseColors.Amethyst, sidedropdownboxcolor = BaseColors.AmethystSecondColor,
+        sidedropdowncolor = BaseColors.Amethyst, sidedropdownboxscolor = BaseColors.AmethystSecondColor,
         sidedropdownoptionscolor = BaseColors.AmethystSecondColor,
         multisidedropdown = BaseColors.Amethyst, multisidedropdownBox = BaseColors.AmethystSecondColor,
         multisidedropdownOptions = BaseColors.AmethystSecondColor,
