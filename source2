@@ -21,10 +21,8 @@ if not isfile then function isfile() return false end end
 if not listfiles then function listfiles() return {} end end
 if not delfile then function delfile() end end
 
--- Только телефоны/планшеты (не ноутбуки с тачскрином)
 local IsMobile = UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled
 
--- Проверка: находится ли точка внутри GuiObject
 local function pointInside(gui, pos)
     if not gui or not pos then return false end
     local a, s = gui.AbsolutePosition, gui.AbsoluteSize
@@ -33,7 +31,6 @@ local function pointInside(gui, pos)
         and pos.Y >= a.Y and pos.Y <= a.Y + s.Y
 end
 
--- Универсальный тап: работает и для кнопок, и для обычных Frame
 local function bindTap(gui, callback)
     if not gui then return end
     local lastFire = 0
@@ -45,7 +42,7 @@ local function bindTap(gui, callback)
     end
 
     if gui:IsA("GuiButton") then
-        gui.Activated:Connect(fire) -- мышь, тач, геймпад
+        gui.Activated:Connect(fire)
     end
 
     local startPos
@@ -371,7 +368,6 @@ end
 Library.load_flags()
 Library.clear()
 
--- ===================== OPEN / CLOSE =====================
 local TOGGLE_TWEEN = TweenInfo.new(0.6, Enum.EasingStyle.Circular, Enum.EasingDirection.InOut)
 
 function Library:UpdateToggleButton()
@@ -459,7 +455,7 @@ function Library:new()
     Container.ClipsDescendants = true
     Container.Position = UDim2.new(0.5, 0, 0.5, 0)
     Container.Size = IsMobile and CONTAINER_SIZE_TOUCH or CONTAINER_SIZE
-    Container.Active = true -- тапы по окну не должны проваливаться в игру
+    Container.Active = true
     table.insert(getgenv().UIElements, Container)
 
     Library.Container = Container
@@ -470,18 +466,14 @@ function Library:new()
     ContainerCorner.CornerRadius = UDim.new(0, 20)
     ContainerCorner.Parent = Container
 
-    -- ============ ШАПКА (фиксированная высота в пикселях) ============
     local positionX = 0.0938254446
     local mainName = getgenv().hubname or "ui-name"
     local subName = getgenv().hubsubname
 
-    -- Высота шапки: с подзаголовком выше. Всё содержимое шапки лежит ВНУТРИ неё,
-    -- а табы и контент начинаются строго под ней, поэтому ничего не перекрывается.
     local HEADER_H = subName and 46 or 36
     local TABS_TOP = HEADER_H + 4
     local ITEMS_TOP = HEADER_H + 6
 
-    -- Сайдбар: ширина = до вертикальной линии. Отступ слева и справа (до линии) одинаковый.
     local SIDEBAR_W = 0.23
     local SIDEBAR_CENTER = SIDEBAR_W / 2
     local SIDE_PAD = 10
@@ -541,7 +533,6 @@ function Library:new()
         SubTitle.TextYAlignment = Enum.TextYAlignment.Center
     end
 
-    -- Кнопки управления (больше на мобайле, чтобы попадать пальцем)
     local CTRL_BTN = IsMobile and 32 or 22
 
     local controls = Instance.new("Frame")
@@ -613,7 +604,6 @@ function Library:new()
         end
     end)
 
-    -- ============ КНОПКА ОТКРЫТЬ / ЗАКРЫТЬ UI (только мобайл) ============
     if IsMobile then
         local ToggleShadow = Instance.new("ImageLabel")
         ToggleShadow.Name = "Shadow"
@@ -689,9 +679,7 @@ function Library:new()
             Library:visible()
         end)
     end
-    -- =====================================================
 
-    -- Вертикальная линия (левый край ровно на границе сайдбара)
     local Line = Instance.new("Frame")
     Line.Name = "Line"
     Line.Parent = Container
@@ -702,7 +690,6 @@ function Library:new()
     Line.ZIndex = 10
     table.insert(getgenv().UIElements, Line)
 
-    -- ============ ТАБЫ (центрированы в сайдбаре: слева и справа до линии одинаковый отступ) ============
     local tabs = Instance.new("ScrollingFrame")
     tabs.Name = "Tabs"
     tabs.Active = true
@@ -738,12 +725,10 @@ function Library:new()
     local tabsCorner = Instance.new("UICorner")
     tabsCorner.Parent = tabs
 
-    -- ============ КАРТОЧКИ ВНИЗУ САЙДБАРА (необязательные, создаются через create_card) ============
     local CARD_H = 35
     local CARD_GAP = 8
     local cards = {}
 
-    -- Раскладывает карточки снизу вверх и подгоняет высоту списка табов под них
     local function relayoutSidebar()
         local offset = SIDE_PAD
         for _, c in ipairs(cards) do
@@ -800,19 +785,6 @@ function Library:new()
 
     local Tab = {}
 
-    -- ===================================================================
-    -- create_card: плашка внизу сайдбара (например "онлайн"). Необязательная.
-    --
-    --   local card = main.create_card({
-    --       text = function() return getgenv().OnlineCount end, -- строка / число / функция
-    --       suffix = ' online',                                  -- добавляется, если text = число
-    --       dot_color = Color3.fromRGB(76, 175, 80),             -- цвет точки (nil = без точки: dot = false)
-    --       interval = 5,                                        -- как часто обновлять (сек)
-    --   })
-    --
-    -- Если text не указан — берётся getgenv().OnlineCount (число, строка или функция).
-    -- card:SetText('...'), card:SetDotColor(color), card:SetVisible(bool), card:Destroy()
-    -- ===================================================================
     function Tab.create_card(a, b)
         local options = (a == Tab) and b or a
         options = options or {}
@@ -867,7 +839,7 @@ function Library:new()
         local CardObject = {
             frame = frame,
             visible = true,
-            manual = false, -- true, если текст задан вручную через SetText
+            manual = false,
         }
 
         local suffix = options.suffix or ' online'
@@ -1753,7 +1725,6 @@ function Library:new()
 
             bindTap(CloseBtn, closePalette)
 
-            -- Тап (а не касание): при прокрутке пальцем тумблер не переключится
             bindTap(toggle, function(input)
                 local pos = input and input.Position
                 local overColorSquare = pos and pointInside(ColorSquare, pos)
@@ -2532,7 +2503,7 @@ function Library:new()
 
             local function beginDrag(x)
                 dragging = true
-                itemsSection.ScrollingEnabled = false -- не скроллим страницу, пока тянем ползунок
+                itemsSection.ScrollingEnabled = false 
                 animate(UDim2.new(0, 18, 0, 18))
                 updateFromX(x)
             end
@@ -2757,7 +2728,6 @@ function Library:new()
         end
 
         function Module:create_keybind()
-            -- На телефоне клавишу записать нельзя — элемент не создаём
             if IsMobile then
                 return {
                     flag = self.flag,
@@ -3039,7 +3009,7 @@ function Library:new()
                 open = true
                 animToken += 1
                 Options.Visible = true
-                -- на тач-устройствах нет MouseEnter, поэтому блокируем скролл страницы прямо здесь
+              
                 if parentScroll then parentScroll.ScrollingEnabled = false end
                 dropdown.ZIndex = 50; Box.ZIndex = 51; Options.ZIndex = 52
                 Title.ZIndex = 53; Selected.ZIndex = 53; Arrow.ZIndex = 53
@@ -3138,12 +3108,12 @@ function Library:new()
                 if parentScroll then parentScroll.ScrollingEnabled = false end
             end)
             Options.MouseLeave:Connect(function()
-                -- пока список открыт, скролл страницы остаётся выключенным
+               
                 if parentScroll and not open then parentScroll.ScrollingEnabled = true end
             end)
 
             bindTap(Box, function(input)
-                -- тап по пункту списка обрабатывает сам пункт
+             
                 if input and input.Position and pointInside(Options, input.Position) then return end
                 if open then Dropdown:close() else Dropdown:open() end
             end)
